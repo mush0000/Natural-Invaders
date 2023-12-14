@@ -38,25 +38,15 @@ public class BattleDirector : MonoBehaviour
     Enemy1 enemyScript;
     bool isWin = false;
     bool isLose = false;
-    List<Vector3> frontLine = new List<Vector3>();  //前列ポジ
-    List<Vector3> middleLine = new List<Vector3>();
-    List<Vector3> backLine = new List<Vector3>();
+    List<Vector3> allPositions;
 
     // Start is called before the first frame update
     void Start()
     {
         // フレームレートを60に
         Application.targetFrameRate = 60;
-        // Lineの設定
-        frontLine.Add(pos1);
-        frontLine.Add(pos2);
-        frontLine.Add(pos3);
-        middleLine.Add(pos4);
-        middleLine.Add(pos5);
-        middleLine.Add(pos6);
-        backLine.Add(pos7);
-        backLine.Add(pos8);
-        backLine.Add(pos9);
+        // タイルのポジションをリスト化
+        allPositions = new List<Vector3> { pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9 };
         //キャラクター1～5に場所を割り当てる
         Character1.transform.position = pos1;
         Character2.transform.position = pos2;
@@ -120,62 +110,28 @@ public class BattleDirector : MonoBehaviour
 
     IEnumerator ActionPlayerTurn()
     {
-        //前列のアクション
         RaycastHit hit;
-        foreach (Vector3 pos in frontLine)
+        foreach (Vector3 pos in allPositions)
         {
             Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
             if (Physics.Raycast(groundPos, Vector3.up, out hit))
             {
-                Debug.Log("フロントアクション");
                 CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
                 if (characterScript != null)
                 {
-                    characterScript.FrontAction();
-                    Judge();    //生死判定
-                    if (isWin || isLose) // 勝利または敗北が確定した場合
+                    // posのz座標(Line)によってアクションを決定
+                    if (pos.z == 1)
                     {
-                        break; // ループを抜ける
+                        characterScript.FrontAction();
                     }
-                    yield return new WaitForSeconds(0.2f);  //2秒待って
-                }
-            }
-        }
-        // 勝利または敗北が確定した場合、それ以降のアクションを停止
-        if (isWin || isLose) yield break;
-        //中列のアクション
-        foreach (Vector3 pos in middleLine)
-        {
-            Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
-            if (Physics.Raycast(groundPos, Vector3.up, out hit))
-            {
-                Debug.Log("middleアクション");
-                CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
-                if (characterScript != null)
-                {
-                    characterScript.MiddleAction();
-                    Judge();    //生死判定
-                    if (isWin || isLose) // 勝利または敗北が確定した場合
+                    else if (pos.z == 0)
                     {
-                        break; // ループを抜ける
+                        characterScript.MiddleAction();
                     }
-                    yield return new WaitForSeconds(0.2f);  //2秒待って
-                }
-            }
-        }
-        // 勝利または敗北が確定した場合、それ以降のアクションを停止
-        if (isWin || isLose) yield break;
-        //後列のアクション
-        foreach (Vector3 pos in backLine)
-        {
-            Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
-            if (Physics.Raycast(groundPos, Vector3.up, out hit))
-            {
-                Debug.Log("backアクション");
-                CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
-                if (characterScript != null)
-                {
-                    characterScript.BackAction();
+                    else // pos.z == -1
+                    {
+                        characterScript.BackAction();
+                    }
                     Judge();    //生死判定
                     if (isWin || isLose) // 勝利または敗北が確定した場合
                     {
@@ -186,6 +142,7 @@ public class BattleDirector : MonoBehaviour
             }
         }
     }
+
 
     void ActionEnemyTurn()
     {
@@ -206,6 +163,7 @@ public class BattleDirector : MonoBehaviour
         if (enemyScript.Life <= 0)  //敵のライフが0なら即勝利
         {
             isWin = true;
+            EndingStage();
         }
         else
         {
@@ -221,9 +179,9 @@ public class BattleDirector : MonoBehaviour
             if (isPartyAlive == false)  //もし誰もisPartyAliveしなかったら負け
             {
                 isLose = true;
+                EndingStage();
             }
         }
-        EndingStage();
     }
 
     void EndingStage()  //ステージエンド用
