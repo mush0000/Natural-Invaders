@@ -103,6 +103,8 @@ public class BattleDirector : MonoBehaviour
             //敵のターン
             ActionEnemyTurn();
             Judge();
+            //3列目回復
+            yield return StartCoroutine(BackLineHeal());
             //ロール
             RotateFormation();
         }
@@ -138,6 +140,27 @@ public class BattleDirector : MonoBehaviour
                         break; // ループを抜ける
                     }
                     yield return new WaitForSeconds(0.2f);  //2秒待って
+                }
+            }
+        }
+    }
+
+    IEnumerator BackLineHeal()  //3列目の回復行動
+    {
+        RaycastHit hit;
+        foreach (Vector3 pos in allPositions)
+        {
+            if (pos.z == -1)
+            {
+                Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
+                if (Physics.Raycast(groundPos, Vector3.up, out hit))
+                {
+                    CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
+                    if (characterScript != null)
+                    {
+                        characterScript.AutoHeal();
+                        yield return new WaitForSeconds(0.2f);  //2秒待って
+                    }
                 }
             }
         }
