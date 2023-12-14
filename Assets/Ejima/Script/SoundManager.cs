@@ -277,12 +277,12 @@ public class SoundManager : MonoBehaviour
     //! Sliderコンポーネントアタッチ用Method
     public void SetBgmVolume(float BGMVolume)
     {
-        SoundManager.BGM_Volume = BGMVolume;
+        this.BGM_Volume = BGMVolume;
     }
 
     public void SetSeVolume(float SEVolume)
     {
-        SoundManager.SE_Volume = SEVolume;
+        this.SE_Volume = SEVolume;
     }
 
 
