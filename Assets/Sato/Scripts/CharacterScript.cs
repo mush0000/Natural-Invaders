@@ -4,40 +4,25 @@ using UnityEngine;
 
 public class CharacterScript : MonoBehaviour
 {
-    string characterName = "name";
-    int characterLife = 20; //任意の値
-    void FrontAction()
+    // Start is called before the first frame update
+
+    public string characterName = "name";
+    public int characterLife = 20; //任意の値
+    public void FrontAction()
     {
         Debug.Log("前列攻撃");
     }
-    void MiddleAction()
+    public void MiddleAction()
     {
         Debug.Log("中列攻撃");
     }
-    void BackAction()
+    public void BackAction()
     {
         Debug.Log("後列行動");
     }
-    void Death()
+    public void Death()
     {
         Debug.Log("死亡した");
         //destroy()
     }
-
-
-
-
-
-
-    // Start is called before the first frame update
-    // void Start()
-    // {
-
-    // }
-
-    // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
 }

@@ -16,4 +16,11 @@ public class Enemy1 : MonoBehaviour
     {
 
     }
+
+    public void EnemyAction()
+    {
+        Debug.Log("EnemyActionだよよよ!");
+        Debug.Log("勝手に1点食らうよ");
+        Life--;
+    }
 }
