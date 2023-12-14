@@ -22,6 +22,13 @@ public class BattleDirector : MonoBehaviour
     [SerializeField] GameObject Character3;
     [SerializeField] GameObject Character4;
     [SerializeField] GameObject Character5;
+
+    CharacterScript characterScript1;
+    CharacterScript characterScript2;
+    CharacterScript characterScript3;
+    CharacterScript characterScript4;
+    CharacterScript characterScript5;
+
     List<GameObject> characterList = new List<GameObject>();
     Enemy1 enemyScript;
     bool isWin = false;
