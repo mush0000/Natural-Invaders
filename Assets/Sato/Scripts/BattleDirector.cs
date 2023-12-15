@@ -113,7 +113,7 @@ public class BattleDirector : MonoBehaviour
     IEnumerator ActionPlayerTurn()
     {
         RaycastHit hit;
-        foreach (Vector3 pos in allPositions)
+        foreach (Vector3 pos in allPositions)   //全部のタイルから
         {
             Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
             if (Physics.Raycast(groundPos, Vector3.up, out hit))
@@ -139,7 +139,7 @@ public class BattleDirector : MonoBehaviour
                     {
                         break; // ループを抜ける
                     }
-                    yield return new WaitForSeconds(0.2f);  //2秒待って
+                    yield return new WaitForSeconds(0.2f);  //0.2秒待って
                 }
             }
         }
@@ -150,16 +150,16 @@ public class BattleDirector : MonoBehaviour
         RaycastHit hit;
         foreach (Vector3 pos in allPositions)
         {
-            if (pos.z == -1)
+            if (pos.z == -1)    //最後列かどうか
             {
                 Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
                 if (Physics.Raycast(groundPos, Vector3.up, out hit))
                 {
                     CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
-                    if (characterScript != null)
+                    if (characterScript != null)    //そこにキャラクターがいるなら
                     {
                         characterScript.AutoHeal();
-                        yield return new WaitForSeconds(0.2f);  //2秒待って
+                        yield return new WaitForSeconds(0.2f);  //0.2秒待って
                     }
                 }
             }
@@ -190,16 +190,16 @@ public class BattleDirector : MonoBehaviour
         }
         else
         {
-            bool isPartyAlive = false;
+            int deathCount = 0;
             foreach (CharacterScript cs in characterScripts)
             {
-                if (cs.characterLife > 0)
+                if (cs.characterLife <= 0)
                 {
-                    isPartyAlive = true;
-                    break;
+                    cs.Dead();
+                    deathCount++;
                 }
             }
-            if (isPartyAlive == false)  //もし誰もisPartyAliveしなかったら負け
+            if (deathCount >= characterScripts.Count)  //もし全員Deadなら負け、characterScriptsがPTMと同じ要素数であることが前提条件
             {
                 isLose = true;
                 EndingStage();

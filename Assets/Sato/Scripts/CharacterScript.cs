@@ -7,6 +7,7 @@ public class CharacterScript : MonoBehaviour
     // Start is called before the first frame update
     public string characterName = "name";
     public int characterLife = 20; //任意の値
+    private bool isDead = false;
     public void FrontAction()
     {
         Debug.Log("前列攻撃");
@@ -20,9 +21,11 @@ public class CharacterScript : MonoBehaviour
     {
         Debug.Log("後列行動");
     }
-    public void Death()
+    public void Dead()
     {
+        isDead = true;
         Debug.Log("死亡した");
+        gameObject.SetActive(false);
     }
 
     public void AutoHeal()
