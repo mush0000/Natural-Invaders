@@ -147,17 +147,17 @@ public class CharacterScript : MonoBehaviour
         Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
     }
 
-    public void ResurrectionHP1()
-    {
-        isDead = false;
-        characterLife = 1;
-        Debug.Log("蘇生した");
-        gameObject.SetActive(true);
-    }
+    // public void ResurrectionHP1()
+    // {
+    //     isDead = false;
+    //     characterLife = 1;
+    //     Debug.Log("蘇生した");
+    //     gameObject.SetActive(true);
+    // }
 
 
-    public void SetEnemyLife(int life)
-    {
-        enemyLife = life;
-    }
+    // public void SetEnemyLife(int life)
+    // {
+    //     enemyLife = life;
+    // }
 }
