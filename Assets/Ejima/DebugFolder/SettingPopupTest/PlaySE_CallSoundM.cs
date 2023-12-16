@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlaySE_CallSoundM : MonoBehaviour
 {
-    public void PlaySEBtn()
+    public SoundManager.BGM_Type type;
+    public void PlayBGMBtn()
     {
-        SoundManager.instance.PlaySE(SoundManager.SE_Type.KANAGAWAKENKEISHOTOTSU);
+        SoundManager.instance.PlayBGM(type);
     }
 }
