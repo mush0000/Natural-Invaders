@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DemoChar : MonoBehaviour
+public class CharacterManager : MonoBehaviour
 {
     public int position = 0;
     public Image image;
