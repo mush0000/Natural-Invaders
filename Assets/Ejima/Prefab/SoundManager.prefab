@@ -48,10 +48,10 @@ MonoBehaviour:
   SE_Volume: 0.2
   Mute: 0
   BGM_Clips:
+  - {fileID: 8300000, guid: c0f34341d14223149bafa6655dbc0dd9, type: 3}
   - {fileID: 8300000, guid: b736a6c4735bd714aa2185a32a5368bb, type: 3}
   - {fileID: 8300000, guid: d3db33e3430d8534488a5dcd4d880d58, type: 3}
   - {fileID: 8300000, guid: 3c94e8f9e19a72c4581e69b1a940c87b, type: 3}
-  - {fileID: 8300000, guid: c0f34341d14223149bafa6655dbc0dd9, type: 3}
   SE_Clips:
   - {fileID: 8300000, guid: afe9c64a2e7522a44bddc45e380f7c94, type: 3}
   audioMixer: {fileID: 0}

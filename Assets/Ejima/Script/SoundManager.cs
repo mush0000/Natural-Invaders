@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour
     public enum BGM_Type
     {
         // BGM用の列挙子をゲームに合わせて登録
-        THEGOLDENAGEWILLRETURNAGAIN,
+        titel,
         OperationSpectrum,
         OperationSpectrumBattleTheme,
         OperationWildScales,
@@ -46,7 +46,7 @@ public class SoundManager : MonoBehaviour
 
     // === AudioSource ===
     private AudioSource[] BGM_Sources = new AudioSource[2];
-    private AudioSource[] SE_Sources = new AudioSource[16];
+    private AudioSource[] SE_Sources = new AudioSource[5];
 
     private bool isCrossFading;
 
@@ -58,7 +58,7 @@ public class SoundManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -251,7 +251,7 @@ public class SoundManager : MonoBehaviour
     //! Buttonコンポーネントアタッチ用Method(デバック用)
     public void PlayBGMNo01()
     {
-        SoundManager.instance.PlayBGM(SoundManager.BGM_Type.THEGOLDENAGEWILLRETURNAGAIN);
+        SoundManager.instance.PlayBGM(SoundManager.BGM_Type.titel);
     }
 
     public void PlayBGMNo02()
@@ -261,7 +261,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGMNo03()
     {
-        SoundManager.instance.PlayBGM(SoundManager.BGM_Type.OperationSpectrumBattleTheme);
+        PlayBGM(BGM_Type.OperationSpectrumBattleTheme);
     }
 
     public void PlayBGMNo04()
@@ -284,10 +284,6 @@ public class SoundManager : MonoBehaviour
     {
         this.SE_Volume = SEVolume;
     }
-
-
-
-
 
     ////* 未使用 *////
 

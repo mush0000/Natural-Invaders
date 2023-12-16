@@ -7,7 +7,7 @@ public class SceneChange : MonoBehaviour
 {
     public void ChangeButtonMoveAfter()
     {
-        SceneManager.LoadScene("SoundTestSceneAfter");
+        SceneManager.LoadScene("EjimaScene");
     }
 
     public void ChangeButtonMoveOrigin()
