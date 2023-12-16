@@ -1,19 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
-public class demochar : MonoBehaviour
+public class DemoChar : MonoBehaviour
 {
     public int position = 0;
-
-
-    public GameObject image; //クリックされたら画像を表示→クリックマネージャーに移動
-
-    // public void msg()    //デバック用
-    // {
-    //     Debug.Log("クリックされた");
-    // }
+    public Image image;
 
     //ポジションのゲット・セット------------------------
     public int GetPositon()
@@ -30,11 +23,11 @@ public class demochar : MonoBehaviour
     }
     //-------------------------------------------------
 
-    //クリックされたら画像を表示→クリックマネージャーに移動
-    // public void buttonDown()
-    // {
-    //     image.SetActive(true);
-    // }
+    public void SelectButton()
+    {
+        Debug.Log("selectbutton");
+        ClickManager.SetSelectChar(this);//ClickManagerクラスのSetSelectChar()へインスタンスを渡す
+    }
 
     // Start is called before the first frame update
     void Start()

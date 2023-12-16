@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class moveManager : MonoBehaviour
+public class MoveManager : MonoBehaviour
 {
     //Bing『Unityでボタンをタップして、違うボタンを押したらそこにオブジェクトを移動させる方法』------------
     // 移動させたいオブジェクトをインスペクターからアタッチする
