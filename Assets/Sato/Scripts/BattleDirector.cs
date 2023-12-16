@@ -25,6 +25,11 @@ public class BattleDirector : MonoBehaviour
     [SerializeField] GameObject winEffect;  //勝利文字
     [SerializeField] GameObject loseEffect; //敗北文字
     [SerializeField] GameObject battleStartEffect; //出撃文字
+    [SerializeField] GameObject playerActionPopup; //プレイヤーアクションポップアップ
+    [SerializeField] UnityEngine.UI.Button skill1Button;
+    [SerializeField] UnityEngine.UI.Button skill2Button;
+    [SerializeField] UnityEngine.UI.Button skill3Button;
+    List<UnityEngine.UI.Button> skillButtons = new List<UnityEngine.UI.Button>();
 
 
     CharacterScript characterScript1;
@@ -39,6 +44,8 @@ public class BattleDirector : MonoBehaviour
     bool isWin = false;
     bool isLose = false;
     List<Vector3> allPositions;
+    bool isSkillUsed = false;   //スキルを使ったかどうか、使ってたらtrue
+    bool playerHasActed = false;    //プレイヤーが行動したかどうか
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +78,13 @@ public class BattleDirector : MonoBehaviour
         characterScripts.Add(characterScript3);
         characterScripts.Add(characterScript4);
         characterScripts.Add(characterScript5);
+        // ボタンリストに追加
+        Debug.Log(skill1Button);
+        Debug.Log(skill2Button);
+        Debug.Log(skill3Button);
+        skillButtons.Add(skill1Button);
+        skillButtons.Add(skill2Button);
+        skillButtons.Add(skill3Button);
         // enemyにenemyを割り当てる
         enemy = GameObject.FindWithTag("Enemy");
         // enemyのEnemy1という名前のスクリプトをenemyScriptへ代入
@@ -86,7 +100,7 @@ public class BattleDirector : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RotateFormation();
+            // RotateFormation();
         }
     }
 
@@ -106,7 +120,8 @@ public class BattleDirector : MonoBehaviour
             //3列目回復
             yield return StartCoroutine(BackLineHeal());
             //ロール
-            RotateFormation();
+            // RotateFormation();
+            yield return StartCoroutine(PlayerAction());
         }
     }
 
@@ -195,7 +210,7 @@ public class BattleDirector : MonoBehaviour
             {
                 if (cs.characterLife <= 0)
                 {
-                    cs.Dead();
+                    cs.Death();
                     deathCount++;
                 }
             }
@@ -209,6 +224,8 @@ public class BattleDirector : MonoBehaviour
 
     void EndingStage()  //ステージエンド用
     {
+        //タグの削除と
+        //すべてのキャラクタースクリプトのPosを0に初期化する処理を行う
         if (isWin == true)
         {
             winEffect.SetActive(true);
@@ -218,6 +235,42 @@ public class BattleDirector : MonoBehaviour
             loseEffect.SetActive(true);
         }
     }
+
+    IEnumerator PlayerAction()
+    {
+        playerActionPopup.SetActive(true);
+        SkillButtonCheck();
+        // プレイヤーが行動を選択するまで待つ
+        while (!playerHasActed)
+        {
+            yield return null;
+        }
+        // プレイヤーが行動を選択した後の処理
+        playerActionPopup.SetActive(false);
+        playerHasActed = false;
+    }
+
+    void SkillButtonCheck()
+    {
+        foreach (UnityEngine.UI.Button button in skillButtons)
+        {
+            if (isSkillUsed)
+            {
+                Color color = button.image.color;
+                color.a = 0.8f; // 透明度を80%に設定
+                button.image.color = color;
+                button.interactable = false; // ボタンを押下不可能に設定
+            }
+            else
+            {
+                Color color = button.image.color;
+                color.a = 1f; // 透明度を100%に設定
+                button.image.color = color;
+                button.interactable = true; // ボタンを押下可能に設定
+            }
+        }
+    }
+
 
     IEnumerator MoveOverTime(GameObject character, Vector3 targetPosition, float duration, float jumpHeight)
     {
@@ -247,7 +300,7 @@ public class BattleDirector : MonoBehaviour
         }
         character.transform.position = endPosition;
     }
-    void RotateFormation()  //ポジションロール
+    public void RotateFormation()  //ポジションロール
     {
         foreach (GameObject Character in characterList)
         {
@@ -257,6 +310,76 @@ public class BattleDirector : MonoBehaviour
             Vector3 targetPosition = new Vector3(Character.transform.position.x, Character.transform.position.y, posz);
             float jumpHeight = (posz == 1) ? 0.8f : 0.3f;   //左が最後列から前へ飛ぶ高さ、右がその他の列の高さ
             StartCoroutine(MoveOverTime(Character, targetPosition, 0.2f, jumpHeight));
+        }
+    }
+
+    public void playerActed()
+    {
+        playerHasActed = true;
+    }
+    public void OnButtonClickSkill1()
+    {
+        StartCoroutine(Skill1DmgEnemy());
+        isSkillUsed = true;
+        playerActed();
+    }
+    IEnumerator Skill1DmgEnemy()
+    {
+        int dmg = (int)(enemyScript.Life * 0.1);
+        if (dmg <= 0) { dmg = 1; };
+        enemyScript.Life -= dmg;
+        //何かしらのエフェクト、効果音
+        yield return new WaitForSeconds(0.5f); //エフェクトや効果音の再生時間
+    }
+
+    public void OnButtonClickSkill2()
+    {
+        StartCoroutine(Skill2Resurrection());
+        isSkillUsed = true;
+        playerActed();
+    }
+    IEnumerator Skill2Resurrection()
+    {
+        RaycastHit hit;
+        foreach (Vector3 pos in allPositions)   //全部のタイルから
+        {
+            Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
+            if (Physics.Raycast(groundPos, Vector3.up, out hit))
+            {
+                CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
+                if (characterScript != null)
+                {
+                    if (characterScript.isDead)
+                    {
+                        characterScript.ResurrectionHP1();
+                    }
+                }
+            }
+        }
+        yield return new WaitForSeconds(0.5f); //エフェクトや効果音の再生時間
+    }
+
+    public void OnButtonClickSkill3()
+    {
+        StartCoroutine(Skill3AutoHealAll());
+        isSkillUsed = true;
+        playerActed();
+    }
+    IEnumerator Skill3AutoHealAll()
+    {
+        RaycastHit hit;
+        foreach (Vector3 pos in allPositions)
+        {
+            Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
+            if (Physics.Raycast(groundPos, Vector3.up, out hit))
+            {
+                CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
+                if (characterScript != null)    //そこにキャラクターがいるなら
+                {
+                    characterScript.AutoHeal();
+                    yield return new WaitForSeconds(0.1f);  //0.2秒待って
+                }
+            }
         }
     }
 }
