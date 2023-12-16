@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Potato : CharacterScript
 {
-    public Potato() : base("Potato", 25, 5, 0, 0, 15)
+    public Potato() : base("Potato", 25, 5, 0, 0, 15,0)
     {
         // 親クラス(CharacterScript)のコンストラクタを呼び出す
         // ここで追加の初期化などを行うこともできます
@@ -13,8 +13,20 @@ public class Potato : CharacterScript
     public override void FrontAction()
     {
         base.FrontAction();
-        // Potato独自の前列行動の処理を追加
+        // 固有キャラの前列行動の処理を追加
     }
+    private void FrontActionSound()
+    {
+        // サウンド再生のロジック
+        // audioSource.PlayOneShot(sampleSound);  //固有キャラのAudioClip
+    }
+    private void FrontActionEffect()
+    {
+        // エフェクトプレハブの生成と再生
+        GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
+    }
+
     public override void MiddleAction()
     {
         base.MiddleAction();
@@ -26,10 +38,40 @@ public class Potato : CharacterScript
         // Potato独自の後列行動の処理を追加
     }
 
+    public virtual void autoHeal()
+    {
+        base.autoHeal();
+    }
+
+
+    private void MiddleActionSound()
+    {
+        // サウンド再生のロジック
+        // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
+    }
+    private void MiddleActionEffect()
+    {
+        // エフェクトプレハブの生成と再生
+        GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
+    }
+
+    private void BackActionSound()
+    {
+        // サウンド再生のロジック
+        // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
+    }
+    private void BackActionnEffect()
+    {
+        // エフェクトプレハブの生成と再生
+        GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
+    }
+
     public override void Death()
     {
         base.Death();
-        // Potatoの死
+        // キャラの生死判定
     }
 
 
