@@ -48,7 +48,7 @@ public class BattleDirector : MonoBehaviour
     bool playerHasActed = false;    //プレイヤーが行動したかどうか
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         // フレームレートを60に
         Application.targetFrameRate = 60;
@@ -91,7 +91,7 @@ public class BattleDirector : MonoBehaviour
         enemyScript = enemy.GetComponent<Enemy1>();
 
         // バトルの開始
-        StartCoroutine(BattleStart());
+        yield return StartCoroutine(BattleStart());
         StartCoroutine(BattleMainLoop());
     }
 
@@ -198,7 +198,7 @@ public class BattleDirector : MonoBehaviour
 
     void Judge()    //生死判定
     {
-        if (enemyScript.Life <= 0)  //敵のライフが0なら即勝利
+        if (enemyScript.enemyLife <= 0)  //敵のライフが0なら即勝利
         {
             isWin = true;
             EndingStage();
@@ -208,7 +208,7 @@ public class BattleDirector : MonoBehaviour
             int deathCount = 0;
             foreach (CharacterScript cs in characterScripts)
             {
-                if (cs.characterLife <= 0)
+                if (cs.CharacterLife <= 0)
                 {
                     cs.Death();
                     deathCount++;
@@ -325,9 +325,9 @@ public class BattleDirector : MonoBehaviour
     }
     IEnumerator Skill1DmgEnemy()
     {
-        int dmg = (int)(enemyScript.Life * 0.1);
+        int dmg = (int)(enemyScript.enemyLife * 0.1);
         if (dmg <= 0) { dmg = 1; };
-        enemyScript.Life -= dmg;
+        enemyScript.enemyLife -= dmg;
         //何かしらのエフェクト、効果音
         yield return new WaitForSeconds(0.5f); //エフェクトや効果音の再生時間
     }
@@ -340,20 +340,11 @@ public class BattleDirector : MonoBehaviour
     }
     IEnumerator Skill2Resurrection()
     {
-        RaycastHit hit;
-        foreach (Vector3 pos in allPositions)   //全部のタイルから
+        foreach (CharacterScript cs in characterScripts)
         {
-            Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
-            if (Physics.Raycast(groundPos, Vector3.up, out hit))
+            if (cs.isDead == true)
             {
-                CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
-                if (characterScript != null)
-                {
-                    if (characterScript.isDead)
-                    {
-                        characterScript.ResurrectionHP1();
-                    }
-                }
+                cs.ResurrectionHP1();
             }
         }
         yield return new WaitForSeconds(0.5f); //エフェクトや効果音の再生時間
