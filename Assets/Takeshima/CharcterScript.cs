@@ -13,12 +13,12 @@ public class CharacterScript : MonoBehaviour
     protected int characterDaux; //キャラクターの防御補助力
     protected int CharacterPosition; //キャラクターの場所指定
     public int position = 0; //キャラクターの現在位置
-    public bool isDead = False; //キャラクターの死亡判定
+    public bool isDead = false; //キャラクターの死亡判定
     protected int MaxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
 
     protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
 
-    private ParticleSystem particleSystem;  // ParticleSystemコンポーネント
+    // private ParticleSystem particleSystem;  // ParticleSystemコンポーネント
     private AudioSource audioSource;  // AudioSourceコンポーネント
     public GameObject attackEffectPrefab;  // 前列攻撃のエフェクトプレハブ
     public AudioClip attackSound;
@@ -46,12 +46,12 @@ public class CharacterScript : MonoBehaviour
         characterHeal = heal;
         characterAaux = aaux;
         characterDaux = daux;
-        characterAtkm = matk;
+        characterMatk = matk;
     }
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        particleSystem = GetComponent<ParticleSystem>();
+        // audioSource = GetComponent<AudioSource>();
+        // particleSystem = GetComponent<ParticleSystem>();
     }
 
 
@@ -66,8 +66,8 @@ public class CharacterScript : MonoBehaviour
         int enemyLifeDecrease = characterAtk;
         enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
 
-        FrontActionSound(); // サウンド再生
-        FrontActionEffect(); // エフェクト再生
+        // FrontActionSound(); // サウンド再生
+        // FrontActionEffect(); // エフェクト再生
     }
 
     public virtual void MiddleAction()
@@ -76,10 +76,10 @@ public class CharacterScript : MonoBehaviour
         enemyLife -= enemyLifeDecrease;  // enemyLifeを減少させる
         Debug.Log("中列攻撃");
 
-        MiddleActionSound(); // サウンド再生の呼び出し
-        MiddleActionEffect(); // エフェクト再生
+        // MiddleActionSound(); // サウンド再生の呼び出し
+        // MiddleActionEffect(); // エフェクト再生
     }
-    
+
 
     public virtual void BackAction()
     {
@@ -94,8 +94,8 @@ public class CharacterScript : MonoBehaviour
         Debug.Log("後列行動");
         Debug.Log($"Character Life after BackAction: {characterLife}");
 
-        BackActionSound(); // サウンド再生の呼び出し
-        BackActionnEffect(); // エフェクト再生
+        // BackActionSound(); // サウンド再生の呼び出し
+        // BackActionnEffect(); // エフェクト再生
 
     }
 
@@ -104,8 +104,8 @@ public class CharacterScript : MonoBehaviour
         int healAmount = Mathf.CeilToInt(MaxCharacterLife * 0.1f);  // MaxCharacterLife の 10% を計算
         characterLife = Mathf.Clamp(characterLife + healAmount, 0, MaxCharacterLife);
         Debug.Log("自動回復");
-        autoHealSound(); // サウンド再生の呼び出し
-        autoHealEffect(); // エフェクト再生
+        // autoHealSound(); // サウンド再生の呼び出し
+        // autoHealEffect(); // エフェクト再生
     }
 
     public void ModifyCharacterLife(int amount)
@@ -119,7 +119,7 @@ public class CharacterScript : MonoBehaviour
             isDead = false;
         }
     }
-    
+
     public virtual void Death()
     {
         if (!isDead)
@@ -128,36 +128,35 @@ public class CharacterScript : MonoBehaviour
             Debug.Log("死亡した");
 
             // キャラクターが死亡した際の処理
-            DeathSound();
-            DeathEffect();
+            // DeathSound();
+            // DeathEffect();
 
         }
     }
 
-    }
-    private void DeathSound()
-    {
-        // サウンド再生のロジック
-        // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
-    }
-    private void DeathEffect()
-    {
-        // エフェクトプレハブの生成と再生
-        GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
-        Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
-    }
+    // private void DeathSound()
+    // {
+    //     // サウンド再生のロジック
+    //     // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
+    // }
+    // private void DeathEffect()
+    // {
+    //     // エフェクトプレハブの生成と再生
+    //     GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
+    //     Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
+    // }
 
-    public void ResurrectionHP1()
-    {
-        isDead = false;
-        characterLife = 1;
-        Debug.Log("蘇生した");
-        gameObject.SetActive(true);
-    }
+    // public void ResurrectionHP1()
+    // {
+    //     isDead = false;
+    //     characterLife = 1;
+    //     Debug.Log("蘇生した");
+    //     gameObject.SetActive(true);
+    // }
 
 
-    public void SetEnemyLife(int life)
-    {
-        enemyLife = life;
-    }
+    // public void SetEnemyLife(int life)
+    // {
+    //     enemyLife = life;
+    // }
 }
