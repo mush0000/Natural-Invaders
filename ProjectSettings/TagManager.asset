@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - PartyMember1
+  - PartyMember2
+  - PartyMember3
+  - PartyMember4
+  - PartyMember5
   layers:
   - Default
   - TransparentFX
