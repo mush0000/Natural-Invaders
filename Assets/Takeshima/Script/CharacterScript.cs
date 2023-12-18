@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class CharacterScript : MonoBehaviour
 {
     protected string characterName; // キャラクター名
-    private int characterLife; // キャラクターのHP
+    protected int characterLife; // キャラクターのHP
     protected int characterAtk; // キャラクタの攻撃力
     protected int characterMatk; // キャラクターの中列攻撃力
     protected int characterSpd; // キャラクターの素早さ
