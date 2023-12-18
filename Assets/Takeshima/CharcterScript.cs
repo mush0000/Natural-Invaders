@@ -1,34 +1,38 @@
 using System.Security.Cryptography;
 using UnityEngine;
 
+
+
 public class CharacterScript : MonoBehaviour
 {
-    protected string characterName; //キャラクター名
-    public int characterLife; //キャラクターのHP
-    protected int characterAtk; //キャラクタの攻撃力
-    protected int characterMatk; //キャラクターの中列攻撃力
-    protected int characterSpd; //キャラクターの素早さ
-    protected int characterHeal; //キャラクターの回復力
-    protected int characterAaux; //キャラクターの攻撃補助力
-    protected int characterDaux; //キャラクターの防御補助力
-    protected int CharacterPosition; //キャラクターの場所指定
-    public int position = 0; //キャラクターの現在位置
-    public bool isDead = false; //キャラクターの死亡判定
+    protected string characterName; // キャラクター名
+    private int characterLife; // キャラクターのHP
+    protected int characterAtk; // キャラクタの攻撃力
+    protected int characterMatk; // キャラクターの中列攻撃力
+    protected int characterSpd; // キャラクターの素早さ
+    protected int characterHeal; // キャラクターの回復力
+    protected int characterAaux; // キャラクターの攻撃補助力
+    protected int characterDaux; // キャラクターの防御補助力
+    protected int CharacterPosition; // キャラクターの場所指定
+    public int position = 0; // キャラクターの現在位置
+    public bool isDead = false; // キャラクターの死亡判定
+    protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
     protected int MaxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
 
-    protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
-
-    // private ParticleSystem particleSystem;  // ParticleSystemコンポーネント
     private AudioSource audioSource;  // AudioSourceコンポーネント
     public GameObject attackEffectPrefab;  // 前列攻撃のエフェクトプレハブ
     public AudioClip attackSound;
 
-    //  public GameObject frontActionEffectPrefab;  // 前列攻撃のエフェクトプレハブ
-    // public AudioClip frontActioSound;          // 前列攻撃のサウンド
 
-
-
-    // コンストラクタ
+    public int CharacterLife
+    {
+        get { return characterLife; }
+        set
+        {
+            // 任意の制御や処理を追加できます
+            characterLife = value;
+        }
+    }
     public CharacterScript(
         string name = "DefaultName",
         int life = 0,
@@ -48,6 +52,9 @@ public class CharacterScript : MonoBehaviour
         characterDaux = daux;
         characterMatk = matk;
     }
+
+
+
     void Start()
     {
         // audioSource = GetComponent<AudioSource>();
@@ -55,8 +62,7 @@ public class CharacterScript : MonoBehaviour
     }
 
 
-    // キャラクターの共通の何かを追加することがあれば。
-    public void DisplayCharacterInfo()
+    public void DisplayCharacterInfo() // キャラクターの共通の何かを追加することがあれば。
     {
         Debug.Log($"Character Name: {characterName}, Life: {characterLife}");
     }
