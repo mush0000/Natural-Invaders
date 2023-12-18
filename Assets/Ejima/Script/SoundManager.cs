@@ -32,8 +32,8 @@ public class SoundManager : MonoBehaviour
     public const float CROSS_FADE_TIME = 1.0f;
 
     // ボリューム関連
-    public float BGM_Volume = 0.1f;
-    public float SE_Volume = 0.2f;
+    public float BGM_Volume = 1.0f;
+    public float SE_Volume = 1.0f;
     public bool Mute = false;
 
     // === AudioClip ===
