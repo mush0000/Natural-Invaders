@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 136182688867757217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.296219, y: 8.161123, z: -10.008913}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,14 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ef8673cd8dece41b0c2f63eda55d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGM_Volume: 0.1
-  SE_Volume: 0.2
-  Mute: 0
+  BGM_Volume: 1
+  SE_Volume: 1
+  Mute: 1
   BGM_Clips:
-  - {fileID: 8300000, guid: c0f34341d14223149bafa6655dbc0dd9, type: 3}
-  - {fileID: 8300000, guid: b736a6c4735bd714aa2185a32a5368bb, type: 3}
-  - {fileID: 8300000, guid: d3db33e3430d8534488a5dcd4d880d58, type: 3}
-  - {fileID: 8300000, guid: 3c94e8f9e19a72c4581e69b1a940c87b, type: 3}
+  - {fileID: 8300000, guid: d36697d16e15a914cba2ae9c92bd6873, type: 3}
+  - {fileID: 8300000, guid: 3ea46042cf802c64d91fefe93f141b2f, type: 3}
+  - {fileID: 8300000, guid: 08ffd1a60a0cc9d47b47b21ea3c64950, type: 3}
+  - {fileID: 8300000, guid: 74f24ae1d2439d142a5a84f4b4b04312, type: 3}
   SE_Clips:
-  - {fileID: 8300000, guid: afe9c64a2e7522a44bddc45e380f7c94, type: 3}
+  - {fileID: 8300000, guid: 6ecef7038b71d2b40921b8a30caf00f6, type: 3}
   audioMixer: {fileID: 0}
