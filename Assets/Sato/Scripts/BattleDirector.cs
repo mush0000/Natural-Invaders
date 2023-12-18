@@ -198,7 +198,7 @@ public class BattleDirector : MonoBehaviour
 
     void Judge()    //生死判定
     {
-        if (enemyScript.Life <= 0)  //敵のライフが0なら即勝利
+        if (enemyScript.enemyLife <= 0)  //敵のライフが0なら即勝利
         {
             isWin = true;
             EndingStage();
@@ -208,7 +208,7 @@ public class BattleDirector : MonoBehaviour
             int deathCount = 0;
             foreach (CharacterScript cs in characterScripts)
             {
-                if (cs.characterLife <= 0)
+                if (cs.CharacterLife <= 0)
                 {
                     cs.Death();
                     deathCount++;
@@ -325,9 +325,9 @@ public class BattleDirector : MonoBehaviour
     }
     IEnumerator Skill1DmgEnemy()
     {
-        int dmg = (int)(enemyScript.Life * 0.1);
+        int dmg = (int)(enemyScript.enemyLife * 0.1);
         if (dmg <= 0) { dmg = 1; };
-        enemyScript.Life -= dmg;
+        enemyScript.enemyLife -= dmg;
         //何かしらのエフェクト、効果音
         yield return new WaitForSeconds(0.5f); //エフェクトや効果音の再生時間
     }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
 {
-    public int Life = 10;
+    public int enemyLife = 20;
+    public int enemyMaxLife = 20;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,6 @@ public class Enemy1 : MonoBehaviour
     {
         Debug.Log("EnemyActionだよよよ!");
         Debug.Log("勝手に1点食らうよ");
-        Life--;
+        enemyLife--;
     }
 }
