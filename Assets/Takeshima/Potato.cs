@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Potato : CharacterScript
 {
-    public Potato() : base("Potato", 25, 5, 0, 0, 15,0)
+    public Potato() : base("Potato", 25, 5, 0, 0, 15, 0)
     {
         // 親クラス(CharacterScript)のコンストラクタを呼び出す
         // ここで追加の初期化などを行うこともできます
@@ -23,8 +23,8 @@ public class Potato : CharacterScript
     private void FrontActionEffect()
     {
         // エフェクトプレハブの生成と再生
-        GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
-        Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
+        // GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
+        // Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
     }
 
     public override void MiddleAction()
@@ -38,7 +38,7 @@ public class Potato : CharacterScript
         // Potato独自の後列行動の処理を追加
     }
 
-    public virtual void autoHeal()
+    public override void autoHeal()
     {
         base.autoHeal();
     }
@@ -52,8 +52,8 @@ public class Potato : CharacterScript
     private void MiddleActionEffect()
     {
         // エフェクトプレハブの生成と再生
-        GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
-        Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
+        // GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
+        // Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
     }
 
     private void BackActionSound()
@@ -64,8 +64,8 @@ public class Potato : CharacterScript
     private void BackActionnEffect()
     {
         // エフェクトプレハブの生成と再生
-        GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
-        Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
+        // GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
+        // Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
     }
 
     public override void Death()

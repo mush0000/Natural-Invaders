@@ -6,12 +6,13 @@ public class EnemyScript : CharacterScript
 {
     // コンストラクタ
     public EnemyScript(
-        string nameE = "DefaultName",
-        int lifeE = 0,
-        int atkE = 0,
-        int spdE = 0,
-        int healE = 0)
-        : base(nameE, lifeE, atkE, spdE, 0, 0, 0, 0)
+        string enemyName = "DefaultName",
+        int enemyLife = 0,
+        int enemyAtk = 0,
+        int enemySpd = 0,
+        int enemyHeal = 0)
+
+        : base(enemyName, enemyLife, enemyAtk, enemySpd, enemyHeal)
     {
         // 追加の初期化があればここに書く
     }
@@ -29,14 +30,9 @@ public class EnemyScript : CharacterScript
     public virtual void EnemyAction()
     {
         Debug.Log("敵の攻撃");
+
+
     }
-
-
-
-
-
-
-
     public virtual void EnemyCharge()
     {
         Debug.Log("力をためる");
@@ -61,9 +57,10 @@ public class EnemyScript : CharacterScript
         Debug.Log("敵の回復行動");
     }
 
-    public virtual void EnemyDeath()
-    {
-        Debug.Log("倒された");
-        // 適切な処理をここに書く
-    }
 }
+
+// public virtual void EnemyDeath()
+// {
+//     Debug.Log("倒された");
+//     // 適切な処理をここに書く
+// }

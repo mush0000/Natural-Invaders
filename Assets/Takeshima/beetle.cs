@@ -10,36 +10,36 @@ public class Beetle : EnemyScript
         // ここで追加の初期化などを行うこともできます
     }
 
-    public override void EnemyAction()
-    {
-        base.EnemyAction();
-        // 敵独自の行動の処理を追加
-    }
-    public override void EnemyHealAction()
-    {
-        base.EnemyHealAction();
+    // public override void EnemyAction()
+    // {
+    //     base.EnemyAction();
+    //     // 敵独自の行動の処理を追加
+    // }
+    // public override void EnemyHealAction()
+    // {
+    //     base.EnemyHealAction();
 
-    }
+    // }
 
-    public override void EnemyDeath()
-    {
-        base.EnemyDeath();
-        // 敵の死
-    }
-
-
+    // public override void EnemyDeath()
+    // {
+    //     base.EnemyDeath();
+    //     // 敵の死
+    // }
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+    // // Start is called before the first frame update
+    // void Start()
+    // {
 
-    }
+    // }
+
+    // // Update is called once per frame
+    // void Update()
+    // {
+
+    // }
 }
