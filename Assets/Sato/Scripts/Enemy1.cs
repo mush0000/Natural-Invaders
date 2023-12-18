@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
 {
-    int Life = 10;
+    public int Life = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +15,12 @@ public class Enemy1 : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void EnemyAction()
+    {
+        Debug.Log("EnemyActionだよよよ!");
+        Debug.Log("勝手に1点食らうよ");
+        Life--;
     }
 }
