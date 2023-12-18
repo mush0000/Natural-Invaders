@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tomato : CharacterScript
+public class Potato : CharacterScript
 {
-    public Tomato() : base("Tomato", 16, 5, 0, 10, 0, 10)
+    public Potato() : base("Potato", 25, 5, 0, 0, 15, 0)
     {
         // 親クラス(CharacterScript)のコンストラクタを呼び出す
         // ここで追加の初期化などを行うこともできます
@@ -38,9 +38,9 @@ public class Tomato : CharacterScript
         // Potato独自の後列行動の処理を追加
     }
 
-    public override void autoHeal()
+    public override void AutoHeal()
     {
-        base.autoHeal();
+        base.AutoHeal();
     }
 
 
@@ -49,12 +49,12 @@ public class Tomato : CharacterScript
         // サウンド再生のロジック
         // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
     }
-    // private void MiddleActionEffect()
-    // {
-    //     // エフェクトプレハブの生成と再生
-    //     GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
-    //     Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
-    // }
+    private void MiddleActionEffect()
+    {
+        // エフェクトプレハブの生成と再生
+        // GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
+        // Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
+    }
 
     private void BackActionSound()
     {

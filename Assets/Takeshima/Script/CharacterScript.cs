@@ -1,12 +1,15 @@
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 
 
 public class CharacterScript : MonoBehaviour
 {
     protected string characterName; // キャラクター名
-    private int characterLife; // キャラクターのHP
+    protected int characterLife; // キャラクターのHP
     protected int characterAtk; // キャラクタの攻撃力
     protected int characterMatk; // キャラクターの中列攻撃力
     protected int characterSpd; // キャラクターの素早さ
@@ -18,6 +21,7 @@ public class CharacterScript : MonoBehaviour
     public bool isDead = false; // キャラクターの死亡判定
     protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
     protected int MaxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
+    public Image image;
 
     private AudioSource audioSource;  // AudioSourceコンポーネント
     public GameObject attackEffectPrefab;  // 前列攻撃のエフェクトプレハブ
@@ -105,13 +109,19 @@ public class CharacterScript : MonoBehaviour
 
     }
 
-    public virtual void autoHeal()
+    public virtual void ResurrectionHP1()
     {
-        int healAmount = Mathf.CeilToInt(MaxCharacterLife * 0.1f);  // MaxCharacterLife の 10% を計算
-        characterLife = Mathf.Clamp(characterLife + healAmount, 0, MaxCharacterLife);
-        Debug.Log("自動回復");
-        // autoHealSound(); // サウンド再生の呼び出し
-        // autoHealEffect(); // エフェクト再生
+        isDead = false;
+        characterLife = 1;
+        Debug.Log("蘇生した");
+        gameObject.SetActive(true);
+    }
+
+    public virtual void AutoHeal()
+    {
+        int gainLife = (int)(characterLife * 0.2);
+        characterLife += gainLife;
+        Debug.Log($"{gainLife}回復した");
     }
 
     public void ModifyCharacterLife(int amount)
@@ -140,6 +150,12 @@ public class CharacterScript : MonoBehaviour
         }
     }
 
+    public void SelectButton()
+    {
+        Debug.Log("selectbutton");
+        // ClickManager.SetSelectChar(this);//ClickManagerクラスのSetSelectChar()へインスタンスを渡す
+    }
+
     // private void DeathSound()
     // {
     //     // サウンド再生のロジック
@@ -150,14 +166,6 @@ public class CharacterScript : MonoBehaviour
     //     // エフェクトプレハブの生成と再生
     //     GameObject effectInstance = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
     //     Destroy(effectInstance, particleSystem.main.duration);  // エフェクトが終了したら削除
-    // }
-
-    // public void ResurrectionHP1()
-    // {
-    //     isDead = false;
-    //     characterLife = 1;
-    //     Debug.Log("蘇生した");
-    //     gameObject.SetActive(true);
     // }
 
 
