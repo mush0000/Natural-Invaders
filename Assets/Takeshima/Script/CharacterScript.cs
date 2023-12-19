@@ -38,7 +38,7 @@ public class CharacterScript : MonoBehaviour
     }
     public CharacterScript(
         string name = "DefaultName",
-        int life = 0,
+        int life = 10,
         int atk = 0,
         int spd = 0,
         int heal = 0,
