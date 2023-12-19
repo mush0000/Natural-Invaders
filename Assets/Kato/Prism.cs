@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Prism : MonoBehaviour
 {
-    public int n = 10;// 正n角形のn
+    public int n = 6;// 正n角形のn
     void Start()
     {
         MeshFilter meshFilter = gameObject.GetComponent<MeshFilter>();// メッシュフィルター
         MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();// メッシュレンダラー
         MeshCollider meshCollider = gameObject.GetComponent<MeshCollider>();// メッシュコライダー
         Mesh mesh = new Mesh();// メッシュ
-        Vector3[] vertices = new Vector3[n * 10];// メッシュの頂点座標
-        int[] triangles = new int[(n - 1) * 20];// メッシュの三角形情報
+        Vector3[] vertices = new Vector3[n * 6];// メッシュの頂点座標
+        int[] triangles = new int[(n - 1) * 12];// メッシュの三角形情報
         for (int i = 0; i < n; i++)
         {
             // 底面の頂点
@@ -30,23 +30,23 @@ public class Prism : MonoBehaviour
         for (int i = 0; i < n - 2; i++)
         {
             // 手前の底面
-            triangles[i * 10 + 0] = 0;
-            triangles[i * 10 + 1] = 2 + i;
-            triangles[i * 10 + 2] = 1 + i;
+            triangles[i * 3 + 0] = 0;
+            triangles[i * 3 + 1] = 2 + i;
+            triangles[i * 3 + 2] = 1 + i;
             // 奥の底面
-            triangles[(n - 2) * 10 + i * 10 + 0] = n;
-            triangles[(n - 2) * 10 + i * 10 + 1] = n + 1 + i;
-            triangles[(n - 2) * 10 + i * 10 + 2] = n + 2 + i;
+            triangles[(n - 2) * 3 + i * 3 + 0] = n;
+            triangles[(n - 2) * 3 + i * 3 + 1] = n + 1 + i;
+            triangles[(n - 2) * 3 + i * 3 + 2] = n + 2 + i;
         }// ~ (n-2)*6
         for (int i = 0; i < n; i++)
         {
             // i番目の側面
-            triangles[(n - 2) * 10 + i * 10 + 0] = n * 2 + i * 4 + 0;
-            triangles[(n - 2) * 10 + i * 10 + 1] = n * 2 + i * 4 + 1;
-            triangles[(n - 2) * 10 + i * 10 + 2] = n * 2 + i * 4 + 2;
-            triangles[(n - 2) * 10 + i * 10 + 3] = n * 2 + i * 4 + 2;
-            triangles[(n - 2) * 10 + i * 10 + 4] = n * 2 + i * 4 + 3;
-            triangles[(n - 2) * 10 + i * 10 + 5] = n * 2 + i * 4 + 0;
+            triangles[(n - 2) * 6 + i * 6 + 0] = n * 2 + i * 4 + 0;
+            triangles[(n - 2) * 6 + i * 6 + 1] = n * 2 + i * 4 + 1;
+            triangles[(n - 2) * 6 + i * 6 + 2] = n * 2 + i * 4 + 2;
+            triangles[(n - 2) * 6 + i * 6 + 3] = n * 2 + i * 4 + 2;
+            triangles[(n - 2) * 6 + i * 6 + 4] = n * 2 + i * 4 + 3;
+            triangles[(n - 2) * 6 + i * 6 + 5] = n * 2 + i * 4 + 0;
         }// ~ (n-1)*12
         mesh.SetVertices(vertices);// メッシュの頂点を設定
         mesh.SetTriangles(triangles, 0);// メッシュの三角形を設定
