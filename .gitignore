@@ -83,3 +83,7 @@ crashlytics-build.properties
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+
+Assets/Sato/[Tt]emp/
+Assets/Ejima/[Tt]emp/

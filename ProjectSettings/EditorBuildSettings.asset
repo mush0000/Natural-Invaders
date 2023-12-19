@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Ejima/DebugFolder/SettingPopupTest/SoundTestScene.unity
+    guid: 08dea68bc2e9dc849ae26ca5bde04e4e
+  - enabled: 1
+    path: Assets/Ejima/SoundTestSceneAfter.unity
+    guid: d039efc50b4fe2241b91112436a1e6d8
+  - enabled: 1
+    path: Assets/Ejima/DebugFolder/SettingPopupTest/EjimaScene.unity
+    guid: 218bc2bfc0f1edb41a5ec7eaea84e8e2
   m_configObjects: {}
