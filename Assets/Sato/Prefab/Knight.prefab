@@ -959,8 +959,9 @@ GameObject:
   - component: {fileID: 3779054352709784932}
   - component: {fileID: 7309441850403386468}
   - component: {fileID: 8993441984536229661}
+  - component: {fileID: -2462855782738511039}
   m_Layer: 0
-  m_Name: MaleCharacterPBR
+  m_Name: Knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1024,6 +1025,29 @@ MonoBehaviour:
   image: {fileID: 0}
   attackEffectPrefab: {fileID: 0}
   attackSound: {fileID: 0}
+--- !u!136 &-2462855782738511039
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2640016357536385714}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.82
+  m_Height: 1.96
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.76, z: 0}
 --- !u!1 &2888169582498633909
 GameObject:
   m_ObjectHideFlags: 0
