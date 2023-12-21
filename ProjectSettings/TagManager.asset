@@ -10,6 +10,8 @@ TagManager:
   - PartyMember3
   - PartyMember4
   - PartyMember5
+  - TomatoBomb
+  - ExplosionEffect
   layers:
   - Default
   - TransparentFX

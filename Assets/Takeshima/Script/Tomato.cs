@@ -7,18 +7,23 @@ public class Tomato : CharacterScript
     private TomatoBombController tomatoBombController;
     private void Start()
     {
-        // tomatoBombController = gameObject.AddComponent<TomatoBombController>();
+        tomatoBombController = GetComponent<TomatoBombController>();
     }
     public Tomato() : base("Tomato", 16, 5, 0, 10, 0, 10)
     {
         // ここで追加の初期化などを行うこともできます
     }
-    public override void FrontAction()
-    {
-        base.FrontAction();
-        tomatoBombController.Shoot(new Vector3(2000, 200, 0));
-        // 固有キャラの前列行動の処理を追加
-    }
+    // public override void FrontAction()
+    // {
+    //     base.FrontAction();
+
+    //     // TomatoBombControllerのAdjustForceメソッドから計算された値を取得
+    //     float upwardForce = tomatoBombController.CalculateUpwardForce();
+    //     float rotationSpeed = tomatoBombController.CalculateRotationSpeed();
+
+    //     // TomatoBombControllerのShootメソッドを呼び出す
+    //     tomatoBombController.Shoot(Vector3.forward * 2000f, upwardForce, rotationSpeed);
+    // }
     private void FrontActionSound()
     {
         // サウンド再生のロジック

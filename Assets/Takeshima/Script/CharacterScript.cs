@@ -36,6 +36,24 @@ public class CharacterScript : MonoBehaviour
             characterLife = value;
         }
     }
+    public int CharacterMatk
+    {
+        get { return characterMatk; }
+        set
+        {
+            // 任意の制御や処理を追加できます
+            characterMatk = value;
+        }
+    }
+    public int CharacterSpd
+    {
+        get { return characterSpd; }
+        set
+        {
+            // 任意の制御や処理を追加できます
+            characterSpd = value;
+        }
+    }
     public CharacterScript(
         string name = "DefaultName",
         int life = 10,
