@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7908637055915445510}
   - component: {fileID: 6916266130544376123}
   - component: {fileID: 4499519070207235828}
+  - component: {fileID: 8596966608779726607}
   m_Layer: 5
-  m_Name: Image
+  m_Name: CharacterWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +76,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8596966608779726607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143874497138151365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d6905773c16f5f4da25252bc31e77d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeScrollDragThreshold: 0.5
 --- !u!1 &1844431890967899785
 GameObject:
   m_ObjectHideFlags: 0

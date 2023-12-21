@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
+using UnityEditor.Animations;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,14 +25,14 @@ public class BriefingManager : MonoBehaviour
         {
             // MemberWindowのPrefabからインスタンスを作成
             GameObject memberWindow = Instantiate(memberWindowPrefab, scrollViewContent);
-            // キャラクターのGameObjectをmemberWindowの子要素として設定
-            character.transform.SetParent(memberWindow.transform);
+            GameObject characterWindow = memberWindow.transform.GetChild(0).gameObject;
+            // キャラクターのGameObjectをCharacterWindowの子要素として設定
+            character.transform.SetParent(characterWindow.transform);
             // キャラクターのGameObjectを特定の位置に移動
-            character.transform.localPosition = new Vector3(0, -160, -40);
+            character.transform.localPosition = new Vector3(0, -140, -40);
             character.transform.localScale = new Vector3(80, 80, 80);
             character.transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
-
     }
 
     // Update is called once per frame
