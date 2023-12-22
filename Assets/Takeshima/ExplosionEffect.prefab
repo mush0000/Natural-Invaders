@@ -9579,7 +9579,7 @@ MonoBehaviour:
   clearBehavior: 2
   cameraShake:
     enabled: 1
-    useMainCamera: 1
+    useMainCamera: 0
     cameras: []
     delay: 0.05
     duration: 0.6

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 public class CharacterScript : MonoBehaviour
 {
+    public Enemy2 enemy;
     protected string characterName; // キャラクター名
     protected int characterLife; // キャラクターのHP
     protected int characterAtk; // キャラクタの攻撃力
@@ -19,7 +20,6 @@ public class CharacterScript : MonoBehaviour
     protected int CharacterPosition; // キャラクターの場所指定
     public int position = 0; // キャラクターの現在位置
     public bool isDead = false; // キャラクターの死亡判定
-    protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
     protected int MaxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
     public Image image;
 
@@ -56,7 +56,7 @@ public class CharacterScript : MonoBehaviour
     }
     public CharacterScript(
         string name = "DefaultName",
-        int life = 10,
+        int life = 50,
         int atk = 0,
         int spd = 0,
         int heal = 0,
@@ -78,6 +78,7 @@ public class CharacterScript : MonoBehaviour
 
     void Start()
     {
+        // DontDestroyOnLoad(gameObject);
         // audioSource = GetComponent<AudioSource>();
         // particleSystem = GetComponent<ParticleSystem>();
     }
@@ -90,8 +91,9 @@ public class CharacterScript : MonoBehaviour
 
     public virtual void FrontAction()
     {
+        int enemyLife = enemy.enemyLife;
         int enemyLifeDecrease = characterAtk;
-        enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
+        enemy.enemyLife -= enemyLifeDecrease;
 
         // FrontActionSound(); // サウンド再生
         // FrontActionEffect(); // エフェクト再生
@@ -99,6 +101,7 @@ public class CharacterScript : MonoBehaviour
 
     public virtual void MiddleAction()
     {
+        int enemyLife = enemy.enemyLife;
         int enemyLifeDecrease = characterMatk;
         enemyLife -= enemyLifeDecrease;  // enemyLifeを減少させる
         Debug.Log("中列攻撃");
@@ -173,11 +176,11 @@ public class CharacterScript : MonoBehaviour
         // ClickManager.SetSelectChar(this);//ClickManagerクラスのSetSelectChar()へインスタンスを渡す
     }
 
-    // private void DeathSound()
-    // {
-    //     // サウンド再生のロジック
-    //     // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
-    // }
+    private void DeathSound()
+    {
+        // サウンド再生のロジック
+        // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
+    }
     // private void DeathEffect()
     // {
     //     // エフェクトプレハブの生成と再生

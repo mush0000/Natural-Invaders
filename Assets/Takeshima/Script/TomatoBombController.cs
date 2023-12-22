@@ -5,13 +5,23 @@ public class TomatoBombController : MonoBehaviour
     public GameObject ExplosionEffect;
     public GameObject ExplosionSpark;
     private Vector3 originalPosition;
+    private Quaternion originalRotation; // Store the original rotation
     private bool hasExploded = false;
-    private Quaternion initialRotation;
+
+    public Vector3 OriginalPosition
+    {
+        get { return originalPosition; }
+    }
+
+    public Vector3 TargetEnemy
+    {
+        get { return TargetEnemy; }
+    }
 
     void Start()
     {
         originalPosition = transform.position;
-        initialRotation = transform.rotation;
+        originalRotation = transform.rotation; // Store the original rotation when instantiated
     }
 
     void OnCollisionEnter(Collision collision)
@@ -27,11 +37,12 @@ public class TomatoBombController : MonoBehaviour
 
                 if (!collision.gameObject.CompareTag("TomatoBomb"))
                 {
-                    // キネマティックモードを無効にする前に初期位置に戻す
+                    GetComponent<Rigidbody>().isKinematic = true;
                     transform.position = originalPosition;
-
-                    // キネマティックモードを無効にする
-                    GetComponent<Rigidbody>().isKinematic = false;
+                    // Reset the rotation to the original state
+                    transform.rotation = originalRotation;
+                    // originalPositionを更新
+                    originalPosition = transform.position;
                 }
 
                 hasExploded = true;
@@ -47,8 +58,7 @@ public class TomatoBombController : MonoBehaviour
             hasExploded = false;
 
             // TomatoBombの位置からRayを飛ばす
-            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            // Ray ray = new Ray(transform.position, transform.forward);
+            Ray ray = new Ray(transform.position, transform.forward); // transform.forwardはTomatoBombの前方を表すベクトル
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
@@ -70,29 +80,28 @@ public class TomatoBombController : MonoBehaviour
         float rotationSpeed = CalculateRotationSpeed(distanceToEnemy);
 
         // Shootメソッドを呼び出して物体を飛ばす
-        Shoot(shootDirection.normalized * 2500f, upwardForce, rotationSpeed);
+        Shoot(shootDirection.normalized * 3000f, upwardForce, rotationSpeed);
         hasExploded = false;
     }
 
     public float CalculateUpwardForce(float distanceToEnemy)
     {
         // 距離が近いほど上向きの力を増やす
-        return Mathf.Max(150f, 600f - distanceToEnemy * 10f);
+        return Mathf.Max(300f, 900f - distanceToEnemy * 10f);
     }
 
     public float CalculateRotationSpeed(float distanceToEnemy)
     {
         // 距離が遠いほど回転速度を増やす
-        return Mathf.Min(200f, distanceToEnemy * 5f);
+        return Mathf.Min(300f, distanceToEnemy * 5f);
     }
 
     public void Shoot(Vector3 dir, float upwardForce, float rotationSpeed)
     {
         Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
 
-        // 回転のリセット
-        rb.rotation = initialRotation;
-
+        rb.rotation = Quaternion.identity;
         rb.AddTorque(new Vector3(1, 1, 1) * rotationSpeed, ForceMode.Impulse);
         rb.AddForce(Vector3.up * upwardForce);
         rb.AddForce(dir);

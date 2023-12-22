@@ -13,17 +13,12 @@ public class Tomato : CharacterScript
     {
         // ここで追加の初期化などを行うこともできます
     }
-    // public override void FrontAction()
-    // {
-    //     base.FrontAction();
+    public override void FrontAction()
+    {
+        base.FrontAction();
 
-    //     // TomatoBombControllerのAdjustForceメソッドから計算された値を取得
-    //     float upwardForce = tomatoBombController.CalculateUpwardForce();
-    //     float rotationSpeed = tomatoBombController.CalculateRotationSpeed();
+    }
 
-    //     // TomatoBombControllerのShootメソッドを呼び出す
-    //     tomatoBombController.Shoot(Vector3.forward * 2000f, upwardForce, rotationSpeed);
-    // }
     private void FrontActionSound()
     {
         // サウンド再生のロジック
