@@ -17,11 +17,9 @@ public class BattleDirector : MonoBehaviour
     Vector3 pos7 = new(-1, 1, -1);
     Vector3 pos8 = new(0, 1, -1);
     Vector3 pos9 = new(1, 1, -1);
-    [SerializeField] GameObject Character1;
-    [SerializeField] GameObject Character2;
-    [SerializeField] GameObject Character3;
-    [SerializeField] GameObject Character4;
-    [SerializeField] GameObject Character5;
+    GameObject gameDirectorObject;
+    private GameDirector gameDirector;
+
     [SerializeField] GameObject winEffect;  //勝利文字
     [SerializeField] GameObject loseEffect; //敗北文字
     [SerializeField] GameObject battleStartEffect; //出撃文字
@@ -31,15 +29,7 @@ public class BattleDirector : MonoBehaviour
     [SerializeField] UnityEngine.UI.Button skill3Button;
     List<UnityEngine.UI.Button> skillButtons = new List<UnityEngine.UI.Button>();
 
-
-    CharacterScript characterScript1;
-    CharacterScript characterScript2;
-    CharacterScript characterScript3;
-    CharacterScript characterScript4;
-    CharacterScript characterScript5;
-
     List<CharacterScript> characterScripts = new List<CharacterScript>();
-    List<GameObject> characterList = new List<GameObject>();
     Enemy1 enemyScript;
     bool isWin = false;
     bool isLose = false;
@@ -50,34 +40,22 @@ public class BattleDirector : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        // フレームレートを60に
-        Application.targetFrameRate = 60;
+        // GameDirectorの取得
+        gameDirectorObject = GameObject.Find("GameDirector");
+        gameDirector = gameDirectorObject.GetComponent<GameDirector>();
+        Debug.Log(gameDirector);
         // タイルのポジションをリスト化
         allPositions = new List<Vector3> { pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9 };
         //キャラクター1～5に場所を割り当てる
-        Character1.transform.position = pos1;
-        Character2.transform.position = pos2;
-        Character3.transform.position = pos6;
-        Character4.transform.position = pos7;
-        Character5.transform.position = pos9;
-        // リストにキャラクターを追加
-        characterList.Add(Character1);
-        characterList.Add(Character2);
-        characterList.Add(Character3);
-        characterList.Add(Character4);
-        characterList.Add(Character5);
-        // それぞれのキャラクタースクリプトを割り当てる
-        characterScript1 = Character1.GetComponent<CharacterScript>();
-        characterScript2 = Character2.GetComponent<CharacterScript>();
-        characterScript3 = Character3.GetComponent<CharacterScript>();
-        characterScript4 = Character4.GetComponent<CharacterScript>();
-        characterScript5 = Character5.GetComponent<CharacterScript>();
-        // スクリプトリストの作成
-        characterScripts.Add(characterScript1);
-        characterScripts.Add(characterScript2);
-        characterScripts.Add(characterScript3);
-        characterScripts.Add(characterScript4);
-        characterScripts.Add(characterScript5);
+        foreach (GameObject character in gameDirector.PartyMembers)
+        {
+            Debug.Log(character);
+            CharacterScript cs = character.GetComponent<CharacterScript>();
+            characterScripts.Add(cs);
+            Vector3 setpos = allPositions[cs.position - 1];
+            character.transform.position = new Vector3(setpos.x, 0.5f, setpos.z);
+            character.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
         // ボタンリストに追加
         Debug.Log(skill1Button);
         Debug.Log(skill2Button);
@@ -302,7 +280,7 @@ public class BattleDirector : MonoBehaviour
     }
     public void RotateFormation()  //ポジションロール
     {
-        foreach (GameObject Character in characterList)
+        foreach (GameObject Character in gameDirector.PartyMembers)
         {
             float posz = (Character.transform.position.z - 1 <= -2) ?
             Character.transform.position.z + 2 : Character.transform.position.z - 1;

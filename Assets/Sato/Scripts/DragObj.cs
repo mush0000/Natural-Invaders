@@ -16,6 +16,7 @@ public class DragObj : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     private Vector2 startSize;  //開始時点のサイズ
     private RectTransform rectTransform;    //自身のrectTransform
     private GameObject canvas3D;
+    private GridCheck gridCheck;    //取得したgridCheck
 
     void Start()
     {
@@ -49,7 +50,13 @@ public class DragObj : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         // ドラッグ開始時にマウスカーソルとオブジェクトの中心との差分を計算
         offset = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.WorldToScreenPoint(transform.position).z)) - transform.position;
         // ドラッグ開始時にサイズを変更widthとheightを150へ
-        // rectTransform.sizeDelta = new Vector2(150, 150);
+        rectTransform.sizeDelta = new Vector2(150, 150);
+        // gridCheckを所持していれば移動時にアタッチを外す
+        if (gridCheck != null)
+        {
+            gridCheck.attached = false;
+            Debug.Log("アタッチを外す");
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -82,10 +89,9 @@ public class DragObj : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         Vector3 rayDirection = endDragPosition - Camera.main.transform.position;
         Debug.Log("レイキャストをした");
         Debug.DrawRay(Camera.main.transform.position, rayDirection, Color.green);
-
         // 特定のレイヤーのみを検出するレイヤーマスクを作成
         int layerMask = 1 << LayerMask.NameToLayer("Grid");
-
+        bool shouldReset = true;
         if (Physics.Raycast(Camera.main.transform.position, rayDirection, out hit, Mathf.Infinity, layerMask))
         {
             // レイがヒットした場合は緑色で描画
@@ -94,22 +100,30 @@ public class DragObj : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
             // ヒットしたGameObjectの名前を取得
             string hitObjectName = hit.collider.gameObject.name;
             Debug.Log("ヒットしたGameObjectの名前: " + hitObjectName);
-            GridCheck gridCheck = hit.transform.GetComponent<GridCheck>();
-            if (gridCheck != null)    //gridCheckコンポーネントを所持していれば
+            gridCheck = hit.transform.GetComponent<GridCheck>();
+            if (gridCheck != null && !gridCheck.attached)
             {
-                // そのオブジェクトの子要素に切り替える
+                // gridCheckを持ち、かつアタッチされてなければ子要素に切り替える
                 transform.SetParent(hit.transform);
-                gameObject.transform.localPosition = new Vector3(0.1f, 0, 0.3f);
-                // rectTransform.sizeDelta = startSize;    //元のサイズに変更
+                gameObject.transform.localPosition = new Vector3(0.01f, 0, 0.4f);
+                gridCheck.attached = true;
+                shouldReset = false;
             }
+            // gridCheck.attached = false;
+            // gridCheck = null;
         }
-        else
+        if (shouldReset)
         {
-            // なにも当たらなかったら
-            this.transform.SetParent(startParentObject.transform);
-            rectTransform.sizeDelta = startSize;
-            transform.localPosition = startPos;
-            isSelfDrag = false;
+            ResetDefault();
         }
+    }
+
+    private void ResetDefault() //最初の場所に戻す
+    {
+        this.transform.SetParent(startParentObject.transform);
+        rectTransform.sizeDelta = startSize;
+        transform.localPosition = startPos;
+        gridCheck = null;
+        isSelfDrag = false;
     }
 }

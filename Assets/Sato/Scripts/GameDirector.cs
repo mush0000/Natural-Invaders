@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameDirector : MonoBehaviour
 {
     public List<GameObject> AllCharacters = new List<GameObject>(); //全キャラリスト
-    public List<GameObject> PartyMembers = new List<GameObject>();  //全パーティメンバーリスト
+    public List<GameObject> PartyMembers = new List<GameObject>(); //全パーティメンバーリスト
     [SerializeField] GameObject Character1;     //動作確認用
     [SerializeField] GameObject Character2;
     [SerializeField] GameObject Character3;
@@ -35,6 +35,8 @@ public class GameDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // フレームレートを60に
+        Application.targetFrameRate = 60;
         AllCharacters.Add(Character1);
         AllCharacters.Add(Character2);
         AllCharacters.Add(Character3);
@@ -42,7 +44,6 @@ public class GameDirector : MonoBehaviour
         AllCharacters.Add(Character5);
         AllCharacters.Add(Character6);
         AllCharacters.Add(Character7);
-
     }
 
     // Update is called once per frame
@@ -51,5 +52,8 @@ public class GameDirector : MonoBehaviour
 
     }
 
-
+    void RemoveNull()   //partyMemberで死亡した時にAllCharactersにnullが出てしまうためその要素を削除する
+    {
+        AllCharacters.RemoveAll(character => character == null);
+    }
 }
