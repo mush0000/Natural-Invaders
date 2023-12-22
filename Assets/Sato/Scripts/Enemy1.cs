@@ -4,8 +4,30 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
 {
-    public int enemyLife = 20;
-    public int enemyMaxLife = 20;
+    private int enemyLife = 15;
+
+    private int enemyMaxLife = 15;
+
+    public int EnemyLife
+    {
+        get
+        {
+            return enemyLife;
+        }
+        set
+        {
+            enemyLife = value;
+            if (OnLifeChanged != null)
+            {
+                OnLifeChanged.Invoke(); //着火しまーす！
+            }
+        }
+    }
+
+    public int EnemyMaxLife { get => enemyMaxLife; set => enemyMaxLife = value; }
+
+    public delegate void OnLifeChangedDelegate();
+    public event OnLifeChangedDelegate OnLifeChanged;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +43,8 @@ public class Enemy1 : MonoBehaviour
     public void EnemyAction()
     {
         Debug.Log("EnemyActionだよよよ!");
-        Debug.Log("勝手に1点食らうよ");
-        enemyLife--;
+        Debug.Log("勝手に2点食らうよ");
+        EnemyLife--;
+        EnemyLife--;
     }
 }

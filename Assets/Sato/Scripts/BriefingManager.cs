@@ -95,6 +95,7 @@ public class BriefingManager : MonoBehaviour
             }
             foreach (GameObject allchara in gameDirector.AllCharacters)
             {
+                allchara.transform.parent = null;
                 DontDestroyOnLoad(allchara);
                 allchara.SetActive(false);
             }
