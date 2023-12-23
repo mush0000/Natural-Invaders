@@ -35,11 +35,7 @@ public class FarmClickManager : MonoBehaviour
             image.gameObject.SetActive(true);//自身の画像を変更する
             seeds.isUsed = true;//種を植えたことにする
             farm.isEnpty = false;//畑が植えられたことにする
-            //選択しているseedsを解除する(何個でも植えられる問題を防止)
-            // if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != null)
-            // {
-            //     UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);  //フォーカスを外す
-            // }
+            seeds = null;//シードの選択を解除する
         }
     }
 
