@@ -2,6 +2,7 @@
  *  Author: ariel oliveira [o.arielg@gmail.com]
  */
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,17 +10,21 @@ public class ELifeBarController : MonoBehaviour
 {
     private GameObject[] heartContainers;
     private Image[] heartFills;
+    [SerializeField] GameObject enemy;
+    private Enemy1 enemyScript;
 
     public Transform heartsParent;
     public GameObject heartContainerPrefab;
-
+    private void Awake()
+    {
+        enemyScript = enemy.GetComponent<Enemy1>();
+        heartContainers = new GameObject[(int)enemyScript.EnemyMaxLife];
+        // heartFills = new Image[(int)PlayerStats.Instance.MaxTotalHealth];
+        heartFills = new Image[(int)enemyScript.EnemyLife];
+    }
     private void Start()
     {
-        // Should I use lists? Maybe :)
-        heartContainers = new GameObject[(int)PlayerStats.Instance.MaxTotalHealth];
-        heartFills = new Image[(int)PlayerStats.Instance.MaxTotalHealth];
-
-        PlayerStats.Instance.onHealthChangedCallback += UpdateHeartsHUD;
+        enemyScript.OnLifeChanged += UpdateHeartsHUD;
         InstantiateHeartContainers();
         UpdateHeartsHUD();
     }
@@ -34,7 +39,7 @@ public class ELifeBarController : MonoBehaviour
     {
         for (int i = 0; i < heartContainers.Length; i++)
         {
-            if (i < PlayerStats.Instance.MaxHealth)
+            if (i < enemyScript.EnemyMaxLife)
             {
                 heartContainers[i].SetActive(true);
             }
@@ -49,26 +54,30 @@ public class ELifeBarController : MonoBehaviour
     {
         for (int i = 0; i < heartFills.Length; i++)
         {
-            if (i < PlayerStats.Instance.Health)
+            if (i < enemyScript.EnemyLife)
             {
-                heartFills[i].fillAmount = 1;
+                heartFills[i].fillAmount = 1;   //Imageが表示される
             }
             else
             {
-                heartFills[i].fillAmount = 0;
+                heartFills[i].fillAmount = 0;   //Imageが表示されない
             }
         }
 
-        if (PlayerStats.Instance.Health % 1 != 0)
+        if (enemyScript.EnemyLife % 1 != 0)
         {
-            int lastPos = Mathf.FloorToInt(PlayerStats.Instance.Health);
-            heartFills[lastPos].fillAmount = PlayerStats.Instance.Health % 1;
+            int lastPos = Mathf.FloorToInt(enemyScript.EnemyLife);
+            heartFills[lastPos].fillAmount = enemyScript.EnemyLife % 1;
         }
     }
 
     void InstantiateHeartContainers()
     {
-        for (int i = 0; i < PlayerStats.Instance.MaxTotalHealth; i++)
+        // // 必要に応じてheartFills配列の長さを調整？
+        // if (heartFills.Length < enemyScript.enemyMaxLife){
+        //     Array.Resize(ref heartFills, enemyScript.enemyMaxLife);
+        // }
+        for (int i = 0; i < enemyScript.EnemyMaxLife; i++)
         {
             GameObject temp = Instantiate(heartContainerPrefab);
             temp.transform.SetParent(heartsParent, false);

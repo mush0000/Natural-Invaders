@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,20 +9,19 @@ using UnityEngine.UIElements;
 public class BattleDirector : MonoBehaviour
 {
     [SerializeField] GameObject enemy;
-    Vector3 pos1 = new(-1, 1, 1);
-    Vector3 pos2 = new(0, 1, 1);
-    Vector3 pos3 = new(1, 1, 1);
-    Vector3 pos4 = new(-1, 1, 0);
-    Vector3 pos5 = new(0, 1, 0);
-    Vector3 pos6 = new(1, 1, 0);
-    Vector3 pos7 = new(-1, 1, -1);
-    Vector3 pos8 = new(0, 1, -1);
-    Vector3 pos9 = new(1, 1, -1);
-    [SerializeField] GameObject Character1;
-    [SerializeField] GameObject Character2;
-    [SerializeField] GameObject Character3;
-    [SerializeField] GameObject Character4;
-    [SerializeField] GameObject Character5;
+    private float characterGroundLevel = 0.5f;  //キャラクターのY座標の高さ
+    Vector3 pos1;
+    Vector3 pos2;
+    Vector3 pos3;
+    Vector3 pos4;
+    Vector3 pos5;
+    Vector3 pos6;
+    Vector3 pos7;
+    Vector3 pos8;
+    Vector3 pos9;
+    GameObject gameDirectorObject;
+    private GameDirector gameDirector;
+
     [SerializeField] GameObject winEffect;  //勝利文字
     [SerializeField] GameObject loseEffect; //敗北文字
     [SerializeField] GameObject battleStartEffect; //出撃文字
@@ -31,15 +31,7 @@ public class BattleDirector : MonoBehaviour
     [SerializeField] UnityEngine.UI.Button skill3Button;
     List<UnityEngine.UI.Button> skillButtons = new List<UnityEngine.UI.Button>();
 
-
-    CharacterScript characterScript1;
-    CharacterScript characterScript2;
-    CharacterScript characterScript3;
-    CharacterScript characterScript4;
-    CharacterScript characterScript5;
-
     List<CharacterScript> characterScripts = new List<CharacterScript>();
-    List<GameObject> characterList = new List<GameObject>();
     Enemy1 enemyScript;
     bool isWin = false;
     bool isLose = false;
@@ -50,38 +42,30 @@ public class BattleDirector : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        // フレームレートを60に
-        Application.targetFrameRate = 60;
+        // POSの定義
+        pos1 = new(-1, characterGroundLevel, 1);
+        pos2 = new(0, characterGroundLevel, 1);
+        pos3 = new(1, characterGroundLevel, 1);
+        pos4 = new(-1, characterGroundLevel, 0);
+        pos5 = new(0, characterGroundLevel, 0);
+        pos6 = new(1, characterGroundLevel, 0);
+        pos7 = new(-1, characterGroundLevel, -1);
+        pos8 = new(0, characterGroundLevel, -1);
+        pos9 = new(1, characterGroundLevel, -1);
+        // GameDirectorの取得
+        gameDirectorObject = GameObject.Find("GameDirector");
+        gameDirector = gameDirectorObject.GetComponent<GameDirector>();
         // タイルのポジションをリスト化
         allPositions = new List<Vector3> { pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9 };
         //キャラクター1～5に場所を割り当てる
-        Character1.transform.position = pos1;
-        Character2.transform.position = pos2;
-        Character3.transform.position = pos6;
-        Character4.transform.position = pos7;
-        Character5.transform.position = pos9;
-        // リストにキャラクターを追加
-        characterList.Add(Character1);
-        characterList.Add(Character2);
-        characterList.Add(Character3);
-        characterList.Add(Character4);
-        characterList.Add(Character5);
-        // それぞれのキャラクタースクリプトを割り当てる
-        characterScript1 = Character1.GetComponent<CharacterScript>();
-        characterScript2 = Character2.GetComponent<CharacterScript>();
-        characterScript3 = Character3.GetComponent<CharacterScript>();
-        characterScript4 = Character4.GetComponent<CharacterScript>();
-        characterScript5 = Character5.GetComponent<CharacterScript>();
-        // スクリプトリストの作成
-        characterScripts.Add(characterScript1);
-        characterScripts.Add(characterScript2);
-        characterScripts.Add(characterScript3);
-        characterScripts.Add(characterScript4);
-        characterScripts.Add(characterScript5);
+        foreach (GameObject character in gameDirector.PartyMembers)
+        {   //パーティーメンバーの初期配置
+            CharacterScript cs = character.GetComponent<CharacterScript>();
+            characterScripts.Add(cs);
+            character.transform.position = allPositions[cs.position - 1];
+            character.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
         // ボタンリストに追加
-        Debug.Log(skill1Button);
-        Debug.Log(skill2Button);
-        Debug.Log(skill3Button);
         skillButtons.Add(skill1Button);
         skillButtons.Add(skill2Button);
         skillButtons.Add(skill3Button);
@@ -115,12 +99,14 @@ public class BattleDirector : MonoBehaviour
                 break;
             }
             //敵のターン
-            ActionEnemyTurn();
+            yield return StartCoroutine(ActionEnemyTurn());
             Judge();
             //3列目回復
             yield return StartCoroutine(BackLineHeal());
-            //ロール
-            // RotateFormation();
+            if (!(isWin == false && isLose == false))
+            {
+                break;
+            }
             yield return StartCoroutine(PlayerAction());
         }
     }
@@ -182,23 +168,24 @@ public class BattleDirector : MonoBehaviour
     }
 
 
-    void ActionEnemyTurn()
+    IEnumerator ActionEnemyTurn()
     {
         enemyScript.EnemyAction();
+        yield return new WaitForSeconds(0.2f);
     }
     IEnumerator BattleStart()
     {
         //バトルスタート演出
         battleStartEffect.SetActive(true);
-        // 3秒待つ
-        yield return new WaitForSeconds(3);
-        // 3秒後にSetActiveをfalseにする
+        // n秒待つ
+        yield return new WaitForSeconds(2);
+        // n秒後にSetActiveをfalseにする
         battleStartEffect.SetActive(false);
     }
 
     void Judge()    //生死判定
     {
-        if (enemyScript.enemyLife <= 0)  //敵のライフが0なら即勝利
+        if (enemyScript.EnemyLife <= 0)  //敵のライフが0なら即勝利
         {
             isWin = true;
             EndingStage();
@@ -280,7 +267,7 @@ public class BattleDirector : MonoBehaviour
         // Y座標の高さが最大値になるようにピークポジションを設定
         Vector3 peakPosition = midPosition + new Vector3(0, jumpHeight, 0);
         Vector3 endPosition = targetPosition;
-        endPosition.y = 1;
+        endPosition.y = characterGroundLevel;
         float elapsed = 0;  //日本語で経過時間
         // durationは日本語で間隔、経過時間が指定した時間の半分に満ちたら走るwhile文が変わるよ
         // 上昇
@@ -302,13 +289,14 @@ public class BattleDirector : MonoBehaviour
     }
     public void RotateFormation()  //ポジションロール
     {
-        foreach (GameObject Character in characterList)
+        foreach (GameObject Character in gameDirector.PartyMembers)
         {
-            float posz = (Character.transform.position.z - 1 <= -2) ?
-            Character.transform.position.z + 2 : Character.transform.position.z - 1;
+            CharacterScript cs = Character.GetComponent<CharacterScript>();
+            cs.position = ((cs.position + 2) % 9) + 1;  //characterscriptのposition更新
+            float posz = allPositions[cs.position - 1].z;   //allPositionのz座標
             //前列が中列へ移動～後列は前列へ
             Vector3 targetPosition = new Vector3(Character.transform.position.x, Character.transform.position.y, posz);
-            float jumpHeight = (posz == 1) ? 0.8f : 0.3f;   //左が最後列から前へ飛ぶ高さ、右がその他の列の高さ
+            float jumpHeight = (posz == 1) ? 0.8f : 0.3f;   //左が最後列から前へ飛ぶ高さ、右がその他の列の高さ posz1は位置番手前の列
             StartCoroutine(MoveOverTime(Character, targetPosition, 0.2f, jumpHeight));
         }
     }
@@ -325,9 +313,9 @@ public class BattleDirector : MonoBehaviour
     }
     IEnumerator Skill1DmgEnemy()
     {
-        int dmg = (int)(enemyScript.enemyLife * 0.1);
+        int dmg = (int)(enemyScript.EnemyLife * 0.1);
         if (dmg <= 0) { dmg = 1; };
-        enemyScript.enemyLife -= dmg;
+        enemyScript.EnemyLife -= dmg;
         //何かしらのエフェクト、効果音
         yield return new WaitForSeconds(0.5f); //エフェクトや効果音の再生時間
     }
