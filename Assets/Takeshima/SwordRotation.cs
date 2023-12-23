@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObjectEffects : MonoBehaviour
+public class SwordEffects : MonoBehaviour
 {
     public ParticleSystem rotationEffect; // パーティクルシステム
     public AudioSource rotationSound; // オーディオソース

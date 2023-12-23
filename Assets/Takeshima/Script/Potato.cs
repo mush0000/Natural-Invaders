@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Potato : CharacterScript
 {
+    private GameObject Sword; // Swordオブジェクト
+    private GameObject Shield; // Shieldオブジェクト
+    private bool isSwordOn = false; // Swordオブジェクトのオン/オフの状態を管理
+    private bool isShieldOn = false; // Shieldオブジェクトのオン/オフの状態を管理
+
     public Potato() : base("Potato", 25, 5, 0, 0, 15, 0)
     {
         // 親クラス(CharacterScript)のコンストラクタを呼び出す
@@ -14,6 +19,14 @@ public class Potato : CharacterScript
     {
         base.FrontAction();
         // 固有キャラの前列行動の処理を追加
+    }
+
+    void ToggleSword()
+    {
+        // オンの場合はオフに、オフの場合はオンにする
+        Sword.SetActive(!isSwordOn);
+        // 状態を反転
+        isSwordOn = !isSwordOn;
     }
     private void FrontActionSound()
     {
@@ -31,6 +44,14 @@ public class Potato : CharacterScript
     {
         base.MiddleAction();
         // Potato独自の中列行動の処理を追加
+    }
+
+    void ToggleShield()
+    {
+        // オンの場合はオフに、オフの場合はオンにする
+        Shield.SetActive(!isShieldOn);
+        // 状態を反転
+        isShieldOn = !isShieldOn;
     }
     public override void BackAction()
     {
@@ -78,14 +99,22 @@ public class Potato : CharacterScript
 
 
     // Start is called before the first frame update
-    // void Start()
-    // {
+    void Start()
+    {
+        // SwordとShieldオブジェクトを取得
+        Sword = transform.Find("Sword").gameObject;
+        Shield = transform.Find("Shield").gameObject;
+    }
 
-    // }
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
+    // Update is called once per frame
+    void Update()
+    {
+        // マウスの左クリックがされたら
+        if (Input.GetMouseButtonDown(0))
+        {
+            // オンとオフを切り替えるメソッドを呼び出す
+            ToggleSword();
+            ToggleShield();
+        }
+    }
 }
