@@ -1,17 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
-public class Knight : CharacterScript
+public class PLifeBarController : MonoBehaviour
 {
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
     // Start is called before the first frame update
     void Start()
     {
-        characterLife = 30;
+
     }
 
     // Update is called once per frame

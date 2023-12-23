@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Knight : CharacterScript
+public class GridCheck : MonoBehaviour
 {
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+    public int position;
+    public bool attached = false;
     // Start is called before the first frame update
     void Start()
     {
-        characterLife = 30;
+
     }
 
     // Update is called once per frame
