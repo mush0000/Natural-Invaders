@@ -27,7 +27,6 @@ public class CharacterScript : MonoBehaviour
     public GameObject attackEffectPrefab;  // 前列攻撃のエフェクトプレハブ
     public AudioClip attackSound;
 
-
     public int CharacterLife
     {
         get { return characterLife; }
