@@ -36,11 +36,12 @@ public class Enemy1 : MonoBehaviour
 
     }
 
-    public void EnemyAction()
+    public void EnemyAction(int turnCount)
     {
+        EnemyLife--;
+        EnemyLife--;
+        Debug.Log($"{turnCount}ターン目のアクションだよ");
         Debug.Log("EnemyActionだよよよ!");
         Debug.Log("勝手に2点食らうよ");
-        EnemyLife--;
-        EnemyLife--;
     }
 }

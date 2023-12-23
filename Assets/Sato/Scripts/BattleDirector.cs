@@ -21,6 +21,7 @@ public class BattleDirector : MonoBehaviour
     Vector3 pos9;
     GameObject gameDirectorObject;
     private GameDirector gameDirector;
+    [SerializeField] int turnCount = 0;
 
     [SerializeField] GameObject winEffect;  //勝利文字
     [SerializeField] GameObject loseEffect; //敗北文字
@@ -92,6 +93,7 @@ public class BattleDirector : MonoBehaviour
     {
         while (isWin == false && isLose == false)
         {
+            turnCount++;
             //味方のターン        
             yield return StartCoroutine(ActionPlayerTurn());
             if (isWin || isLose)
@@ -170,7 +172,7 @@ public class BattleDirector : MonoBehaviour
 
     IEnumerator ActionEnemyTurn()
     {
-        enemyScript.EnemyAction();
+        enemyScript.EnemyAction(turnCount);
         yield return new WaitForSeconds(0.2f);
     }
     IEnumerator BattleStart()
