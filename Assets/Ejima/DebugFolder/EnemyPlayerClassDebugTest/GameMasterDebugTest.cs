@@ -26,18 +26,15 @@ public class GameMasterDebugTest : MonoBehaviour
         }
         //* debugEnd
 
-
-        EnemyChildTest enemyChildTest = gameObject.AddComponent<EnemyChildTest>();
-        enemyChildTest.Initialize(EnemyKind.beetle);
+        BeetleEnemyChild beetleEnemyChild = gameObject.AddComponent<BeetleEnemyChild>();
+        beetleEnemyChild.Initialize(EnemyKind.beetle);
 
         //! debugStart
-        Debug.Log($"eAtk: {enemyChildTest.EnemyAttack}, eLife: {enemyChildTest.EnemyLife}, eMaxLife: {enemyChildTest.EnemyMaxLife}");
 
-
-        enemyChildTest.EnemyCharge(); //* 「溜める」行動
-        enemyChildTest.EnemyGroupAttack(players); //* 最前列攻撃
-        enemyChildTest.EnemySingleAttack(players); //* 最前列中対象ランダム単体攻撃
-        enemyChildTest.EnemyHeal(); //* 100固定自己回復
+        beetleEnemyChild.EnemyCharge(); //* 「溜める」行動
+        beetleEnemyChild.EnemyGroupAttack(players); //* 最前列攻撃
+        beetleEnemyChild.EnemySingleAttack(players); //* 最前列中対象ランダム単体攻撃
+        beetleEnemyChild.EnemyHeal(); //* 100固定自己回復
 
     }
 }

@@ -5,23 +5,22 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-// 職業Enum
 public enum EnemyKind
 {
-    ant,        // アリ
-    mantis,     // カマキリ
-    bee,        //ハチ
-    beetle,     // カブトムシ
+    //! 職業Enum
+    ant,        //! アリ
+    mantis,     //! カマキリ
+    bee,        //! ハチ
+    beetle,     //! カブトムシ
 }
 
-public class EnemyChildTest : MonoBehaviour
+public abstract class EnemyParent : MonoBehaviour
 {
     //! Enemyステータス群
     private string enemyName;               //! 名前
     private int enemyAttack;                //! 攻撃力
     private int enemyLife;                  //! 現在HP
     private int enemyMaxLife;               //! 最大HP(超過回復防止用)
-    private int enemyActionPatternNum;      //! 行動パターン変数
 
     //! Enemy詳細ステータス群
     private bool enemyChargeFlag = false;   //!「溜める」管理フラグ
@@ -45,7 +44,6 @@ public class EnemyChildTest : MonoBehaviour
         }
     }
     public int EnemyMaxLife { get => enemyMaxLife; set => enemyMaxLife = value; }
-    public int EnemyActionPatternNum { get => enemyActionPatternNum; set => enemyActionPatternNum = value; }
     public delegate void OnLifeChangedDelegate();
     public event OnLifeChangedDelegate OnLifeChanged;
 
@@ -58,28 +56,24 @@ public class EnemyChildTest : MonoBehaviour
                 EnemyName = "ant";
                 EnemyLife = 500;
                 EnemyAttack = 100;
-                EnemyActionPatternNum = 1;
                 break;
 
             case EnemyKind.mantis:
                 EnemyName = "mantis";
                 EnemyLife = 1000;
                 EnemyAttack = 200;
-                EnemyActionPatternNum = 2;
                 break;
 
             case EnemyKind.bee:
                 EnemyName = "bee";
                 EnemyLife = 1500;
                 EnemyAttack = 300;
-                EnemyActionPatternNum = 3;
                 break;
 
             case EnemyKind.beetle:
                 EnemyName = "beetle";
                 EnemyLife = 2000;
                 EnemyAttack = 400;
-                EnemyActionPatternNum = 4;
                 break;
 
             default:
@@ -89,38 +83,7 @@ public class EnemyChildTest : MonoBehaviour
     }
 
     //! 「行動パターン」分岐
-    public virtual void EnemyAction()
-    {
-        // int actionCount;
-        switch (EnemyActionPatternNum)
-        {
-            case 1:
-                // switch ()
-                // {
-                //     case 1:
-                //         break;
-                // }
-                break;
-
-            case 2:
-                break;
-
-            case 3:
-                break;
-
-            case 4:
-                break;
-
-            default:
-                break;
-        }
-    }
-    //!
-    // private void FuncCount()
-    // {
-    //     int count = 0;
-    //     count++;
-    // }
+    public abstract void EnemyAction(int turnCount);
 
     //! 「溜める」行動
     public void EnemyCharge()
@@ -254,6 +217,4 @@ public class EnemyChildTest : MonoBehaviour
             }
         }
     }
-
-
 }
