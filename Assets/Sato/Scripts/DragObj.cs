@@ -55,7 +55,6 @@ public class DragObj : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         if (gridCheck != null)
         {
             gridCheck.attached = false;
-            Debug.Log("アタッチを外す");
         }
     }
 
@@ -87,7 +86,6 @@ public class DragObj : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         // ドラッグが終了した座標にあるオブジェクトを検出
         RaycastHit hit;
         Vector3 rayDirection = endDragPosition - Camera.main.transform.position;
-        Debug.Log("レイキャストをした");
         Debug.DrawRay(Camera.main.transform.position, rayDirection, Color.green);
         // 特定のレイヤーのみを検出するレイヤーマスクを作成
         int layerMask = 1 << LayerMask.NameToLayer("Grid");
@@ -96,10 +94,8 @@ public class DragObj : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         {
             // レイがヒットした場合は緑色で描画
             Debug.DrawRay(Camera.main.transform.position, rayDirection, Color.green);
-            Debug.Log("レイキャストがあたった");
             // ヒットしたGameObjectの名前を取得
             string hitObjectName = hit.collider.gameObject.name;
-            Debug.Log("ヒットしたGameObjectの名前: " + hitObjectName);
             gridCheck = hit.transform.GetComponent<GridCheck>();
             if (gridCheck != null && !gridCheck.attached)
             {

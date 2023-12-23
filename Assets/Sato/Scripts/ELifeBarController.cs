@@ -24,8 +24,6 @@ public class ELifeBarController : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log(heartContainers.Length + "ここだよ");
-        Debug.Log(enemyScript.EnemyMaxLife);
         enemyScript.OnLifeChanged += UpdateHeartsHUD;
         InstantiateHeartContainers();
         UpdateHeartsHUD();
@@ -56,15 +54,12 @@ public class ELifeBarController : MonoBehaviour
     {
         for (int i = 0; i < heartFills.Length; i++)
         {
-            Debug.Log(heartFills.Length);
             if (i < enemyScript.EnemyLife)
             {
-                Debug.Log("来てる？");
                 heartFills[i].fillAmount = 1;   //Imageが表示される
             }
             else
             {
-                Debug.Log("来てない？");
                 heartFills[i].fillAmount = 0;   //Imageが表示されない
             }
         }

@@ -55,7 +55,6 @@ public class BattleDirector : MonoBehaviour
         // GameDirectorの取得
         gameDirectorObject = GameObject.Find("GameDirector");
         gameDirector = gameDirectorObject.GetComponent<GameDirector>();
-        Debug.Log(gameDirector);
         // タイルのポジションをリスト化
         allPositions = new List<Vector3> { pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9 };
         //キャラクター1～5に場所を割り当てる
@@ -67,9 +66,6 @@ public class BattleDirector : MonoBehaviour
             character.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
         // ボタンリストに追加
-        Debug.Log(skill1Button);
-        Debug.Log(skill2Button);
-        Debug.Log(skill3Button);
         skillButtons.Add(skill1Button);
         skillButtons.Add(skill2Button);
         skillButtons.Add(skill3Button);

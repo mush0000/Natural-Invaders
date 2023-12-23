@@ -83,7 +83,6 @@ public class BriefingManager : MonoBehaviour
         {
             GetChara getChara = gridParent.GetComponent<GetChara>();
             List<GameObject> list = getChara.Get();
-            Debug.Log(gameDirector.PartyMembers);
             gameDirector.PartyMembers = list;
             foreach (GameObject partyCharacter in gameDirector.PartyMembers)
             {

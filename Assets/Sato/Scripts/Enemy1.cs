@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
 {
-    private int enemyLife = 15;
-
-    private int enemyMaxLife = 15;
-
+    private int enemyLife = 30;
+    private int enemyMaxLife = 30;
     public int EnemyLife
     {
         get
@@ -23,9 +21,7 @@ public class Enemy1 : MonoBehaviour
             }
         }
     }
-
     public int EnemyMaxLife { get => enemyMaxLife; set => enemyMaxLife = value; }
-
     public delegate void OnLifeChangedDelegate();
     public event OnLifeChangedDelegate OnLifeChanged;
     // Start is called before the first frame update
