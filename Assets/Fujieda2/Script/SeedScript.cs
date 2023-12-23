@@ -6,29 +6,29 @@ using UnityEngine.UI;
 
 public class SeedScript : MonoBehaviour
 {
-    //動作確認用のキャラクターインスタンススクリプト
-    //1.畑に植える=>farmField == falseの時植えられる
-    //2.field == true の時はボタンが押せない
-    public bool field;
+    //動作確認用 キャラクターインスタンススクリプト
+    //仕様によってはリスト型にしてそのまま使うことになるかも?
+    //1.畑に植える=>(farm.isEnpty = true)かつ(isUsed = false)の時植えられる
+    //2.(isUsed = true) の時はボタンが押せない
+    public bool isUsed = false;
     public Image image;
 
-    public int fresh;
+    public int fresh = -5;
 
     public SeedScript(int fresh)
     {
         this.fresh = fresh;
     }
 
-    public void SelectButton()
+    public void SeedSelectButton()
     {
-        Debug.Log("selectbutton");
-        FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectChar()へインスタンスを渡す
-        field = false;
+        Debug.Log("SeedSelectbutton");//動作確認用
+        FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
     }
     // Start is called before the first frame update
     void Start()
     {
-        if (field == true)
+        if (isUsed == true)
         {
             Button btn = GetComponent<Button>();
             btn.interactable = false;
@@ -38,7 +38,7 @@ public class SeedScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (field == true)
+        if (isUsed == true)
         {
             Button btn = GetComponent<Button>();
             btn.interactable = false;

@@ -7,13 +7,17 @@ public class FarmField : MonoBehaviour
 {
     //このクラスの役割
     //畑画面に必要な処理全般を行う
-    //1.種状態で植えられるものをスクロールビューに追加する
-    //2.tagがついているものを畝(ウネ)に表示する
-
+    //1.種状態のものをスクロールビューに追加する
+    //2.種(field == true)のものを畝(ウネ)に表示する
+    //3.畑に種があるなら、その畑ボタンは押せないようにする
+    //4.畑に種があるなら、その種インスタンスのボタンは押せないようにする
 
     public int fresh;//プレイヤーごとの鮮度を保存
     public int FRESHCOUNT = 1;//戦闘終了時に鮮度が進む(定数)
     public CharacterScript[] characters;//動作確認用のキャラクター配列
+
+    public SeedScript seeds;//確認用seedスクリプト
+    public bool isEnpty;
 
     //[SerializeField] Button button;
 
@@ -29,17 +33,30 @@ public class FarmField : MonoBehaviour
     //         }
     //     }
     // }
+    public void FarmNotSeed()//ボタンを押せなくするメソッド
+    {
+        if (isEnpty == false)//true （種が植えてある）畑はボタンが押せなくなる
+        {
+            Button btn = GetComponent<Button>();
+            btn.interactable = false;
+        }
 
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        FarmNotSeed();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isEnpty == false)//true （種が植えてある）畑はボタンが押せなくなる
+        {
+            FarmNotSeed();
+        }
+
         // for (int i = 0; i < characters.Length; i++)
         // {
         //     if (characters[i].position == 0) return;//ポジション0の場合はリターン
