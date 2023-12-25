@@ -12,30 +12,23 @@ public class BeetleEnemyChild : EnemyParent
         int actionPatternCalc = turnCount % 10;
         switch (actionPatternCalc)
         {
-            case 1:
-                EnemySingleAttack(players);
-                break;
             case 2:
-                EnemySingleAttack(players);
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
+                EnemyCharge();
                 break;
             case 7:
-                break;
-            case 8:
+                EnemyGroupAttack(players);
                 break;
             case 9:
+                for (int i = 0; i < 3; i++)
+                {
+                    EnemySingleAttack(players);
+                }
                 break;
             case 10:
                 break;
+            default:
+                EnemySingleAttack(players);
+                break;
         }
-
     }
-
 }
