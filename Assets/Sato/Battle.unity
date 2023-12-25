@@ -1068,6 +1068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1068431458}
+  turnCount: 0
   winEffect: {fileID: 1809065018}
   loseEffect: {fileID: 657473506}
   battleStartEffect: {fileID: 1425188322}
@@ -1075,6 +1076,8 @@ MonoBehaviour:
   skill1Button: {fileID: 1771240942}
   skill2Button: {fileID: 481186155}
   skill3Button: {fileID: 1983241931}
+  win1ParticlePrefab: {fileID: 3457591932055986056, guid: fc3b0f4e3dbc182419244c151e4b8a92, type: 3}
+  win2ParticlePrefab: {fileID: 3935644192709776733, guid: 71ffd1a69c3442548a027c22b4145525, type: 3}
 --- !u!4 &711935428
 Transform:
   m_ObjectHideFlags: 0

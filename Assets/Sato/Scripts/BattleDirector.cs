@@ -39,6 +39,8 @@ public class BattleDirector : MonoBehaviour
     List<Vector3> allPositions;
     bool isSkillUsed = false;   //スキルを使ったかどうか、使ってたらtrue
     bool playerHasActed = false;    //プレイヤーが行動したかどうか
+    [SerializeField] GameObject win1ParticlePrefab;
+    [SerializeField] GameObject win2ParticlePrefab;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -218,6 +220,14 @@ public class BattleDirector : MonoBehaviour
         if (isWin == true)
         {
             winEffect.SetActive(true);
+            GameObject win1Particle = Instantiate(win1ParticlePrefab);
+            GameObject win2Particle = Instantiate(win1ParticlePrefab);
+            win1Particle.transform.position = new Vector3(-2, 5, 2); // 再生位置を設定
+            win2Particle.transform.position = new Vector3(2, 5, 2); // 再生位置を設定
+            ParticleSystem win1ParticleSystem = win1Particle.GetComponent<ParticleSystem>();
+            ParticleSystem win2ParticleSystem = win2Particle.GetComponent<ParticleSystem>();
+            win1ParticleSystem.Play();
+            win2ParticleSystem.Play();
         }
         if (isLose == true)
         {
