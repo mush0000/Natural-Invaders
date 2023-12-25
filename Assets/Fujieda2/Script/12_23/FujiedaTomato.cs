@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FujiedaTomato : CharacterScript
 {
@@ -74,18 +75,39 @@ public class FujiedaTomato : CharacterScript
         // キャラの生死判定
     }
 
+    //畑画面実装用-------------------------------------------------------
 
+    public bool isPlanted = false;
+    public int fresh = -5;
 
+    public FujiedaTomato(int fresh)
+    {
+        this.fresh = fresh;
+    }
 
-    // Start is called before the first frame update
-    // void Start()
-    // {
+    public void SeedSelectButton()
+    {
+        Debug.Log("SeedSelectbutton");//動作確認用
+        FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
+    }
+    //Start is called before the first frame update
+    void Start()
+    {
+        if (isPlanted == true)
+        {
+            Button btn = GetComponent<Button>();
+            btn.interactable = false;
+        }
+    }
 
-    // }
+    // Update is called once per frame
+    void Update()
+    {
+        if (isPlanted == true)
+        {
+            Button btn = GetComponent<Button>();
+            btn.interactable = false;
+        }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
+    }
 }

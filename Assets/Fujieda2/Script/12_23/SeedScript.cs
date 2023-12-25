@@ -10,7 +10,7 @@ public class SeedScript : MonoBehaviour
     //仕様によってはリスト型にしてそのまま使うことになるかも?
     //1.畑に植える=>(farm.isEnpty = true)かつ(isUsed = false)の時植えられる
     //2.(isUsed = true) の時はボタンが押せない
-    public bool isUsed = false;
+    public bool isPlanted = false;
     public Image image;
 
     public int fresh = -5;
@@ -23,12 +23,12 @@ public class SeedScript : MonoBehaviour
     public void SeedSelectButton()
     {
         Debug.Log("SeedSelectbutton");//動作確認用
-        FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
+        //FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
     }
     // Start is called before the first frame update
     void Start()
     {
-        if (isUsed == true)
+        if (isPlanted == true)
         {
             Button btn = GetComponent<Button>();
             btn.interactable = false;
@@ -38,7 +38,7 @@ public class SeedScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isUsed == true)
+        if (isPlanted == true)
         {
             Button btn = GetComponent<Button>();
             btn.interactable = false;
