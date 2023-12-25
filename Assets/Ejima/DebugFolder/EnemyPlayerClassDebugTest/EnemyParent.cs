@@ -16,7 +16,7 @@ public enum EnemyKind
 
 public abstract class EnemyParent : MonoBehaviour
 {
-    //! enemyステータス群
+    //! Enemyステータス群
     private string enemyName;               //! 名前
     private int enemyAttack;                //! 攻撃力
     private int enemyLife;                  //! 現在HP
@@ -24,9 +24,8 @@ public abstract class EnemyParent : MonoBehaviour
 
     //! Enemy詳細ステータス群
     private bool enemyChargeFlag = false;   //!「溜める」管理フラグ
-    public int enemyHealValue = 100;        //!回復値
-    public int enemyChargeMagnification = 2;//!「溜める」倍率
-
+    private int enemyHealValue = 100;        //!回復値
+    private int enemyChargeMagnification = 2;    //!「溜める」倍率
 
     //! 各getter,setter
     public string EnemyName { get => enemyName; set => enemyName = value; }
@@ -44,6 +43,8 @@ public abstract class EnemyParent : MonoBehaviour
         }
     }
     public int EnemyMaxLife { get => enemyMaxLife; set => enemyMaxLife = value; }
+    public int EnemyChargeMagnification { get => enemyChargeMagnification; set => enemyChargeMagnification = value; }
+
     public delegate void OnLifeChangedDelegate();
     public event OnLifeChangedDelegate OnLifeChanged;
 
@@ -88,14 +89,14 @@ public abstract class EnemyParent : MonoBehaviour
     //! 「溜める」行動
     public void EnemyCharge()
     {
-        enemyAttack *= enemyChargeMagnification; //* 2倍Atk
+        EnemyAttack *= EnemyChargeMagnification; //* 2倍Atk
         enemyChargeFlag = true;
     }
 
     //! 「溜める」解除_ヘルパー関数
     private void EnemyChargeInvalid()
     {
-        enemyAttack /= enemyChargeMagnification; //* 2倍Atkを1倍に戻す
+        enemyAttack /= EnemyChargeMagnification; //* 2倍Atkを1倍に戻す
         enemyChargeFlag = false;
     }
 
@@ -119,7 +120,7 @@ public abstract class EnemyParent : MonoBehaviour
         List<PlayerChildTest> targetGroup = SelectTargetGroups(characters);
         PlayerChildTest targetCharacter = SelectCharacterFromRow(targetGroup);
 
-        enemyAttack -= targetCharacter.PlayerDaux;
+        enemyAttack -= targetCharacter.PlayerDaux;  //! 
         targetCharacter.PlayerLife -= enemyAttack;
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。

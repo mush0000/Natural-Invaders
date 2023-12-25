@@ -6,6 +6,7 @@ using UnityEngine;
 public class BeetleEnemyChild : EnemyParent
 {
     List<PlayerChildTest> players = new();
+
     public override void EnemyAction(int turnCount)
     {
         //! 10回周期
@@ -23,8 +24,6 @@ public class BeetleEnemyChild : EnemyParent
                 {
                     EnemySingleAttack(players);
                 }
-                break;
-            case 10:
                 break;
             default:
                 EnemySingleAttack(players);
