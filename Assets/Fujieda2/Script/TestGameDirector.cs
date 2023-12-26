@@ -11,6 +11,7 @@ public class TestGameDirector : MonoBehaviour
     public List<FujiedaTomato> AllCharacters = new List<FujiedaTomato>(); //全キャラリスト
     //public List<GameObject> PartyMembers = new List<GameObject>(); //全パーティメンバーリスト
     public List<FujiedaTomato> PlantedSeedCharacters = new List<FujiedaTomato>(); //植えた種リスト
+
     [SerializeField] FujiedaTomato Character1;//動作確認用
     [SerializeField] FujiedaTomato Character2;
     [SerializeField] FujiedaTomato Character3;
@@ -49,6 +50,14 @@ public class TestGameDirector : MonoBehaviour
         AllCharacters.Add(Character5);
         AllCharacters.Add(Character6);
         AllCharacters.Add(Character7);
+
+        //何も埋っていない畑を用意
+        PlantedSeedCharacters.Add(null);
+        PlantedSeedCharacters.Add(null);
+        PlantedSeedCharacters.Add(null);
+        PlantedSeedCharacters.Add(null);
+        PlantedSeedCharacters.Add(null);
+        PlantedSeedCharacters.Add(null);
 
         //畑用に追記------------------------------------------------------------------
         //畑に植えた時なのでFarmDirectorへ移動
