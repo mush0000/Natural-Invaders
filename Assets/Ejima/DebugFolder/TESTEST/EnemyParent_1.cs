@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public enum EnemyKind_11
+public enum EnemyKind_1
 {
     //! 職業Enum
     ant,        //! アリ
@@ -14,7 +14,7 @@ public enum EnemyKind_11
     beetle,     //! カブトムシ
 }
 
-public abstract class EnemyParent : MonoBehaviour
+public abstract class EnemyParent_1 : MonoBehaviour
 {
     //! Enemyステータス群
     private string enemyName;   //! 名前
@@ -24,7 +24,7 @@ public abstract class EnemyParent : MonoBehaviour
 
     //! Enemy詳細ステータス群
     private bool enemyChargeFlag = false;       //!「溜める」管理フラグ
-    private int enemyHealValue;                 //! 回復値
+    [SerializeField] private int enemyHealValue;                 //! 回復値
     private int enemyChargeMagnification = 2;   //!「溜める」倍率
 
     //! 各getter,setter
@@ -51,40 +51,40 @@ public abstract class EnemyParent : MonoBehaviour
     public event OnLifeChangedDelegate OnLifeChanged;
 
     //! Enemy初期化時のステータス管理
-    public void Initialize(EnemyKind_11 enemyKind)
+    public void Initialize(EnemyKind_1 enemyKind, int enemyHealValue)
     {
         switch (enemyKind)
         {
-            case EnemyKind_11.ant:
+            case EnemyKind_1.ant:
                 EnemyName = "ant";
                 EnemyLife = 500;
                 EnemyMaxLife = EnemyLife;
                 EnemyAttack = 100;
-                EnemyHealValue = 100;
+                EnemyHealValue = enemyHealValue;
                 break;
 
-            case EnemyKind_11.mantis:
+            case EnemyKind_1.mantis:
                 EnemyName = "mantis";
                 EnemyLife = 1000;
                 EnemyMaxLife = EnemyLife;
                 EnemyAttack = 200;
-                EnemyHealValue = 100;
+                EnemyHealValue = enemyHealValue;
                 break;
 
-            case EnemyKind_11.bee:
+            case EnemyKind_1.bee:
                 EnemyName = "bee";
                 EnemyLife = 1500;
                 EnemyMaxLife = EnemyLife;
                 EnemyAttack = 300;
-                EnemyHealValue = 100;
+                EnemyHealValue = enemyHealValue;
                 break;
 
-            case EnemyKind_11.beetle:
+            case EnemyKind_1.beetle:
                 EnemyName = "beetle";
                 EnemyLife = 2000;
                 EnemyMaxLife = EnemyLife;
                 EnemyAttack = 400;
-                EnemyHealValue = 100;
+                EnemyHealValue = enemyHealValue;
                 break;
 
             default:
@@ -94,24 +94,24 @@ public abstract class EnemyParent : MonoBehaviour
     }
 
     //! 「行動パターン」分岐 -> 各クラスに記述を投げる
-    public abstract void EnemyAction(int turnCount);
+    public abstract void EnemyAction_1(int turnCount);
 
     //! 「溜める」行動
-    public void EnemyCharge()
+    public void EnemyCharge_1()
     {
         EnemyAttack *= EnemyChargeMagnification; //* 2倍Atk
         enemyChargeFlag = true;
     }
 
     //! 「溜める」解除_ヘルパー関数
-    private void EnemyChargeInvalid()
+    private void EnemyChargeInvalid_1()
     {
         EnemyAttack /= EnemyChargeMagnification; //* 2倍Atkを1倍に戻す
         enemyChargeFlag = false;
     }
 
     //! 「回復」行動
-    public void EnemyHeal()
+    public void EnemyHeal_1()
     {
         int tempHpHeal = EnemyLife + EnemyHealValue;
         if (tempHpHeal > EnemyMaxLife)
@@ -125,10 +125,10 @@ public abstract class EnemyParent : MonoBehaviour
     }
 
     //!「最前列ランダム単体攻撃」行動
-    public void EnemySingleAttack(List<PlayerChildTest> characters)
+    public void EnemySingleAttack_1(List<PlayerChildTest> characters)
     {
-        List<PlayerChildTest> targetGroup = SelectTargetGroups(characters);
-        PlayerChildTest targetCharacter = SelectCharacterFromRow(targetGroup);
+        List<PlayerChildTest> targetGroup = SelectTargetGroups_1(characters);
+        PlayerChildTest targetCharacter = SelectCharacterFromRow_1(targetGroup);
 
         enemyAttack -= targetCharacter.PlayerDaux;  //! 
         targetCharacter.PlayerLife -= enemyAttack;
@@ -136,13 +136,13 @@ public abstract class EnemyParent : MonoBehaviour
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
         if (enemyChargeFlag == true)
         {
-            EnemyChargeInvalid();
+            EnemyChargeInvalid_1();
         }
     }
 
-    public void EnemyGroupAttack(List<PlayerChildTest> characters)
+    public void EnemyGroupAttack_1(List<PlayerChildTest> characters)
     {
-        List<PlayerChildTest> targetGroup = SelectTargetGroups(characters);
+        List<PlayerChildTest> targetGroup = SelectTargetGroups_1(characters);
 
         foreach (PlayerChildTest Group in targetGroup)
         {
@@ -152,12 +152,12 @@ public abstract class EnemyParent : MonoBehaviour
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
         if (enemyChargeFlag == true)
         {
-            EnemyChargeInvalid();
+            EnemyChargeInvalid_1();
         }
     }
 
     //! 全キャラクターのリストから最前列のみのリストを新規作成する関数
-    public List<PlayerChildTest> SelectTargetGroups(List<PlayerChildTest> characters)
+    public List<PlayerChildTest> SelectTargetGroups_1(List<PlayerChildTest> characters)
     {
         //? 前列にいるキャラクターだけを含む新しいリストを作成
         List<PlayerChildTest> Groups = characters.Where(c => c.PlayerPosition <= 3).ToList();
@@ -175,7 +175,7 @@ public abstract class EnemyParent : MonoBehaviour
     }
 
     //! 最前列内のランダムなキャラクタークラスを返す関数_ヘルパー関数
-    private PlayerChildTest SelectCharacterFromRow(List<PlayerChildTest> Groups)
+    private PlayerChildTest SelectCharacterFromRow_1(List<PlayerChildTest> Groups)
     {
         int minPlayerPosition = Groups.Min(c => c.PlayerPosition); //* 最前列リスト内の最小値を取得
         int maxPlayerPosition = Groups.Max(c => c.PlayerPosition); //* 最前列リスト内の最大値を取得
