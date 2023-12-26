@@ -34,6 +34,19 @@ public class CharacterScript : MonoBehaviour
         {
             // 任意の制御や処理を追加できます
             characterLife = value;
+            if (OnLifeChanged != null)
+            {
+                OnLifeChanged.Invoke(); //着火しまーす！
+            }
+        }
+    }
+    public int CharacterAtk
+    {
+        get { return characterAtk; }
+        set
+        {
+            // 任意の制御や処理を追加できます
+            characterAtk = value;
         }
     }
     public int CharacterMatk
@@ -54,15 +67,42 @@ public class CharacterScript : MonoBehaviour
             characterSpd = value;
         }
     }
+    public int CharacterHeal
+    {
+        get { return characterHeal; }
+        set
+        {
+            // 任意の制御や処理を追加できます
+            characterHeal = value;
+        }
+    }
+    public int CharacterAaux
+    {
+        get { return characterAaux; }
+        set
+        {
+            // 任意の制御や処理を追加できます
+            characterAaux = value;
+        }
+    }
+    public int CharacterDaux
+    {
+        get { return characterDaux; }
+        set
+        {
+            // 任意の制御や処理を追加できます
+            characterDaux = value;
+        }
+    }
     public CharacterScript(
         string name = "DefaultName",
         int life = 50,
-        int atk = 0,
-        int spd = 0,
-        int heal = 0,
-        int aaux = 0,
-        int daux = 0,
-        int matk = 0)
+        int atk = 5,
+        int spd = 5,
+        int heal = 5,
+        int aaux = 5,
+        int daux = 5,
+        int matk = 5)
     {
         characterName = name;
         characterLife = life;
@@ -73,6 +113,8 @@ public class CharacterScript : MonoBehaviour
         characterDaux = daux;
         characterMatk = matk;
     }
+    public delegate void OnLifeChangedDelegate();
+    public event OnLifeChangedDelegate OnLifeChanged;
 
 
 

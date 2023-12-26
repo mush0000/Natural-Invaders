@@ -1,28 +1,38 @@
 using UnityEngine;
 
-public class PeachImpactScript : MonoBehaviour
+public class PeachImpact : MonoBehaviour
 {
-    public GameObject peachImpact; // アクティブにする prefab をインスペクターから設定
+    public GameObject effectPrefab; // インスペクターでエフェクトのPrefabを設定
+    public float effectDuration = 3.0f; // エフェクトをアクティブにする時間
 
-    // AnimationEvent から呼び出すメソッド
-    public void ActivatePrefab()
+    private void Start()
     {
-        if (peachImpact != null)
+        // 初期状態ではエフェクトを非アクティブにする
+        if (effectPrefab != null)
         {
-            // prefab をアクティブにする
-            peachImpact.SetActive(true);
-
-            // 1秒後に非アクティブにする（適宜調整）
-            Invoke("DeactivatePrefab", 1f);
+            effectPrefab.SetActive(false);
         }
     }
 
-    // アクティブにした prefab を非アクティブにするメソッド
-    private void DeactivatePrefab()
+    // AnimationEventから呼び出すメソッド
+    public void ActivateEffect()
     {
-        if (peachImpact != null)
+        if (effectPrefab != null)
         {
-            peachImpact.SetActive(false);
+            // エフェクトをアクティブにする
+            effectPrefab.SetActive(true);
+
+            // 一定時間後に非アクティブにする
+            Invoke("DeactivateEffect", effectDuration);
+        }
+    }
+
+    // エフェクトを非アクティブにするメソッド
+    private void DeactivateEffect()
+    {
+        if (effectPrefab != null)
+        {
+            effectPrefab.SetActive(false);
         }
     }
 }
