@@ -20,7 +20,7 @@ public class CharacterScript : MonoBehaviour
     public int position = 0; // キャラクターの現在位置
     public bool isDead = false; // キャラクターの死亡判定
     protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
-    protected int MaxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
+    protected int maxCharacterLife;
     public Image image;
 
     private AudioSource audioSource;  // AudioSourceコンポーネント
@@ -34,8 +34,19 @@ public class CharacterScript : MonoBehaviour
         {
             // 任意の制御や処理を追加できます
             characterLife = value;
+            if (OnLifeChanged != null)
+            {
+                OnLifeChanged.Invoke(); //着火しまーす！
+            }
         }
     }
+    public int MaxCharacterLife{
+        get { return maxCharacterLife;}
+        set { maxCharacterLife = value;}
+    }
+    public delegate void OnLifeChangedDelegate();
+    public event OnLifeChangedDelegate OnLifeChanged;
+
     public CharacterScript(
         string name = "DefaultName",
         int life = 0,

@@ -29,9 +29,9 @@ public class PLifeBarController : MonoBehaviour
     {
         float lifeAmount = 0.0f;
         // lifeAmount = characterScript.CharacterLifeTest / characterScript.MaxCharacterLifeTest;
-        lifeAmount = (float)characterScript.CharacterLifeTest / (float)characterScript.maxLifeTest;
-        Debug.Log(characterScript.CharacterLifeTest + "現在Life");
-        Debug.Log(characterScript.maxLifeTest + "最大Life");
+        lifeAmount = (float)characterScript.CharacterLife / (float)characterScript.MaxCharacterLife;
+        Debug.Log(characterScript.CharacterLife + "現在Life");
+        Debug.Log(characterScript.MaxCharacterLife + "最大Life");
         Debug.Log(lifeAmount + "この数値にFill");
         fillImage.fillAmount = lifeAmount;
     }
