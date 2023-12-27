@@ -16,9 +16,9 @@ public class FarmClickManager : MonoBehaviour
     static CharacterScript currentSelectChar; //Charインスタンスを受け取るChar型変数
     Image image;
 
-    static SeedScript seeds;
+    static FujiedaTomato seeds;
 
-    public static void SetSelectSeed(SeedScript sd)//CharacterManagerクラスのSelectButton()から渡されたインスタンスを受け取る
+    public static void SetSelectSeed(FujiedaTomato sd)//CharacterManagerクラスのSelectButton()から渡されたインスタンスを受け取る
     {
         //Debug.Log("click");//デバック用
         seeds = sd;//受け取ったインスタンスをchに格納
@@ -33,13 +33,9 @@ public class FarmClickManager : MonoBehaviour
             //if (seeds.gameObject.isUsed == true) return;//種がすでに植えてあるなら処理を行わない
             image.sprite = seeds.image.sprite;//画像を差し替え(sprite 自身の画像)
             image.gameObject.SetActive(true);//自身の画像を変更する
-            seeds.isUsed = true;//種を植えたことにする
+            seeds.isPlanted = true;//種を植えたことにする
             farm.isEnpty = false;//畑が植えられたことにする
-            //選択しているseedsを解除する(何個でも植えられる問題を防止)
-            // if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject != null)
-            // {
-            //     UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);  //フォーカスを外す
-            // }
+            seeds = null;//シードの選択を解除する
         }
     }
 
