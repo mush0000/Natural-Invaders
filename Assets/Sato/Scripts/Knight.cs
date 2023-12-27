@@ -40,11 +40,11 @@ public class Knight : CharacterScript
         characterLife = 30;
         // enemyObject = GameObject.FindWithTag("Enemy");
         // enemyScript = enemyObject.GetComponent<Enemy1>();
-        // 前列Actionのインスタンスを作成
-        GameObject frontEffectInstance = Instantiate(frontEffectPrefab);
-        ParticleSystem frontEffect = frontEffectInstance.GetComponent<ParticleSystem>();
-        GameObject backEffectInstance = Instantiate(backEffectPrefab);
-        ParticleSystem backEffect = frontEffectInstance.GetComponent<ParticleSystem>();
+        // // 前列Actionのインスタンスを作成
+        // GameObject frontEffectInstance = Instantiate(frontEffectPrefab);
+        // ParticleSystem frontEffect = frontEffectInstance.GetComponent<ParticleSystem>();
+        // GameObject backEffectInstance = Instantiate(backEffectPrefab);
+        // ParticleSystem backEffect = frontEffectInstance.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -55,7 +55,7 @@ public class Knight : CharacterScript
 
     public override void FrontAction()
     {
-        frontEffect.Play();
+        // frontEffect.Play();
         base.FrontAction();
     }
 
@@ -66,7 +66,7 @@ public class Knight : CharacterScript
 
     public override void BackAction()
     {
-        backEffect.Play();
+        // backEffect.Play();
         base.BackAction();
     }
 }

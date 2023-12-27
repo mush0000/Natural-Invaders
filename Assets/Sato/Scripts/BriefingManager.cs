@@ -74,7 +74,7 @@ public class BriefingManager : MonoBehaviour
         // 前列中列のリスト作成
         frontLine = new List<GameObject> { grid1, grid2, grid3 };
         middleLine = new List<GameObject> { grid4, grid5, grid6 };
-        SoundManager.instance.PlayBGM(SoundManager.BGM_Type.titel);
+        // SoundManager.instance.PlayBGM(SoundManager.BGM_Type.titel);
     }
 
     // Update is called once per frame
