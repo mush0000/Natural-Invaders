@@ -18,6 +18,7 @@ public class Potato : CharacterScript
     public override void FrontAction()
     {
         base.FrontAction();
+        // ToggleSword();
         // 固有キャラの前列行動の処理を追加
     }
 
@@ -43,6 +44,7 @@ public class Potato : CharacterScript
     public override void MiddleAction()
     {
         base.MiddleAction();
+        // ToggleShield();
         // Potato独自の中列行動の処理を追加
     }
 

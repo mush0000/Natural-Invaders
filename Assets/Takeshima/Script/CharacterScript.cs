@@ -17,10 +17,10 @@ public class CharacterScript : MonoBehaviour
     protected int characterHeal; // キャラクターの回復力
     protected int characterAaux; // キャラクターの攻撃補助力
     protected int characterDaux; // キャラクターの防御補助力
-    protected int CharacterPosition; // キャラクターの場所指定
+    protected int characterPosition; // キャラクターの場所指定
     public int position = 0; // キャラクターの現在位置
     public bool isDead = false; // キャラクターの死亡判定
-    protected int MaxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
+    protected int maxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
     public Image image;
 
     private AudioSource audioSource;  // AudioSourceコンポーネント
@@ -39,6 +39,11 @@ public class CharacterScript : MonoBehaviour
                 OnLifeChanged.Invoke(); //着火しまーす！
             }
         }
+    }
+    public int MaxCharacterLife
+    {
+        get { return characterLife; }
+        // set { characterLife = value; } // これは不要なのでコメントアウトしました
     }
     public int CharacterAtk
     {
@@ -160,7 +165,7 @@ public class CharacterScript : MonoBehaviour
         int addedLife = characterLife + characterHeal;
 
         // 最大値を超えないように調整
-        characterLife = Mathf.Clamp(addedLife, 0, MaxCharacterLife);
+        characterLife = Mathf.Clamp(addedLife, 0, maxCharacterLife);
 
         // ここでcharacterLifeの値が更新された状態
         Debug.Log("後列行動");

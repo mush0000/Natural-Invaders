@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Peach : CharacterScript
 {
-    private GameObject PeachAttack; // Peachのエフェクト
-    private bool isPeachAttackOn = false; // Peachのエフェクトのオン/オフの状態を管理
+    public GameObject effectPrefab; // エフェクトのPrefab
+    private GameObject effectInstance; // 生成されたエフェクトのインスタンス
     public Peach() : base("Peach", 15, 5, 15, 20, 20, 20, 0)
     {
         // 親クラス(CharacterScript)のコンストラクタを呼び出す
@@ -17,13 +17,6 @@ public class Peach : CharacterScript
         base.FrontAction();
         // 固有キャラの前列行動の処理を追加
 
-    }
-    void TogglePeachAttack()
-    {
-        // オンの場合はオフに、オフの場合はオンにする
-        PeachAttack.SetActive(!isPeachAttackOn);
-        // 状態を反転
-        isPeachAttackOn = !isPeachAttackOn;
     }
     private void FrontActionSound()
     {
@@ -52,7 +45,6 @@ public class Peach : CharacterScript
     {
         base.AutoHeal();
     }
-
 
     private void MiddleActionSound()
     {
@@ -90,30 +82,37 @@ public class Peach : CharacterScript
     // Start is called before the first frame update
     void Start()
     {
+        // Peachの子要素にあるエフェクトプレハブを取得
+        effectPrefab = transform.Find("PeachEffectPrefab").gameObject;
+
         // 初期状態ではエフェクトを非アクティブにする
-        if (PeachAttack != null)
+        if (effectPrefab != null)
         {
-            PeachAttack = Instantiate(PeachAttack, transform.position, Quaternion.identity);
-            PeachAttack.SetActive(false);
+            effectPrefab.SetActive(false);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // マウス左ボタンがクリックされたら
         if (Input.GetMouseButtonDown(0))
         {
-            // クリック時にPeachAttackをリセット
-            TogglePeachAttack();
-
+            ToggleEffect();
         }
     }
-    private void SpawnPeachAttackPrefab()
+    // エフェクトのオン/オフを切り替えるメソッド
+    void ToggleEffect()
     {
-        if (PeachAttack != null)
+        if (effectInstance == null)
         {
-            // PeachAttackを生成して、位置と回転を設定
-            PeachAttack = Instantiate(PeachAttack, transform.position, Quaternion.identity);
+            // エフェクトが生成されていない場合、生成する
+            effectInstance = Instantiate(effectPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            // エフェクトが既に生成されている場合、削除する
+            Destroy(effectInstance);
         }
     }
 }

@@ -5,7 +5,7 @@ public class TomatoBombController : MonoBehaviour
     public GameObject ExplosionEffect;
     public GameObject ExplosionSpark;
     private Vector3 originalPosition;
-    private Quaternion originalRotation; // Store the original rotation
+    private Quaternion originalRotation; // 元の回転の値を保存
     private bool hasExploded = false;
 
     public Vector3 OriginalPosition
@@ -21,7 +21,7 @@ public class TomatoBombController : MonoBehaviour
     void Start()
     {
         originalPosition = transform.position;
-        originalRotation = transform.rotation; // Store the original rotation when instantiated
+        originalRotation = transform.rotation; // インスタンス化されたときに元の回転を保存する
     }
 
     void OnCollisionEnter(Collision collision)
