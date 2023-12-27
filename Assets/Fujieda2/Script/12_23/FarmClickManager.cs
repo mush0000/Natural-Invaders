@@ -20,7 +20,7 @@ public class FarmClickManager : MonoBehaviour
 
     public static void SetSelectSeed(FujiedaTomato sd)//CharacterManagerクラスのSelectButton()から渡されたインスタンスを受け取る
     {
-        //Debug.Log("click");//デバック用
+        // Debug.Log("click");//デバック用
         seeds = sd;//受け取ったインスタンスをchに格納
     }
 

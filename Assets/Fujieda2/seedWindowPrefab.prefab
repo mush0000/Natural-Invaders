@@ -452,6 +452,7 @@ GameObject:
   - component: {fileID: 3591314203447625697}
   - component: {fileID: 5804127319294568637}
   - component: {fileID: 2245296990242539836}
+  - component: {fileID: -1250059264226092455}
   m_Layer: 5
   m_Name: seedWindowPrefab
   m_TagString: Untagged
@@ -563,8 +564,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FujiedaTomato, Assembly-CSharp
+      - m_Target: {fileID: 2245296990242539836}
+        m_TargetAssemblyTypeName: SeedScript, Assembly-CSharp
         m_MethodName: SeedSelectButton
         m_Mode: 1
         m_Arguments:
@@ -582,7 +583,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813097231146322407}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a75b632d5ef57ff45b03d0acd5359935, type: 3}
   m_Name: 
@@ -590,3 +591,22 @@ MonoBehaviour:
   isPlanted: 0
   image: {fileID: 3084269354563514793}
   fresh: -1
+--- !u!114 &-1250059264226092455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6813097231146322407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd933c35ce719340bd0ad3e8070ead0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: 0
+  isDead: 0
+  image: {fileID: 3084269354563514793}
+  attackEffectPrefab: {fileID: 0}
+  attackSound: {fileID: 0}
+  isPlanted: 0
+  fresh: -5
