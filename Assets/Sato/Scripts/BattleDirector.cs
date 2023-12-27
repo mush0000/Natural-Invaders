@@ -21,6 +21,7 @@ public class BattleDirector : MonoBehaviour
     Vector3 pos9;
     GameObject gameDirectorObject;
     private GameDirector gameDirector;
+    [SerializeField] int turnCount = 0;
 
     [SerializeField] GameObject winEffect;  //勝利文字
     [SerializeField] GameObject loseEffect; //敗北文字
@@ -38,6 +39,8 @@ public class BattleDirector : MonoBehaviour
     List<Vector3> allPositions;
     bool isSkillUsed = false;   //スキルを使ったかどうか、使ってたらtrue
     bool playerHasActed = false;    //プレイヤーが行動したかどうか
+    [SerializeField] GameObject win1ParticlePrefab;
+    [SerializeField] GameObject win2ParticlePrefab;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -92,6 +95,7 @@ public class BattleDirector : MonoBehaviour
     {
         while (isWin == false && isLose == false)
         {
+            turnCount++;
             //味方のターン        
             yield return StartCoroutine(ActionPlayerTurn());
             if (isWin || isLose)
@@ -170,7 +174,7 @@ public class BattleDirector : MonoBehaviour
 
     IEnumerator ActionEnemyTurn()
     {
-        enemyScript.EnemyAction();
+        enemyScript.EnemyAction(turnCount);
         yield return new WaitForSeconds(0.2f);
     }
     IEnumerator BattleStart()
@@ -216,6 +220,14 @@ public class BattleDirector : MonoBehaviour
         if (isWin == true)
         {
             winEffect.SetActive(true);
+            GameObject win1Particle = Instantiate(win1ParticlePrefab);
+            GameObject win2Particle = Instantiate(win1ParticlePrefab);
+            win1Particle.transform.position = new Vector3(-2, 5, 2); // 再生位置を設定
+            win2Particle.transform.position = new Vector3(2, 5, 2); // 再生位置を設定
+            ParticleSystem win1ParticleSystem = win1Particle.GetComponent<ParticleSystem>();
+            ParticleSystem win2ParticleSystem = win2Particle.GetComponent<ParticleSystem>();
+            win1ParticleSystem.Play();
+            win2ParticleSystem.Play();
         }
         if (isLose == true)
         {
