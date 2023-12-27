@@ -112,7 +112,15 @@ public class DragObj : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         {
             ResetDefault();
         }
+        if (OnPartySumInfoChanged != null)
+        {
+            OnPartySumInfoChanged.Invoke(); //着火しまーす！
+        }
     }
+
+    public delegate void OnPartySumInfoChangedDelegate();
+    public event OnPartySumInfoChangedDelegate OnPartySumInfoChanged;
+
 
     private void ResetDefault() //最初の場所に戻す
     {
