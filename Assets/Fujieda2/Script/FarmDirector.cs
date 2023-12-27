@@ -36,40 +36,43 @@ public class FarmDirector : MonoBehaviour
     [SerializeField] GameObject grid6;
     List<GridCheck> grids;  //gridのリスト
 
+    List<FujiedaTomato> SeedCharacters = new List<FujiedaTomato>();
+
     // Start is called before the first frame update
     void Start()
     {
         //gameDirector(js)の取得
-        // gameDirectorObject = GameObject.Find("TestGameDirector");
-        // gameDirector = gameDirectorObject.GetComponent<TestGameDirector>();
-        // //すべてのキャラクターの分だけインスタンス生成
-        // for (int i = 0; i <= gameDirector.AllCharacters.Count; i++)
-        // {
-        //     if (gameDirector.AllCharacters[i].fresh <= 1) { continue; }
-        //     else
-        //     {
-        //         List<FujiedaTomato> SeedCharacters = new List<FujiedaTomato>();
-        //         SeedCharacters.Add(gameDirector.AllCharacters[i]);
-        //         // 可視化
-        //         SeedCharacters[i].gameObject.SetActive(true);
+        gameDirectorObject = GameObject.Find("TestGameDirector");
+        gameDirector = gameDirectorObject.GetComponent<TestGameDirector>();
+        //すべてのキャラクターの分だけインスタンス生成
+        for (int i = 0; i < gameDirector.AllCharacters.Count; i++)
+        {
+            if (gameDirector.AllCharacters[i].fresh > 1) { continue; }
+            else
+            {
+                Debug.Log("test");
 
-        //         //Instantiateの使い方
-        //         //戻り値・・・既存オブジェクトのクローン
-        //         //第1引数(original)・・・ コピーしたい既存オブジェクト
+                SeedCharacters.Add(gameDirector.AllCharacters[i]);
+                // 可視化
+                gameDirector.AllCharacters[i].gameObject.SetActive(true);
 
-        //         // MemberWindowのPrefabからインスタンスを作成
-        //         GameObject seedWindow = Instantiate(seedWindowPrefab, scrollViewContent);
-        //         GameObject characterWindow = seedWindow.transform.GetChild(0).gameObject;
+                //Instantiateの使い方
+                //戻り値・・・既存オブジェクトのクローン
+                //第1引数(original)・・・ コピーしたい既存オブジェクト
 
-        //         // キャラクターのGameObjectをCharacterWindowの子要素として設定
-        //         SeedCharacters[i].transform.SetParent(characterWindow.transform);
+                // MemberWindowのPrefabからインスタンスを作成
+                GameObject seedWindow = Instantiate(seedWindowPrefab, scrollViewContent);
+                GameObject characterWindow = seedWindow.transform.GetChild(0).gameObject;
 
-        //         // キャラクターのGameObjectを特定の位置に移動
-        //         SeedCharacters[i].transform.localPosition = new Vector3(180, -10, 0);
-        //         SeedCharacters[i].transform.localScale = new Vector3(250, 490, 0);
-        //         //SeedCharacters[i].transform.localRotation = Quaternion.Euler(0, 180, 0);
-        //     }
-        //}
+                // キャラクターのGameObjectをCharacterWindowの子要素として設定
+                SeedCharacters[i].transform.SetParent(characterWindow.transform);
+
+                // キャラクターのGameObjectを特定の位置に移動
+                SeedCharacters[i].transform.localPosition = new Vector3(180, -10, 0);
+                SeedCharacters[i].transform.localScale = new Vector3(250, 490, 0);
+                //SeedCharacters[i].transform.localRotation = Quaternion.Euler(0, 180, 0);
+            }
+        }
         //gridのリストを作成
         // grids = new List<GridCheck>(){
         //     grid1.GetComponent<GridCheck>(),

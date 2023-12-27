@@ -39,7 +39,7 @@ public class TestGameDirector : MonoBehaviour
     // }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //フレームレートを60に
         Application.targetFrameRate = 60;
@@ -58,14 +58,6 @@ public class TestGameDirector : MonoBehaviour
         PlantedSeedCharacters.Add(null);
         PlantedSeedCharacters.Add(null);
         PlantedSeedCharacters.Add(null);
-
-        //畑用に追記------------------------------------------------------------------
-        //畑に植えた時なのでFarmDirectorへ移動
-        // for (int i = 0; i < AllCharacters.Count; i++)
-        //     if (AllCharacters[i].fresh < 0)
-        //     {
-        //         PlantedSeedCharacters.Add(AllCharacters[i]);
-        //     }
     }
     void Update()
     {
