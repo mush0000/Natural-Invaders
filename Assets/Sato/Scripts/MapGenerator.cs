@@ -41,7 +41,8 @@ public class MapGenerator : MonoBehaviour
                 {
                     if (flagNum <= kvp.Value)   //フラグが立ったらそのブロックを生成
                     {
-                        Instantiate(kvp.Key, new Vector3(i - offsetX, 0, j - offsetZ), Quaternion.identity);
+                        GameObject tile = Instantiate(kvp.Key, new Vector3(i - offsetX, 0, j - offsetZ), Quaternion.identity);
+                        DontDestroyOnLoad(tile);
                         break;
                     }
                     else    //立たなかったら次の配列へループ。ランダム数値を調整して次のループへ

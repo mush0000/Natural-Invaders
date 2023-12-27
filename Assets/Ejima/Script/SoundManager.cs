@@ -302,4 +302,11 @@ public class SoundManager : MonoBehaviour
             audioMixer.SetFloat("volumeSE", 0);
         }
     }
+
+    // internal class instance
+    // {
+    //     internal class PlayBGM
+    //     {
+    //     }
+    // }
 }
