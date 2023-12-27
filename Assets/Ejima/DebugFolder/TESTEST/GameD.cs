@@ -23,6 +23,6 @@ public class GameD : MonoBehaviour
         Debug.Log(beetleEnemyChild_1.name);
         Debug.Log(beetleEnemyChild_1.EnemyHealValue);
 
-        SoundManager.instance.PlayBGM(SoundManager.BGM_Type.titel);
+        // SoundManager.instance.PlayBGM(SoundManager.BGM_Type.titel);
     }
 }
