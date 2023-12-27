@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
 {
-    private int enemyLife = 30;
-    private int enemyMaxLife = 30;
+    private int enemyLife = 4;
+    private int enemyMaxLife = 4;
     public int EnemyLife
     {
         get
@@ -36,11 +36,12 @@ public class Enemy1 : MonoBehaviour
 
     }
 
-    public void EnemyAction()
+    public void EnemyAction(int turnCount)
     {
+        EnemyLife--;
+        EnemyLife--;
+        Debug.Log($"{turnCount}ターン目のアクションだよ");
         Debug.Log("EnemyActionだよよよ!");
         Debug.Log("勝手に2点食らうよ");
-        EnemyLife--;
-        EnemyLife--;
     }
 }

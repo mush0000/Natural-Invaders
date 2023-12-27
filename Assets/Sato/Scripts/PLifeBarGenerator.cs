@@ -12,12 +12,15 @@ public class PLifeBarGenerator : MonoBehaviour
     {
         gameDirectorObject = GameObject.Find("GameDirector");
         gameDirector = gameDirectorObject.GetComponent<GameDirector>();
+        Camera mainCamera = Camera.main; // MainCameraを取得します
         foreach (GameObject ptchara in gameDirector.PartyMembers)
         {
-            GameObject lifebar = Instantiate(pLifePrefab);
-            lifebar.transform.SetParent(ptchara.transform, false);
-            lifebar.transform.localPosition = new(0, 0.3f, -0.7f);
-            lifebar.transform.localScale = new(0.15f, 0.15f, 0.15f);
+            GameObject lifebarCanvas = Instantiate(pLifePrefab);
+            lifebarCanvas.transform.SetParent(ptchara.transform, false);
+            lifebarCanvas.transform.localPosition = new(0, 0.15f, -0.5f);
+            // lifebarCanvas.transform.localScale = new(0, 0.15f, -0.5f);
+            Canvas canvas = lifebarCanvas.GetComponent<Canvas>();
+            canvas.worldCamera = mainCamera; // CanvasのRender CameraをMainCameraに設定します
         }
     }
 
