@@ -5,28 +5,27 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-// 職業Enum
-public enum EnemyKind
+public enum EnemyKindDebugTest
 {
-    ant,        // アリ
-    mantis,     // カマキリ
-    bee,        //ハチ
-    beetle,     // カブトムシ
+    //! 職業Enum
+    ant,        //! アリ
+    mantis,     //! カマキリ
+    bee,        //! ハチ
+    beetle,     //! カブトムシ
 }
 
-public class EnemyChildTest : MonoBehaviour
+public abstract class EnemyParentDebugTest : MonoBehaviour
 {
-    //! Enemyステータス群
+    //! enemyステータス群
     private string enemyName;               //! 名前
     private int enemyAttack;                //! 攻撃力
     private int enemyLife;                  //! 現在HP
     private int enemyMaxLife;               //! 最大HP(超過回復防止用)
-    private int enemyActionPatternNum;      //! 行動パターン変数
 
     //! Enemy詳細ステータス群
     private bool enemyChargeFlag = false;   //!「溜める」管理フラグ
     public int enemyHealValue = 100;        //!回復値
-    public int enemyChargeValue = 2;        //!「溜める」倍率
+    public int enemyChargeMagnification = 2;//!「溜める」倍率
 
 
     //! 各getter,setter
@@ -45,41 +44,36 @@ public class EnemyChildTest : MonoBehaviour
         }
     }
     public int EnemyMaxLife { get => enemyMaxLife; set => enemyMaxLife = value; }
-    public int EnemyActionPatternNum { get => enemyActionPatternNum; set => enemyActionPatternNum = value; }
     public delegate void OnLifeChangedDelegate();
     public event OnLifeChangedDelegate OnLifeChanged;
 
     //! Enemy初期化時のステータス管理
-    public void Initialize(EnemyKind enemyKind)
+    public void Initialize(EnemyKindDebugTest enemyKind)
     {
         switch (enemyKind)
         {
-            case EnemyKind.ant:
+            case EnemyKindDebugTest.ant:
                 EnemyName = "ant";
                 EnemyLife = 500;
                 EnemyAttack = 100;
-                EnemyActionPatternNum = 1;
                 break;
 
-            case EnemyKind.mantis:
+            case EnemyKindDebugTest.mantis:
                 EnemyName = "mantis";
                 EnemyLife = 1000;
                 EnemyAttack = 200;
-                EnemyActionPatternNum = 2;
                 break;
 
-            case EnemyKind.bee:
+            case EnemyKindDebugTest.bee:
                 EnemyName = "bee";
                 EnemyLife = 1500;
                 EnemyAttack = 300;
-                EnemyActionPatternNum = 3;
                 break;
 
-            case EnemyKind.beetle:
+            case EnemyKindDebugTest.beetle:
                 EnemyName = "beetle";
                 EnemyLife = 2000;
                 EnemyAttack = 400;
-                EnemyActionPatternNum = 4;
                 break;
 
             default:
@@ -88,69 +82,46 @@ public class EnemyChildTest : MonoBehaviour
         }
     }
 
-    //! 「行動パターン」分岐
-    public virtual void EnemyAction()
-    {
-        // int actionCount;
-        switch (EnemyActionPatternNum)
-        {
-            case 1:
-                // switch ()
-                // {
-                //     case 1:
-                //         break;
-                // }
-                break;
-
-            case 2:
-                break;
-
-            case 3:
-                break;
-
-            case 4:
-                break;
-
-            default:
-                break;
-        }
-    }
-    //!
-    // private void FuncCount()
-    // {
-    //     int count = 0;
-    //     count++;
-    // }
+    //! 「行動パターン」分岐 -> 各クラスに記述を投げる
+    public abstract void EnemyActionDebugTest(int turnCount);
 
     //! 「溜める」行動
-    public void EnemyCharge()
+    public void EnemyChargeDebugTest()
     {
-        enemyAttack *= enemyChargeValue; //* 2倍Atk
+        enemyAttack *= enemyChargeMagnification; //* 2倍Atk
         enemyChargeFlag = true;
         Debug.Log("EnemyAtk: " + enemyAttack);//*debug
         Debug.Log("EnemyChargedFlag: " + enemyChargeFlag);//*debug
     }
 
     //! 「溜める」解除_ヘルパー関数
-    private void EnemyChargeInvalid()
+    private void EnemyChargeInvalidDebugTest()
     {
-        enemyAttack /= enemyChargeValue; //* 2倍Atkを1倍に戻す
+        enemyAttack /= enemyChargeMagnification; //* 2倍Atkを1倍に戻す
         enemyChargeFlag = false;
         Debug.Log("EnemyAtk: " + enemyAttack);//*debug
         Debug.Log("EnemyChargedFlag: " + enemyChargeFlag);//*debug
     }
 
     //! 「回復」行動
-    public void EnemyHeal()
+    public void EnemyHealDebugTest()
     {
-        EnemyLife += enemyHealValue;
+        int tempHpHeal = EnemyLife + enemyHealValue;
+        if (tempHpHeal > EnemyMaxLife)
+        {   //! 回復超過。HPMAXLifeを代入
+            EnemyLife = EnemyMaxLife;
+        }
+        else
+        {   //! 回復未超過。HPに回復量を加算
+            EnemyLife += enemyHealValue;
+        }
         Debug.Log("EnemyLife: " + EnemyLife);//*debug
     }
 
     //!「最前列ランダム単体攻撃」行動
-    public void EnemySingleAttack(List<PlayerChildTest> characters)
+    public void EnemySingleAttackDebugTest(List<PlayerChildTest> characters)
     {
-        List<PlayerChildTest> targetGroup = SelectTargetGroups(characters);
+        List<PlayerChildTest> targetGroup = SelectTargetGroupsDebugTest(characters);
 
         //* debugStart
         int tGcount = 0;
@@ -161,7 +132,7 @@ public class EnemyChildTest : MonoBehaviour
         }
         //* debugEnd
 
-        PlayerChildTest targetCharacter = SelectCharacterFromRow(targetGroup);
+        PlayerChildTest targetCharacter = SelectCharacterFromRowDebugTest(targetGroup);
 
         Debug.Log("targetCharacter: " + targetCharacter);//*debug
 
@@ -171,7 +142,7 @@ public class EnemyChildTest : MonoBehaviour
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
         if (enemyChargeFlag == true)
         {
-            EnemyChargeInvalid();
+            EnemyChargeInvalidDebugTest();
         }
 
         Debug.Log("enemyAttack: " + enemyAttack);//*debug
@@ -179,9 +150,9 @@ public class EnemyChildTest : MonoBehaviour
         Debug.Log("playerDaux" + targetCharacter.PlayerDaux);//*debug
     }
 
-    public void EnemyGroupAttack(List<PlayerChildTest> characters)
+    public void EnemyGroupAttackDebugTest(List<PlayerChildTest> characters)
     {
-        List<PlayerChildTest> targetGroup = SelectTargetGroups(characters);
+        List<PlayerChildTest> targetGroup = SelectTargetGroupsDebugTest(characters);
 
         //* debugStart
         int tG2Count = 0;
@@ -200,7 +171,7 @@ public class EnemyChildTest : MonoBehaviour
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
         if (enemyChargeFlag == true)
         {
-            EnemyChargeInvalid();
+            EnemyChargeInvalidDebugTest();
         }
 
         //* debugStart
@@ -214,7 +185,7 @@ public class EnemyChildTest : MonoBehaviour
     }
 
     //! 全キャラクターのリストから最前列のみのリストを新規作成する関数
-    public List<PlayerChildTest> SelectTargetGroups(List<PlayerChildTest> characters)
+    public List<PlayerChildTest> SelectTargetGroupsDebugTest(List<PlayerChildTest> characters)
     {
         //? 前列にいるキャラクターだけを含む新しいリストを作成
         List<PlayerChildTest> Groups = characters.Where(c => c.PlayerPosition <= 3).ToList();
@@ -232,7 +203,7 @@ public class EnemyChildTest : MonoBehaviour
     }
 
     //! 最前列内のランダムなキャラクタークラスを返す関数_ヘルパー関数
-    private PlayerChildTest SelectCharacterFromRow(List<PlayerChildTest> Groups)
+    private PlayerChildTest SelectCharacterFromRowDebugTest(List<PlayerChildTest> Groups)
     {
         int minPlayerPosition = Groups.Min(c => c.PlayerPosition); //* 最前列リスト内の最小値を取得
         int maxPlayerPosition = Groups.Max(c => c.PlayerPosition); //* 最前列リスト内の最大値を取得
@@ -254,6 +225,4 @@ public class EnemyChildTest : MonoBehaviour
             }
         }
     }
-
-
 }
