@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BananaMaterial 7
-  m_Shader: {fileID: 4800000, guid: 61733d280c5feb646b50fe51927d2fdd, type: 3}
+  m_Shader: {fileID: 4800000, guid: ba0365f54860ec04c8b0ab99460452ee, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
