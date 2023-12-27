@@ -12,7 +12,6 @@ public class ELifeBarController : MonoBehaviour
     private Image[] heartFills;
     [SerializeField] GameObject enemy;
     private Enemy1 enemyScript;
-
     public Transform heartsParent;
     public GameObject heartContainerPrefab;
     private void Awake()
