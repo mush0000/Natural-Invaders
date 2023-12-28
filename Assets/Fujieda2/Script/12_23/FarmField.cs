@@ -12,9 +12,9 @@ public class FarmField : MonoBehaviour
     //3.畑に種があるなら、その畑ボタンは押せないようにする
     //4.畑に種があるなら、その種インスタンスのボタンは押せないようにする
 
-    public int fresh;//プレイヤーごとの鮮度を保存
+    //public int fresh;//プレイヤーごとの鮮度を保存
     public int FRESHCOUNT = 1;//戦闘終了時に鮮度が進む(定数)
-    public CharacterScript[] characters;//動作確認用のキャラクター配列
+    //public CharacterScript[] characters;//動作確認用のキャラクター配列
 
     public SeedScript seeds;//確認用seedスクリプト
     public bool isEnpty;
