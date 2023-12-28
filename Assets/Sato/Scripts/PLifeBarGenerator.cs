@@ -17,8 +17,9 @@ public class PLifeBarGenerator : MonoBehaviour
         {
             GameObject lifebarCanvas = Instantiate(pLifePrefab);
             lifebarCanvas.transform.SetParent(ptchara.transform, false);
-            lifebarCanvas.transform.localPosition = new(0, 0.15f, -0.5f);
-            // lifebarCanvas.transform.localScale = new(0, 0.15f, -0.5f);
+            lifebarCanvas.transform.localPosition = new(0, 0, -4.5f);
+            lifebarCanvas.transform.localScale = new(5, 5, 5);
+            lifebarCanvas.transform.localRotation = Quaternion.Euler(-90, 0, 0);
             Canvas canvas = lifebarCanvas.GetComponent<Canvas>();
             canvas.worldCamera = mainCamera; // CanvasのRender CameraをMainCameraに設定します
         }

@@ -20,7 +20,12 @@ public class CharacterScript : MonoBehaviour
     protected int characterPosition; // キャラクターの場所指定
     public int position = 0; // キャラクターの現在位置
     public bool isDead = false; // キャラクターの死亡判定
+<<<<<<< HEAD
     protected int maxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
+=======
+    protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
+    protected int maxCharacterLife;
+>>>>>>> SatoWork
     public Image image;
 
     private AudioSource audioSource;  // AudioSourceコンポーネント
@@ -38,6 +43,7 @@ public class CharacterScript : MonoBehaviour
             {
                 OnLifeChanged.Invoke(); //着火しまーす！
             }
+<<<<<<< HEAD
         }
     }
     public int MaxCharacterLife
@@ -97,8 +103,18 @@ public class CharacterScript : MonoBehaviour
         {
             // 任意の制御や処理を追加できます
             characterDaux = value;
+=======
+>>>>>>> SatoWork
         }
     }
+    public int MaxCharacterLife
+    {
+        get { return maxCharacterLife; }
+        set { maxCharacterLife = value; }
+    }
+    public delegate void OnLifeChangedDelegate();
+    public event OnLifeChangedDelegate OnLifeChanged;
+
     public CharacterScript(
         string name = "DefaultName",
         int life = 50,
@@ -136,14 +152,22 @@ public class CharacterScript : MonoBehaviour
         Debug.Log($"Character Name: {characterName}, Life: {characterLife}");
     }
 
+    // public virtual IEnumerator FrontAction() 要修正
     public virtual void FrontAction()
     {
         int enemyLife = enemy.enemyLife;
         int enemyLifeDecrease = characterAtk;
+<<<<<<< HEAD
         enemy.enemyLife -= enemyLifeDecrease;
+=======
+        enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
+        Debug.Log("前列攻撃");
+>>>>>>> SatoWork
 
         // FrontActionSound(); // サウンド再生
         // FrontActionEffect(); // エフェクト再生
+        // yield return new WaitForSeconds(0.5f);要修正
+        //dmg 計算
     }
 
     public virtual void MiddleAction()
