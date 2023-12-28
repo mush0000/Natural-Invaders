@@ -39,7 +39,7 @@ public class TestGameDirector : MonoBehaviour
     // }
 
     // Start is called before the first frame update
-    void Awake()
+    void Awake()//FarmDirectorより先に動いてもらう
     {
         //フレームレートを60に
         Application.targetFrameRate = 60;
