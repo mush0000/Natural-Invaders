@@ -6,15 +6,15 @@ using UnityEngine.PlayerLoop;
 
 public class GameD : MonoBehaviour
 {
-    GameObject human;
+    GameObject humanObject;
     GameObject beetle;
-    Human humanH;
+    Human human;
     BeetleEnemyChild_1 beetleEnemyChild_1;
 
     private void Awake()
     {
-        human = GameObject.Find("Human");
-        humanH = human.GetComponent<Human>();
+        humanObject = GameObject.Find("Human");
+        human = humanObject.GetComponent<Human>();
 
         beetle = GameObject.Find("Beetle");
         beetleEnemyChild_1 = beetle.GetComponent<BeetleEnemyChild_1>();
