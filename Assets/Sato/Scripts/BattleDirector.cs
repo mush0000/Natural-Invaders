@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class BattleDirector : MonoBehaviour
 {
     [SerializeField] GameObject enemy;
-    private float characterGroundLevel = 0.5f;  //キャラクターのY座標の高さ
+    private float characterGroundLevel = 0.9f;  //キャラクターのY座標の高さ
     Vector3 pos1;
     Vector3 pos2;
     Vector3 pos3;
@@ -66,7 +66,7 @@ public class BattleDirector : MonoBehaviour
             CharacterScript cs = character.GetComponent<CharacterScript>();
             characterScripts.Add(cs);
             character.transform.position = allPositions[cs.position - 1];
-            character.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            character.transform.localRotation = Quaternion.Euler(-90, 0, 180);
         }
         // ボタンリストに追加
         skillButtons.Add(skill1Button);
@@ -117,37 +117,68 @@ public class BattleDirector : MonoBehaviour
 
     IEnumerator ActionPlayerTurn()
     {
-        RaycastHit hit;
-        foreach (Vector3 pos in allPositions)   //全部のタイルから
+        foreach (CharacterScript cs in characterScripts)
         {
-            Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
-            if (Physics.Raycast(groundPos, Vector3.up, out hit))
+            if (cs.position <= 3 && cs.isDead == false)
             {
-                CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
-                if (characterScript != null)
-                {
-                    // posのz座標(Line)によってアクションを決定
-                    if (pos.z == 1)
-                    {
-                        characterScript.FrontAction();
-                    }
-                    else if (pos.z == 0)
-                    {
-                        characterScript.MiddleAction();
-                    }
-                    else // pos.z == -1
-                    {
-                        characterScript.BackAction();
-                    }
-                    Judge();    //生死判定
-                    if (isWin || isLose) // 勝利または敗北が確定した場合
-                    {
-                        break; // ループを抜ける
-                    }
-                    yield return new WaitForSeconds(0.2f);  //0.2秒待って
-                }
+                // yield return StartCoroutine(cs.FrontAction());
+                cs.FrontAction();
+                yield return new WaitForSeconds(1.5f);
+                Judge();
             }
         }
+        foreach (CharacterScript cs in characterScripts)
+        {
+            if (cs.position >= 4 && cs.position <= 6 && cs.isDead == false)
+            {
+                // yield return StartCoroutine(cs.FrontAction());
+                cs.MiddleAction();
+                yield return new WaitForSeconds(1.5f);
+                Judge();
+            }
+        }
+        foreach (CharacterScript cs in characterScripts)
+        {
+            if (cs.position >= 7 && cs.position <= 9 && cs.isDead == false)
+            {
+                // yield return StartCoroutine(cs.FrontAction());
+                cs.BackAction();
+                yield return new WaitForSeconds(1.5f);
+                Judge();
+                yield return null;
+            }
+        }
+        // RaycastHit hit;
+        // foreach (Vector3 pos in allPositions)   //全部のタイルから
+        // {
+        //     Vector3 groundPos = new Vector3(pos.x, 0, pos.z); // y座標を0に設定
+        //     if (Physics.Raycast(groundPos, Vector3.up, out hit))
+        //     {
+        //         CharacterScript characterScript = hit.transform.GetComponent<CharacterScript>();
+        //         if (characterScript != null)
+        //         {
+        //             // posのz座標(Line)によってアクションを決定
+        //             if (pos.z == 1)
+        //             {
+        //                 characterScript.FrontAction();
+        //             }
+        //             else if (pos.z == 0)
+        //             {
+        //                 characterScript.MiddleAction();
+        //             }
+        //             else // pos.z == -1
+        //             {
+        //                 characterScript.BackAction();
+        //             }
+        //             Judge();    //生死判定
+        //             if (isWin || isLose) // 勝利または敗北が確定した場合
+        //             {
+        //                 break; // ループを抜ける
+        //             }
+        //             yield return new WaitForSeconds(0.2f);  //0.2秒待って
+        //         }
+        //     }
+        // }
     }
 
     IEnumerator BackLineHeal()  //3列目の回復行動
