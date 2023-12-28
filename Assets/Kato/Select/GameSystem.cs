@@ -10,4 +10,10 @@ public class GameSystem : MonoBehaviour
     Debug.Log("c");
     SceneManager.LoadScene("SelectStageScene");
   }
+
+  public void BuckGame()
+  {
+    Debug.Log("c");
+    SceneManager.LoadScene("TitleScene");
+  }
 }
