@@ -10,34 +10,12 @@ public class Knight : CharacterScript
     [SerializeField] GameObject backEffectPrefab;   //後列Action
     ParticleSystem frontEffect;
     ParticleSystem backEffect;
-    public int maxLifeTest = 30;
-    public int CharacterLifeTest
-    {
-        get { return characterLife; }
-        set
-        {
-            // 任意の制御や処理を追加できます
-            characterLife = value;
-            if (OnLifeChanged != null)
-            {
-                OnLifeChanged.Invoke(); //着火しまーす！
-            }
-        }
-    }
-    public int MaxCharacterLifeTest
-    {
-        get { return MaxCharacterLife; }
-
-    }
-
-    public delegate void OnLifeChangedDelegate();
-    public event OnLifeChangedDelegate OnLifeChanged;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxLifeTest = 30;
-        characterLife = 30;
+        MaxCharacterLife = 30;
+        CharacterLife = 30;
         // enemyObject = GameObject.FindWithTag("Enemy");
         // enemyScript = enemyObject.GetComponent<Enemy1>();
         // // 前列Actionのインスタンスを作成
@@ -61,6 +39,7 @@ public class Knight : CharacterScript
 
     public override void MiddleAction()
     {
+        CharacterLife -= 3;
         base.MiddleAction();
     }
 
