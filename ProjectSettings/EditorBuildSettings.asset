@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Sato/Battle.unity
     guid: a9f28e46354626c4a8410bba705c7eca
+  - enabled: 1
+    path: Assets/Fujieda2/farm.unity
+    guid: 53f038935de04674b8dc88f2535057c2
   m_configObjects: {}

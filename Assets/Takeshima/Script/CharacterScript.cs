@@ -20,12 +20,8 @@ public class CharacterScript : MonoBehaviour
     protected int characterPosition; // キャラクターの場所指定
     public int position = 0; // キャラクターの現在位置
     public bool isDead = false; // キャラクターの死亡判定
-<<<<<<< HEAD
-    protected int maxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
-=======
     protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
     protected int maxCharacterLife;
->>>>>>> SatoWork
     public Image image;
 
     private AudioSource audioSource;  // AudioSourceコンポーネント
@@ -43,68 +39,6 @@ public class CharacterScript : MonoBehaviour
             {
                 OnLifeChanged.Invoke(); //着火しまーす！
             }
-<<<<<<< HEAD
-        }
-    }
-    public int MaxCharacterLife
-    {
-        get { return characterLife; }
-        // set { characterLife = value; } // これは不要なのでコメントアウトしました
-    }
-    public int CharacterAtk
-    {
-        get { return characterAtk; }
-        set
-        {
-            // 任意の制御や処理を追加できます
-            characterAtk = value;
-        }
-    }
-    public int CharacterMatk
-    {
-        get { return characterMatk; }
-        set
-        {
-            // 任意の制御や処理を追加できます
-            characterMatk = value;
-        }
-    }
-    public int CharacterSpd
-    {
-        get { return characterSpd; }
-        set
-        {
-            // 任意の制御や処理を追加できます
-            characterSpd = value;
-        }
-    }
-    public int CharacterHeal
-    {
-        get { return characterHeal; }
-        set
-        {
-            // 任意の制御や処理を追加できます
-            characterHeal = value;
-        }
-    }
-    public int CharacterAaux
-    {
-        get { return characterAaux; }
-        set
-        {
-            // 任意の制御や処理を追加できます
-            characterAaux = value;
-        }
-    }
-    public int CharacterDaux
-    {
-        get { return characterDaux; }
-        set
-        {
-            // 任意の制御や処理を追加できます
-            characterDaux = value;
-=======
->>>>>>> SatoWork
         }
     }
     public int MaxCharacterLife
@@ -134,8 +68,7 @@ public class CharacterScript : MonoBehaviour
         characterDaux = daux;
         characterMatk = matk;
     }
-    public delegate void OnLifeChangedDelegate();
-    public event OnLifeChangedDelegate OnLifeChanged;
+
 
 
 
@@ -157,12 +90,8 @@ public class CharacterScript : MonoBehaviour
     {
         int enemyLife = enemy.enemyLife;
         int enemyLifeDecrease = characterAtk;
-<<<<<<< HEAD
-        enemy.enemyLife -= enemyLifeDecrease;
-=======
         enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
         Debug.Log("前列攻撃");
->>>>>>> SatoWork
 
         // FrontActionSound(); // サウンド再生
         // FrontActionEffect(); // エフェクト再生

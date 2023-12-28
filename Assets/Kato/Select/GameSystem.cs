@@ -16,4 +16,16 @@ public class GameSystem : MonoBehaviour
     Debug.Log("c");
     SceneManager.LoadScene("TitleScene");
   }
+
+  public void SatoGame()
+  {
+    Debug.Log("c");
+    SceneManager.LoadScene("PreBattle");
+  }
+  public void FujiedaGame()
+  {
+    Debug.Log("c");
+    SceneManager.LoadScene("farm");
+  }
+
 }

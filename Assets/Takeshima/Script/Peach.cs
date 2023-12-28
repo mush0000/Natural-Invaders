@@ -83,7 +83,7 @@ public class Peach : CharacterScript
     void Start()
     {
         // Peachの子要素にあるエフェクトプレハブを取得
-        effectPrefab = transform.Find("PeachEffectPrefab").gameObject;
+        // effectPrefab = transform.Find("PeachEffectPrefab").gameObject;
 
         // 初期状態ではエフェクトを非アクティブにする
         if (effectPrefab != null)
