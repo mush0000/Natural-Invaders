@@ -40,9 +40,10 @@ public class CharacterScript : MonoBehaviour
             }
         }
     }
-    public int MaxCharacterLife{
-        get { return maxCharacterLife;}
-        set { maxCharacterLife = value;}
+    public int MaxCharacterLife
+    {
+        get { return maxCharacterLife; }
+        set { maxCharacterLife = value; }
     }
     public delegate void OnLifeChangedDelegate();
     public event OnLifeChangedDelegate OnLifeChanged;
@@ -81,13 +82,17 @@ public class CharacterScript : MonoBehaviour
         Debug.Log($"Character Name: {characterName}, Life: {characterLife}");
     }
 
+    // public virtual IEnumerator FrontAction() 要修正
     public virtual void FrontAction()
     {
         int enemyLifeDecrease = characterAtk;
         enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
+        Debug.Log("前列攻撃");
 
         // FrontActionSound(); // サウンド再生
         // FrontActionEffect(); // エフェクト再生
+        // yield return new WaitForSeconds(0.5f);要修正
+        //dmg 計算
     }
 
     public virtual void MiddleAction()
