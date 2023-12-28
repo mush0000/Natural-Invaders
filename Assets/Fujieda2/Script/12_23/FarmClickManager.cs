@@ -10,7 +10,7 @@ public class FarmClickManager : MonoBehaviour
     //2.植えた種を、(field == true)に変更する。(『FreshCount』により戦闘終了時に鮮度が1進む)
     //3.Xボタンを押すと、自身を捨てる処理が行われる(キャラクター自身の消滅メソッドがあればそれを呼び出す)
 
-    public GameObject[] characters;//動作確認用のキャラクター配列
+    //public GameObject[] characters;//動作確認用のキャラクター配列
     [SerializeField] Button button;
 
     static CharacterScript currentSelectChar; //Charインスタンスを受け取るChar型変数
@@ -26,10 +26,11 @@ public class FarmClickManager : MonoBehaviour
 
     public void SetPositionOnTileButton(FarmField farm) //FarmField型を受け渡し
     {
+        Debug.Log(seeds.gameObject.name);//動作確認用
         if (seeds != null && farm.isEnpty == true)//キャラを選択中 かつ 畑が空なら処理を行う
         {
             Debug.Log(seeds.gameObject.name);//動作確認用
-            Image image = farm.transform.GetChild(0).GetComponent<Image>();//自身の子要素の画像を取得
+            image = farm.transform.GetChild(0).GetComponent<Image>();//自身の子要素の画像を取得
             //if (seeds.gameObject.isUsed == true) return;//種がすでに植えてあるなら処理を行わない
             image.sprite = seeds.image.sprite;//画像を差し替え(sprite 自身の画像)
             image.gameObject.SetActive(true);//自身の画像を変更する
