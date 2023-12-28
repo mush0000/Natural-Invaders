@@ -6,20 +6,20 @@ using UnityEngine.PlayerLoop;
 
 public class Human : MonoBehaviour
 {
-    [SerializeField] private string nameH;
+    [SerializeField] private string humanName;
     [SerializeField] private int age;
 
-    public string NameH { get => nameH; set => nameH = value; }
+    public string NameH { get => humanName; set => humanName = value; }
     public int Age { get => age; set => age = value; }
 
-    public void Initialize(string nameH, int age)
+    public void Initialize(string humanName, int age)
     {
-        NameH = nameH;
+        NameH = humanName;
         Age = age;
     }
 
     public void AisatsugaySamurai()
     {
-        Debug.Log($"{nameH}({age})サン、どうもこんにちは。");
+        Debug.Log($"{humanName}({age})サン、どうもこんにちは。");
     }
 }
