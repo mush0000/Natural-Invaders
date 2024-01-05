@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerChildTest : MonoBehaviour
 {
-    private int life;
-    private int daux;
-    private int position;
+    [SerializeField] private int life;
+    [SerializeField] private int daux;
+    [SerializeField] private int position;
 
     public int PlayerLife { get => life; set => life = value; }
     public int PlayerDaux { get => daux; set => daux = value; }

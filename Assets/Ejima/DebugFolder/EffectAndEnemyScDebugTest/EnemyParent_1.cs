@@ -21,6 +21,7 @@ public abstract class EnemyParent_1 : MonoBehaviour
     private int enemyAttack;    //! 攻撃力
     private int enemyLife;      //! 現在HP
     private int enemyMaxLife;   //! 最大HP(超過回復防止用)
+    public ParticleSystem particleObject;
 
     //! Enemy詳細ステータス群
     private bool enemyChargeFlag = false;       //!「溜める」管理フラグ
@@ -130,7 +131,7 @@ public abstract class EnemyParent_1 : MonoBehaviour
         List<PlayerChildTest> targetGroup = SelectTargetGroups_1(characters);
         PlayerChildTest targetCharacter = SelectCharacterFromRow_1(targetGroup);
 
-        enemyAttack -= targetCharacter.PlayerDaux;  //! 
+        enemyAttack -= targetCharacter.PlayerDaux;  //!
         targetCharacter.PlayerLife -= enemyAttack;
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
@@ -191,4 +192,18 @@ public abstract class EnemyParent_1 : MonoBehaviour
             }
         }
     }
+
+    //! ParticleSystemの再生
+    public void AttackParticleSystem()
+    {
+        particleObject = GetComponentInChildren<ParticleSystem>();
+        particleObject.Play();
+    }
+
+    public void GetPos()
+    {
+        PlayerChildTest playerChildTest = GameObject.Find("Cube").GetComponent<PlayerChildTest>();
+        Debug.Log(playerChildTest.transform.position);
+    }
+
 }
