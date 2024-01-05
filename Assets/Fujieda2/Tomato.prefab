@@ -119,9 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd933c35ce719340bd0ad3e8070ead0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   position: 0
   isDead: 0
-  image: {fileID: 1397499832210109725, guid: 8c011bd633ff3164e81e4e3852cfab41, type: 3}
+  image: {fileID: 1397499832210109725, guid: 2637a97e2e9cd1c43b79616c6d5f98c6, type: 3}
   attackEffectPrefab: {fileID: 0}
   attackSound: {fileID: 0}
   isPlanted: 0

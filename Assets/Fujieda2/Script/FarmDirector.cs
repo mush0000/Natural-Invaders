@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEditor.Animations;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -62,10 +61,17 @@ public class FarmDirector : MonoBehaviour
 
                 // MemberWindowのPrefabからインスタンスを作成
                 GameObject seedWindow = Instantiate(seedWindowPrefab, scrollViewContent);
-                GameObject characterWindow = seedWindow.transform.GetChild(0).gameObject;
+                GameObject characterWindowImage = seedWindow.transform.GetChild(0).gameObject;
+                GameObject characterWindowText = seedWindow.transform.GetChild(1).gameObject;
 
                 // キャラクターのGameObjectをCharacterWindowの子要素として設定
-                SeedCharacters[i].transform.SetParent(characterWindow.transform);
+                SeedCharacters[i].transform.SetParent(characterWindowImage.transform);
+
+                //キャラクター自身の画像を表示
+                characterWindowImage.GetComponent<Image>().sprite = SeedCharacters[i].image.sprite;
+                //キャラクター自身のステータスをテキストで表示
+                characterWindowText.GetComponent<Text>().text =
+                     $"あと:{-1 * SeedCharacters[i].fresh} ターン\n名前:{SeedCharacters[i].name} ";//キャラのステータスを取得Life:{ SeedCharacters[i].life } 
 
                 // キャラクターのGameObjectを特定の位置に移動
                 SeedCharacters[i].transform.localPosition = new Vector3(180, -10, 0);

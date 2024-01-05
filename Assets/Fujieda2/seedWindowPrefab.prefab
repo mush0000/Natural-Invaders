@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30B9\u30C6\u30FC\u30BF\u30B9\n\u540D\u524D\uFF1A\nHP:\n"
+  m_Text: "\u30B9\u30C6\u30FC\u30BF\u30B9\n\u9BAE\u5EA6:\n\u540D\u524D\uFF1A\nHP:\n"
 --- !u!1 &5769758274751890183
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd933c35ce719340bd0ad3e8070ead0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   position: 0
   isDead: 0
   image: {fileID: 3084269354563514793}

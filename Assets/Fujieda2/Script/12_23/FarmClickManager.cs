@@ -18,6 +18,8 @@ public class FarmClickManager : MonoBehaviour
 
     static FujiedaTomato seeds;
 
+    public TestGameDirector testGameDirector;
+
     public static void SetSelectSeed(FujiedaTomato sd)//CharacterManagerクラスのSelectButton()から渡されたインスタンスを受け取る
     {
         // Debug.Log("click");//デバック用
@@ -36,6 +38,8 @@ public class FarmClickManager : MonoBehaviour
             image.gameObject.SetActive(true);//自身の画像を変更する
             seeds.isPlanted = true;//種を植えたことにする
             farm.isEnpty = false;//畑が植えられたことにする
+
+            testGameDirector.PlantedSeedCharacters[farm.farmField] = (FujiedaTomato)seeds;//(植えた種リスト)に選択したキャラクターを追加
             seeds = null;//シードの選択を解除する
         }
     }

@@ -52,12 +52,13 @@ public class TestGameDirector : MonoBehaviour
         AllCharacters.Add(Character7);
 
         //何も埋っていない畑を用意
-        PlantedSeedCharacters.Add(null);
-        PlantedSeedCharacters.Add(null);
-        PlantedSeedCharacters.Add(null);
-        PlantedSeedCharacters.Add(null);
-        PlantedSeedCharacters.Add(null);
-        PlantedSeedCharacters.Add(null);
+        //植えた時に番号を保存し、シーンを移動しても植えた時と同じ位置にキャラ表示し続ける
+        // PlantedSeedCharacters.Add(null);
+        // PlantedSeedCharacters.Add(null);
+        // PlantedSeedCharacters.Add(null);
+        // PlantedSeedCharacters.Add(null);
+        // PlantedSeedCharacters.Add(null);
+        // PlantedSeedCharacters.Add(null);
     }
     void Update()
     {
