@@ -139,8 +139,7 @@ public abstract class EnemyParent_1 : MonoBehaviour
         atkParticleObject.transform.position = targetCharacter.transform.position;
         atkParticleObject.Play();
 
-        enemyAttack -= targetCharacter.PlayerDaux;  //ToDo: PlayerDaux -> PlayerDef に変更予定
-        targetCharacter.PlayerLife -= enemyAttack;
+        targetCharacter.PlayerLife -= enemyAttack - targetCharacter.PlayerDaux; //ToDo: PlayerDaux -> PlayerDef に変更予定
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
         if (enemyChargeFlag == true)
@@ -156,8 +155,7 @@ public abstract class EnemyParent_1 : MonoBehaviour
         foreach (PlayerChildTest Group in targetGroup)
         {
             Debug.Log(Group.PlayerLife);
-            enemyAttack -= Group.PlayerDaux;  //ToDo: PlayerDaux -> PlayerDef に変更予定
-            Group.PlayerLife -= enemyAttack;
+            Group.PlayerLife -= enemyAttack - Group.PlayerDaux; //ToDo: PlayerDaux -> PlayerDef に変更予定
 
             atkParticleObject.transform.position = Group.transform.position;
             atkParticleObject.Play();
