@@ -27,15 +27,17 @@ public class FarmDirector : MonoBehaviour
     [SerializeField] Transform scrollViewContent;
     //[SerializeField] GameObject battleMemberAlert;
     //[SerializeField] GameObject gridParent;
-    [SerializeField] GameObject grid1;
-    [SerializeField] GameObject grid2;
-    [SerializeField] GameObject grid3;
-    [SerializeField] GameObject grid4;
-    [SerializeField] GameObject grid5;
-    [SerializeField] GameObject grid6;
-    List<GridCheck> grids;  //gridのリスト
+    // [SerializeField] GameObject grid1;
+    // [SerializeField] GameObject grid2;
+    // [SerializeField] GameObject grid3;
+    // [SerializeField] GameObject grid4;
+    // [SerializeField] GameObject grid5;
+    // [SerializeField] GameObject grid6;
+    // List<GridCheck> grids;  //gridのリスト
 
     List<FujiedaTomato> SeedCharacters = new List<FujiedaTomato>();
+
+    public TestGameDirector testGameDirector;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +48,11 @@ public class FarmDirector : MonoBehaviour
         //すべてのキャラクターの分だけインスタンス生成
         for (int i = 0; i < gameDirector.AllCharacters.Count; i++)
         {
-            if (gameDirector.AllCharacters[i].fresh > 1) { continue; }
+            if (gameDirector.AllCharacters[i].fresh > 1 && gameDirector.AllCharacters[i].isPlanted == true)
+            {//植えていて鮮度が1以上になったら、植える判定をfalse
+                gameDirector.AllCharacters[i].isPlanted = false;
+            }
+            else if (gameDirector.AllCharacters[i].fresh > 1) { continue; }
             else
             {
                 Debug.Log("test");
@@ -69,15 +75,23 @@ public class FarmDirector : MonoBehaviour
 
                 //キャラクター自身の画像を表示
                 characterWindowImage.GetComponent<Image>().sprite = SeedCharacters[i].image.sprite;
+
                 //キャラクター自身のステータスをテキストで表示
                 characterWindowText.GetComponent<Text>().text =
-                     $"あと:{-1 * SeedCharacters[i].fresh} ターン\n名前:{SeedCharacters[i].name} ";//キャラのステータスを取得Life:{ SeedCharacters[i].life } 
+                     $"Fresh:{-1 * SeedCharacters[i].fresh} \nName:\n{SeedCharacters[i].name} ";//キャラのステータスを取得Life:{ SeedCharacters[i].life } 
 
                 // キャラクターのGameObjectを特定の位置に移動
                 SeedCharacters[i].transform.localPosition = new Vector3(180, -10, 0);
                 SeedCharacters[i].transform.localScale = new Vector3(250, 490, 0);
                 //SeedCharacters[i].transform.localRotation = Quaternion.Euler(0, 180, 0);
             }
+            // if (i <= 5 &&testGameDirector.PlantedSeedCharacters[i].fresh >= 1)//鮮度1以上かつ畑に植えていたら
+            // {
+            //     //植えた種リストから、キャラクターを削除、PlantedSeedCharactersをnullにする
+            //     testGameDirector.PlantedSeedCharacters[farm.farmField] = null;//(植えた種リスト)に選択したキャラクターを追加
+            //     //farmFieldのisEnptyをfalseにする
+            //     farm.farmField
+            // }
         }
         //gridのリストを作成
         // grids = new List<GridCheck>(){
@@ -88,6 +102,7 @@ public class FarmDirector : MonoBehaviour
         //     grid5.GetComponent<GridCheck>(),
         //     grid6.GetComponent<GridCheck>(),
         // };
+
     }
     //畑フィールド PlantedSeedCharacters
 

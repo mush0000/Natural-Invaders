@@ -38,6 +38,9 @@ public class FarmClickManager : MonoBehaviour
             image.gameObject.SetActive(true);//自身の画像を変更する
             seeds.isPlanted = true;//種を植えたことにする
             farm.isEnpty = false;//畑が植えられたことにする
+            // sasaki案(仮)
+            FreshCountVer couuntVer = farm.GetComponentInChildren<FreshCountVer>();
+            couuntVer.tomato = seeds;
 
             testGameDirector.PlantedSeedCharacters[farm.farmField] = (FujiedaTomato)seeds;//(植えた種リスト)に選択したキャラクターを追加
             seeds = null;//シードの選択を解除する

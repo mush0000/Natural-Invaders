@@ -22,29 +22,33 @@ public class FreshCount : MonoBehaviour
     public int FRESHCOUNT = 1;//戦闘終了時に鮮度が進む(定数)
     public CharacterScript[] characters;//動作確認用のキャラクター配列
 
-    // public void NextFreshCount() //キャラクターの鮮度が進む
-    // {
-    //     for (int i = 0; i < characters.Length; i++)
-    //     {
-    //         if (characters[i].fresh <= 0 && characters[i].field == false)//鮮度0以下かつ畑に植えていない
-    //         {
-    //             continue;//スキップ
-    //         }
-    //         else if (characters[i].fresh <= 0 && characters[i].field == true)//鮮度0以下かつ畑に植えている
-    //         {
-    //             characters[i].fresh += FRESHCOUNT;//鮮度を1進める
-    //         }
-    //         else
-    //         {
-    //             characters[i].fresh += FRESHCOUNT;//鮮度を1進める
-    //         }
+    GameObject gameDirectorObject;
+    TestGameDirector gameDirector;
 
-    //         if (characters[i].fresh > 0 && characters[i].field == true)//鮮度1かつ畑に植えている
-    //         {
-    //             characters[i].field == false;//畑から出し、仲間に加わる
-    //         }
-    //     }
-    // }
+
+
+    public void NextFreshCount() //キャラクターの鮮度が進む
+    {
+        //gameDirector(js)の取得
+        gameDirectorObject = GameObject.Find("TestGameDirector");
+        gameDirector = gameDirectorObject.GetComponent<TestGameDirector>();
+
+        for (int i = 0; i < characters.Length; i++)
+        {
+            if (gameDirector.AllCharacters[i].fresh <= 0 && gameDirector.AllCharacters[i].isPlanted == false)//鮮度0以下かつ畑に植えていない
+            {
+                continue;//スキップ
+            }
+            else if (gameDirector.AllCharacters[i].fresh <= 0 && gameDirector.AllCharacters[i].isPlanted == true)//鮮度0以下かつ畑に植えている
+            {
+                gameDirector.AllCharacters[i].fresh += FRESHCOUNT;//鮮度を1進める
+            }
+            else
+            {
+                gameDirector.AllCharacters[i].fresh += FRESHCOUNT;//鮮度を1進める
+            }
+        }
+    }
 
 
     // Start is called before the first frame update
