@@ -18,18 +18,15 @@ public class BeetleEnemyChild_1 : EnemyParent_1
                 break;
             case 7:
                 EnemyGroupAttack_1(players);
-                AttackParticleSystem();
                 break;
             case 9:
                 for (int i = 0; i < 3; i++)
                 {
                     EnemySingleAttack_1(players);
-                    AttackParticleSystem();
                 }
                 break;
             default:
                 EnemySingleAttack_1(players);
-                AttackParticleSystem();
                 break;
         }
     }
