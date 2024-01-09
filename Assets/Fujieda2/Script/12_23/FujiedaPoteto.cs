@@ -78,7 +78,7 @@ public class FujiedaPoteto : CharacterScript
     //畑画面実装用-------------------------------------------------------
 
     public bool isPlanted = false;
-    public int fresh = -5;
+    public int fresh = -3;
 
     public FujiedaPoteto(int fresh)
     {

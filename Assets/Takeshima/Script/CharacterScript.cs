@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 public class CharacterScript : MonoBehaviour
 {
+    public Enemy2 enemy;
     protected string characterName; // キャラクター名
     protected int characterLife; // キャラクターのHP
     protected int characterAtk; // キャラクタの攻撃力
@@ -16,11 +17,11 @@ public class CharacterScript : MonoBehaviour
     protected int characterHeal; // キャラクターの回復力
     protected int characterAaux; // キャラクターの攻撃補助力
     protected int characterDaux; // キャラクターの防御補助力
-    protected int CharacterPosition; // キャラクターの場所指定
+    protected int characterPosition; // キャラクターの場所指定
     public int position = 0; // キャラクターの現在位置
     public bool isDead = false; // キャラクターの死亡判定
     protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
-    protected int MaxCharacterLife => characterLife; //回復時にキャラクターの最大HPを超えないように設定
+    protected int maxCharacterLife;
     public Image image;
 
     private AudioSource audioSource;  // AudioSourceコンポーネント
@@ -34,17 +35,29 @@ public class CharacterScript : MonoBehaviour
         {
             // 任意の制御や処理を追加できます
             characterLife = value;
+            if (OnLifeChanged != null)
+            {
+                OnLifeChanged.Invoke(); //着火しまーす！
+            }
         }
     }
+    public int MaxCharacterLife
+    {
+        get { return maxCharacterLife; }
+        set { maxCharacterLife = value; }
+    }
+    public delegate void OnLifeChangedDelegate();
+    public event OnLifeChangedDelegate OnLifeChanged;
+
     public CharacterScript(
         string name = "DefaultName",
-        int life = 0,
-        int atk = 0,
-        int spd = 0,
-        int heal = 0,
-        int aaux = 0,
-        int daux = 0,
-        int matk = 0)
+        int life = 50,
+        int atk = 5,
+        int spd = 5,
+        int heal = 5,
+        int aaux = 5,
+        int daux = 5,
+        int matk = 5)
     {
         characterName = name;
         characterLife = life;
@@ -58,8 +71,10 @@ public class CharacterScript : MonoBehaviour
 
 
 
+
     void Start()
     {
+        // DontDestroyOnLoad(gameObject);
         // audioSource = GetComponent<AudioSource>();
         // particleSystem = GetComponent<ParticleSystem>();
     }
@@ -70,17 +85,23 @@ public class CharacterScript : MonoBehaviour
         Debug.Log($"Character Name: {characterName}, Life: {characterLife}");
     }
 
+    // public virtual IEnumerator FrontAction() 要修正
     public virtual void FrontAction()
     {
+        int enemyLife = enemy.enemyLife;
         int enemyLifeDecrease = characterAtk;
         enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
+        Debug.Log("前列攻撃");
 
         // FrontActionSound(); // サウンド再生
         // FrontActionEffect(); // エフェクト再生
+        // yield return new WaitForSeconds(0.5f);要修正
+        //dmg 計算
     }
 
     public virtual void MiddleAction()
     {
+        int enemyLife = enemy.enemyLife;
         int enemyLifeDecrease = characterMatk;
         enemyLife -= enemyLifeDecrease;  // enemyLifeを減少させる
         Debug.Log("中列攻撃");
@@ -97,7 +118,7 @@ public class CharacterScript : MonoBehaviour
         int addedLife = characterLife + characterHeal;
 
         // 最大値を超えないように調整
-        characterLife = Mathf.Clamp(addedLife, 0, MaxCharacterLife);
+        characterLife = Mathf.Clamp(addedLife, 0, maxCharacterLife);
 
         // ここでcharacterLifeの値が更新された状態
         Debug.Log("後列行動");
@@ -155,11 +176,11 @@ public class CharacterScript : MonoBehaviour
         // ClickManager.SetSelectChar(this);//ClickManagerクラスのSetSelectChar()へインスタンスを渡す
     }
 
-    // private void DeathSound()
-    // {
-    //     // サウンド再生のロジック
-    //     // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
-    // }
+    private void DeathSound()
+    {
+        // サウンド再生のロジック
+        // audioSource.PlayOneShot(sampleSound);  // 固有キャラのAudioClip
+    }
     // private void DeathEffect()
     // {
     //     // エフェクトプレハブの生成と再生
