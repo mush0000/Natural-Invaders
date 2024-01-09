@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8614183163666379667}
   - component: {fileID: 2306611123460246100}
   m_Layer: 0
-  m_Name: SEListSC
+  m_Name: SEListBySoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
