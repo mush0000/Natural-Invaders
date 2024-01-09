@@ -103,7 +103,7 @@ public abstract class EnemyParent_1 : MonoBehaviour
     public void EnemyCharge_1()
     {
         chargeParticleObject.transform.position = transform.position;
-        chargeParticleObject.Play();
+        chargeParticleObject.Play(); //* 溜めるEffect再生
         EnemyAttack *= EnemyChargeMagnification; //* 2倍Atk
         enemyChargeFlag = true;
     }
@@ -118,7 +118,8 @@ public abstract class EnemyParent_1 : MonoBehaviour
     //! 「回復」行動
     public void EnemyHeal_1()
     {
-        healParticleObject.Play();
+        healParticleObject.transform.position = transform.position;
+        healParticleObject.Play(); //* 回復Effect再生
         int tempHpHeal = EnemyLife + EnemyHealValue;
         if (tempHpHeal > EnemyMaxLife)
         {   //! 回復超過。HPMAXLifeを代入
@@ -139,7 +140,7 @@ public abstract class EnemyParent_1 : MonoBehaviour
         atkParticleObject.transform.position = targetCharacter.transform.position;
         atkParticleObject.Play();
 
-        targetCharacter.PlayerLife -= enemyAttack - targetCharacter.PlayerDaux; //ToDo: PlayerDaux -> PlayerDef に変更予定
+        targetCharacter.PlayerLife -= enemyAttack - targetCharacter.PlayerDef;
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
         if (enemyChargeFlag == true)
@@ -154,14 +155,11 @@ public abstract class EnemyParent_1 : MonoBehaviour
 
         foreach (PlayerChildTest Group in targetGroup)
         {
-            Debug.Log(Group.PlayerLife);
-            Group.PlayerLife -= enemyAttack - Group.PlayerDaux; //ToDo: PlayerDaux -> PlayerDef に変更予定
+            Group.PlayerLife -= enemyAttack - Group.PlayerDef; //* ダメージ計算処理
 
-            atkParticleObject.transform.position = Group.transform.position;
+            atkParticleObject.transform.position = Group.transform.position; //* Effect発生位置確定
             atkParticleObject.Play();
             yield return new WaitUntil(() => atkParticleObject.isStopped);
-            Debug.Log(Group.PlayerLife);
-
         }
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
@@ -205,17 +203,6 @@ public abstract class EnemyParent_1 : MonoBehaviour
                 }
             }
         }
-    }
-
-    //! ParticleSystemの座標指定と再生
-    private IEnumerator SetParticleSystemPositionAndPlay(PlayerChildTest playerChildTest, ParticleSystem particleObject)
-    {
-        // particleObject = GetComponentInChildren<ParticleSystem>();
-        particleObject.transform.position = playerChildTest.transform.position;
-        particleObject.Play();
-        Debug.Log("testBefore");
-        yield return new WaitUntil(() => particleObject.isStopped);
-        Debug.Log("testAfter");
     }
 
 }
