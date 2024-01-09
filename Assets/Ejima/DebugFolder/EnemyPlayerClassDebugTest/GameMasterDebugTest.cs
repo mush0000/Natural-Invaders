@@ -12,7 +12,7 @@ public class GameMasterDebugTest : MonoBehaviour
             // AddComponentを使用してPlayerChildTestを追加
             PlayerChildTest playerChildTest = gameObject.AddComponent<PlayerChildTest>();
             // 初期化メソッドを呼び出してパラメータを設定
-            playerChildTest.Initialize(200 * i, 4 * i, 3 + i);
+            playerChildTest.Initialize(200 * i, 0 * i, 4 * i, 3 + i);
             players.Add(playerChildTest);
         }
 
