@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestGameDirector : MonoBehaviour
+public class FarmGameDirector : MonoBehaviour
 {
     //このクラスの役割
     //ゲームオブジェクト(オールキャラクターリスト)を所持(インスタンスは（仮:FujiedaTomato）)
@@ -20,7 +20,7 @@ public class TestGameDirector : MonoBehaviour
     [SerializeField] FujiedaTomato Character6;
     [SerializeField] FujiedaTomato Character7;
 
-    public static TestGameDirector Instance { get; private set; }   //シングルトンインスタンス
+    public static FarmGameDirector Instance { get; private set; }   //シングルトンインスタンス
 
     // private void Awake()
     // {

@@ -19,10 +19,9 @@ public class FarmDirector : MonoBehaviour
  //画像を所持しており、自身の画像を表示(植えた時には種画像を書き換える)
  //植えた種リストを生成(シーン起動時に判定し、成長したかどうかを判定して消す、消したらnullにしておく)
 
-    //佐藤さんのコード借りたので明日書き換えます↓----------------------------------------------------
 
     GameObject gameDirectorObject;
-    TestGameDirector gameDirector;
+    FarmGameDirector gameDirector;
     [SerializeField] GameObject seedWindowPrefab;
     [SerializeField] Transform scrollViewContent;
     //[SerializeField] GameObject battleMemberAlert;
@@ -37,14 +36,14 @@ public class FarmDirector : MonoBehaviour
 
     List<FujiedaTomato> SeedCharacters = new List<FujiedaTomato>();
 
-    public TestGameDirector testGameDirector;
+    public FarmGameDirector testGameDirector;
 
     // Start is called before the first frame update
     void Start()
     {
         //gameDirector(js)の取得
         gameDirectorObject = GameObject.Find("TestGameDirector");
-        gameDirector = gameDirectorObject.GetComponent<TestGameDirector>();
+        gameDirector = gameDirectorObject.GetComponent<FarmGameDirector>();
         //すべてのキャラクターの分だけインスタンス生成
         for (int i = 0; i < gameDirector.AllCharacters.Count; i++)
         {

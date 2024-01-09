@@ -525,4 +525,4 @@ MonoBehaviour:
   attackEffectPrefab: {fileID: 0}
   attackSound: {fileID: 0}
   isPlanted: 0
-  fresh: -5
+  fresh: -4

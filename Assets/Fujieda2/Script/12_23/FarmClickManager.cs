@@ -18,7 +18,7 @@ public class FarmClickManager : MonoBehaviour
 
     static FujiedaTomato seeds;
 
-    public TestGameDirector testGameDirector;
+    public FarmGameDirector testGameDirector;
 
     public static void SetSelectSeed(FujiedaTomato sd)//CharacterManagerクラスのSelectButton()から渡されたインスタンスを受け取る
     {

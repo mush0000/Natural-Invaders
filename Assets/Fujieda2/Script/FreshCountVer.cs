@@ -7,16 +7,16 @@ using UnityEngine.UI;
 public class FreshCountVer : MonoBehaviour
 {
     //最大freshと現在のHP。
-    int minFtesh = 0;
-    int currentFtesh;
+    //int minFtesh = 0;
+    //int currentFtesh;
     //Sliderを入れる
     public Slider slider;
 
     public FarmField farm;
-    public TestGameDirector testGameDirector;
+    public FarmGameDirector testGameDirector;
     GameObject gameDirectorObject;
     FarmField FarmField;
-    TestGameDirector gameDirector;
+    FarmGameDirector gameDirector;
     [SerializeField] GameObject seedWindowPrefab;
     [SerializeField] Transform scrollViewContent;
     List<FujiedaTomato> SeedCharacters = new List<FujiedaTomato>();
@@ -27,10 +27,10 @@ public class FreshCountVer : MonoBehaviour
     {
 
         //Sliderを満タンにする。
-        slider.value = 1;
+        slider.value = -4;
         //現在のfreshを入れる。
         gameDirectorObject = GameObject.Find("TestGameDirector");
-        gameDirector = gameDirectorObject.GetComponent<TestGameDirector>();
+        gameDirector = gameDirectorObject.GetComponent<FarmGameDirector>();
         //int farmFieldNum = FarmField.farmField;
         // currentFtesh = SeedCharacters[farmFieldNum].fresh;
         //Debug.Log("Start currentFtesh : " + currentFtesh);

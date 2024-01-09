@@ -16,14 +16,14 @@ public class FreshCount : MonoBehaviour
 
 
     //CharacterScriptに下記二つの変数を追加------------------------------
-    public int fresh;//プレイヤーごとの鮮度を保存
-    public bool field;//種プレイヤーが畑に植えてあるか
+    // public int fresh;//プレイヤーごとの鮮度を保存
+    // public bool field;//種プレイヤーが畑に植えてあるか
     //-----------------------------------------------------------------
     public int FRESHCOUNT = 1;//戦闘終了時に鮮度が進む(定数)
     public CharacterScript[] characters;//動作確認用のキャラクター配列
 
     GameObject gameDirectorObject;
-    TestGameDirector gameDirector;
+    FarmGameDirector gameDirector;
 
 
 
@@ -31,7 +31,7 @@ public class FreshCount : MonoBehaviour
     {
         //gameDirector(js)の取得
         gameDirectorObject = GameObject.Find("TestGameDirector");
-        gameDirector = gameDirectorObject.GetComponent<TestGameDirector>();
+        gameDirector = gameDirectorObject.GetComponent<FarmGameDirector>();
 
         for (int i = 0; i < characters.Length; i++)
         {
@@ -43,7 +43,7 @@ public class FreshCount : MonoBehaviour
             {
                 gameDirector.AllCharacters[i].fresh += FRESHCOUNT;//鮮度を1進める
             }
-            else
+            else//鮮度1以上
             {
                 gameDirector.AllCharacters[i].fresh += FRESHCOUNT;//鮮度を1進める
             }
