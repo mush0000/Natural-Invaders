@@ -52,9 +52,9 @@ public class BriefingManager : MonoBehaviour
             // キャラクターのGameObjectをCharacterWindowの子要素として設定
             character.transform.SetParent(characterWindow.transform);
             // キャラクターのGameObjectを特定の位置に移動
-            character.transform.localPosition = new Vector3(0, -140, -40);
-            character.transform.localScale = new Vector3(80, 80, 80);
-            character.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            character.transform.localPosition = new Vector3(0, -90, 0);
+            character.transform.localScale = new Vector3(14, 14, 14);
+            character.transform.localRotation = Quaternion.Euler(-90, 0, 0);
             // すべてのDragObjにUpdatePartySumInfoを追加
             DragObj dragObj = characterWindow.GetComponent<DragObj>();
             dragObj.OnPartySumInfoChanged += UpdatePartySumInfo;
