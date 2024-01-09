@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class Tomato : CharacterScript
 {
+    private TomatoBombController tomatoBombController;
+    private void Start()
+    {
+        tomatoBombController = GetComponent<TomatoBombController>();
+    }
     public Tomato() : base("Tomato", 16, 5, 0, 10, 0, 10)
     {
-        // 親クラス(CharacterScript)のコンストラクタを呼び出す
         // ここで追加の初期化などを行うこともできます
     }
-
     public override void FrontAction()
     {
         base.FrontAction();
-        // 固有キャラの前列行動の処理を追加
+
     }
+
     private void FrontActionSound()
     {
         // サウンド再生のロジック
