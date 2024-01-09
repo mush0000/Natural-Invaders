@@ -80,10 +80,10 @@ public class FujiedaTomato : CharacterScript
     public bool isPlanted = false;
     public int fresh = -5;
 
-    public FujiedaTomato(int fresh)
-    {
-        this.fresh = fresh;
-    }
+    // public FujiedaTomato(int fresh)
+    // {
+    //     this.fresh = fresh;
+    // }
 
     public void SeedSelectButton()
     {
@@ -93,21 +93,23 @@ public class FujiedaTomato : CharacterScript
     //Start is called before the first frame update
     void Start()
     {
-        if (isPlanted == true)
-        {
-            Button btn = GetComponent<Button>();
-            btn.interactable = false;
-        }
+        //main統合用にコメントアウト、ウネの判定に持たせる
+        // if (isPlanted == true)
+        // {
+        //     Button btn = GetComponent<Button>();
+        //     btn.interactable = false;
+        // }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isPlanted == true)
-        {
-            Button btn = GetComponent<Button>();
-            btn.interactable = false;
-        }
+        //main統合用にコメントアウト、ウネの判定に持たせる
+        // if (isPlanted == true)
+        // {
+        //     Button btn = GetComponent<Button>();
+        //     btn.interactable = false;
+        // }
 
     }
 }
