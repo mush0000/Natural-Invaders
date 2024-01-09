@@ -19,13 +19,15 @@ public class CharacterScript : MonoBehaviour
     protected int characterAaux; // キャラクターの攻撃補助力
     protected int characterDaux; // キャラクターの防御補助力
     protected int characterPosition; // キャラクターの場所指定
-    protected int deffense = 0; //キャラクターの防御力 基本0、敵キャラクターのダメージ計算用
+    protected int characterDef = 0; //キャラクターの防御力 基本0、敵キャラクターのダメージ計算用
     public int position = 0; // キャラクターの現在位置
     public bool isDead = false; // キャラクターの死亡判定
     protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
     protected int maxCharacterLife;
     private GameObject effectManager;   //エフェクトマネージャー
     public Image image;
+    public bool isPlanted = false;
+    public int fresh = -5;
 
     private AudioSource audioSource;  // AudioSourceコンポーネント
     public GameObject attackEffectPrefab;  // 前列攻撃のエフェクトプレハブ
@@ -50,7 +52,7 @@ public class CharacterScript : MonoBehaviour
         set { maxCharacterLife = value; }
     }
 
-    public int Deffense { get => deffense; set => deffense = value; }
+    public int CharacterDef { get => characterDef; set => characterDef = value; }
     public int CharacterAtk { get => characterAtk; set => characterAtk = value; }
     public int CharacterMatk { get => characterMatk; set => characterMatk = value; }
     public int CharacterAaux { get => characterAaux; set => characterAaux = value; }
@@ -198,11 +200,11 @@ public class CharacterScript : MonoBehaviour
         }
     }
 
-    public void SelectButton()
-    {
-        Debug.Log("selectbutton");
-        // ClickManager.SetSelectChar(this);//ClickManagerクラスのSetSelectChar()へインスタンスを渡す
-    }
+    // public void SeedSelectButton()
+    // {
+    //     Debug.Log("SeedSelectbutton");//動作確認用
+    //     FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
+    // }
 
     private void DeathSound()
     {

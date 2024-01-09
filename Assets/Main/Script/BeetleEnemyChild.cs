@@ -3,30 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeetleEnemyChild_1 : EnemyParent_1
+public class BeetleEnemyChild : EnemyParent
 {
-    List<PlayerChildTest> characters = new();
+    List<CharacterScript> characters = new();
 
-    public override void EnemyAction_1(int turnCount)
+    public override void EnemyAction(int turnCount)
     {
         //! 10回周期
         int actionPatternCalc = turnCount % 10;
         switch (actionPatternCalc)
         {
             case 2:
-                EnemyCharge_1();
+                EnemyCharge();
                 break;
             case 7:
-                EnemyGroupAttack_1(characters);
+                EnemyGroupAttack(characters);
                 break;
             case 9:
                 for (int i = 0; i < 3; i++)
                 {
-                    EnemySingleAttack_1(characters);
+                    EnemySingleAttack(characters);
                 }
                 break;
             default:
-                EnemySingleAttack_1(characters);
+                EnemySingleAttack(characters);
                 break;
         }
     }

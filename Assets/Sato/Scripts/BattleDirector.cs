@@ -274,6 +274,7 @@ public class BattleDirector : MonoBehaviour
         {
             loseEffect.SetActive(true);
         }
+        GameDirector.Instance.NextFreshCount();
     }
 
     IEnumerator PlayerAction()

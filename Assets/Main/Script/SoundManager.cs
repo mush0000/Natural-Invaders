@@ -96,6 +96,33 @@ public class SoundManager : MonoBehaviour
         Se36WinPopUp,
         Se37DeathOfAnAlly,
         Se38DeathOfEnemy,
+        Se39Knife,
+        Se40Knife,
+        Se41Earthquake,
+        Se42Fire,
+        Se43Heal,
+        Se44Heal2,
+        Se45PeachAttack,
+        Se46rRotation,
+        Se47TomatoFront,
+        Se48PeachMiddle,
+        Se49PeachBack,
+        Se49Resuscitation,
+        Se50PotatoMiddle,
+        Se51PotatoFront,
+        Se52IceMagic,
+        Se53Lightning,
+        Se54Lightning2,
+        Se55Lightning3,
+        Se56Button,
+        Se57Button2,
+        Se58fireworks,
+        Se59flingingupandaway,
+        Se60Button,
+        Se61TakingPictureWithCamera,
+        Se62AutoHeal,
+
+
     }
 
     // クロスフェード時間
