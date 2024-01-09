@@ -1,7 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using UnityEditor.Animations;
 using UnityEditor.SearchService;
+=======
+// using Microsoft.Unity.VisualStudio.Editor;
+// using UnityEditor.Animations;
+// using UnityEditor.SearchService;
+>>>>>>> SatoWork
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
