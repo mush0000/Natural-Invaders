@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd3f379cdcd2fb40b53a0f5a16ebed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   position: 0
   isDead: 0
   image: {fileID: 0}
@@ -189,7 +190,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8d61f6b41d70a4442bb38e93f7f8ce2f, type: 2}
+  - {fileID: 2100000, guid: c9e11dad0bb6fcf449f9623c5182ac82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
