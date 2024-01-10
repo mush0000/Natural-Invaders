@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Playables;
 
 
 
@@ -18,11 +19,15 @@ public class CharacterScript : MonoBehaviour
     protected int characterAaux; // キャラクターの攻撃補助力
     protected int characterDaux; // キャラクターの防御補助力
     protected int characterPosition; // キャラクターの場所指定
+    protected int characterDef = 0; //キャラクターの防御力 基本0、敵キャラクターのダメージ計算用
     public int position = 0; // キャラクターの現在位置
     public bool isDead = false; // キャラクターの死亡判定
     protected int enemyLife;  // enemyLifeをCharacterScriptのフィールドとして追加
     protected int maxCharacterLife;
+    private GameObject effectManager;   //エフェクトマネージャー
     public Image image;
+    public bool isPlanted = false;
+    public int fresh = -5;
 
     private AudioSource audioSource;  // AudioSourceコンポーネント
     public GameObject attackEffectPrefab;  // 前列攻撃のエフェクトプレハブ
@@ -34,7 +39,7 @@ public class CharacterScript : MonoBehaviour
         set
         {
             // 任意の制御や処理を追加できます
-            characterLife = value;
+            characterLife = Mathf.Clamp(value, 0, MaxCharacterLife);
             if (OnLifeChanged != null)
             {
                 OnLifeChanged.Invoke(); //着火しまーす！
@@ -46,6 +51,13 @@ public class CharacterScript : MonoBehaviour
         get { return maxCharacterLife; }
         set { maxCharacterLife = value; }
     }
+
+    public int CharacterDef { get => characterDef; set => characterDef = value; }
+    public int CharacterAtk { get => characterAtk; set => characterAtk = value; }
+    public int CharacterMatk { get => characterMatk; set => characterMatk = value; }
+    public int CharacterAaux { get => characterAaux; set => characterAaux = value; }
+    public int CharacterDaux { get => characterDaux; set => characterDaux = value; }
+
     public delegate void OnLifeChangedDelegate();
     public event OnLifeChangedDelegate OnLifeChanged;
 
@@ -61,12 +73,12 @@ public class CharacterScript : MonoBehaviour
     {
         characterName = name;
         characterLife = life;
-        characterAtk = atk;
+        CharacterAtk = atk;
         characterSpd = spd;
         characterHeal = heal;
         characterAaux = aaux;
         characterDaux = daux;
-        characterMatk = matk;
+        CharacterMatk = matk;
     }
 
 
@@ -89,7 +101,7 @@ public class CharacterScript : MonoBehaviour
     public virtual void FrontAction()
     {
         int enemyLife = enemy.enemyLife;
-        int enemyLifeDecrease = characterAtk;
+        int enemyLifeDecrease = CharacterAtk;
         enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
         Debug.Log("前列攻撃");
 
@@ -102,7 +114,7 @@ public class CharacterScript : MonoBehaviour
     public virtual void MiddleAction()
     {
         int enemyLife = enemy.enemyLife;
-        int enemyLifeDecrease = characterMatk;
+        int enemyLifeDecrease = CharacterMatk;
         enemyLife -= enemyLifeDecrease;  // enemyLifeを減少させる
         Debug.Log("中列攻撃");
 
@@ -139,15 +151,33 @@ public class CharacterScript : MonoBehaviour
 
     public virtual void AutoHeal()
     {
+        if (effectManager == null)
+        {
+            GetEffectManager();
+        }
+        PlayableDirector[] effects = effectManager.GetComponentsInChildren<PlayableDirector>();
         int gainLife = (int)(characterLife * 0.2);
-        characterLife += gainLife;
+        CharacterLife += gainLife;
+        foreach (PlayableDirector effect in effects)
+        {
+            if (effect.state != PlayState.Playing)
+            {
+                Vector3 pos = this.gameObject.transform.position;
+                pos.y -= 0.5f;
+                effect.gameObject.transform.position = pos;
+                effect.Play();
+                break;
+            }
+        }
+        WaitSeconds(1.5f);
+        //SoundDirectorから再生
+        // SoundManager.instance.
         Debug.Log($"{gainLife}回復した");
     }
 
     public void ModifyCharacterLife(int amount)
     {
         characterLife -= amount;
-
         // characterLife が 0 以下になった場合、isDead を false に設定
         if (characterLife <= 0)
         {
@@ -170,11 +200,11 @@ public class CharacterScript : MonoBehaviour
         }
     }
 
-    public void SelectButton()
-    {
-        Debug.Log("selectbutton");
-        // ClickManager.SetSelectChar(this);//ClickManagerクラスのSetSelectChar()へインスタンスを渡す
-    }
+    // public void SeedSelectButton()
+    // {
+    //     Debug.Log("SeedSelectbutton");//動作確認用
+    //     FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
+    // }
 
     private void DeathSound()
     {
@@ -193,4 +223,12 @@ public class CharacterScript : MonoBehaviour
     // {
     //     enemyLife = life;
     // }
+    private void GetEffectManager()
+    {
+        effectManager = GameObject.Find("EffectManager");
+    }
+    public IEnumerable WaitSeconds(float time)
+    {
+        yield return new WaitForSeconds(time);
+    }
 }

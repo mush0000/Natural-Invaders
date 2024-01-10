@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
+// using Microsoft.Unity.VisualStudio.Editor;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
-using UnityEditor.SearchService;
+// using UnityEditor.Animations;
+// using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
@@ -58,6 +58,10 @@ public class BriefingManager : MonoBehaviour
             // すべてのDragObjにUpdatePartySumInfoを追加
             DragObj dragObj = characterWindow.GetComponent<DragObj>();
             dragObj.OnPartySumInfoChanged += UpdatePartySumInfo;
+            // キャラクターwindowのTextに値を設定
+            Text text = memberWindow.transform.Find("info").GetComponent<Text>();
+            CharacterScript cs = character.GetComponent<CharacterScript>();
+            text.text = $"Life{cs.MaxCharacterLife}\nAtk{cs.CharacterAtk}\nMatk{cs.CharacterMatk}";
         }
         //gridのリストを作成
         grids = new List<GridCheck>(){
@@ -85,30 +89,38 @@ public class BriefingManager : MonoBehaviour
 
     void UpdatePartySumInfo()
     {
-        int AtkSum = 123;
-        int MatkSum = 456;
-        int DefASum = 789;
-        int AtkASum = 101;
+        int AtkSum = 0;
+        int MatkSum = 0;
+        int DefASum = 0;
+        int AtkASum = 0;
         // パーティのステータス合計
         List<CharacterScript> frontCsList = new List<CharacterScript>();
         foreach (GameObject frontObj in frontLine)
         {
-            frontCsList.Add(frontObj.GetComponentInChildren<CharacterScript>());
+            CharacterScript cs = frontObj.GetComponentInChildren<CharacterScript>();
+            if (cs != null)
+            {
+                frontCsList.Add(cs);
+            }
         }
         List<CharacterScript> middleCsList = new List<CharacterScript>();
         foreach (GameObject middleObj in middleLine)
         {
-            middleCsList.Add(middleObj.GetComponentInChildren<CharacterScript>());
+            CharacterScript cs = middleObj.GetComponentInChildren<CharacterScript>();
+            if (cs != null)
+            {
+                middleCsList.Add(cs);
+            }
         }
         foreach (CharacterScript cs in frontCsList)
         {
-            // AtkSum += cs.characterAtk;
-            // MatkSum += cs.characterMatk;
+            AtkSum += cs.CharacterAtk;
+            MatkSum += cs.CharacterMatk;
         }
         foreach (CharacterScript cs in middleCsList)
         {
-            // DefASum += cs.characterDaux;
-            // AtkASum += cs.characterAaux;
+            // DefASum += cs.CharacterDaux;
+            // AtkASum += cs.CharacterAaux;
         }
         partySumInfo.text =
         $"前列\nATK {AtkSum}\nMatk {MatkSum}\n中列補助\nDefA {DefASum}\nAtkA {AtkASum}";

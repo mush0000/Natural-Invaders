@@ -12,6 +12,12 @@ TagManager:
   - PartyMember5
   - TomatoBomb
   - ExplosionEffect
+  - miniBanana
+  - miniPotato
+  - miniPumpkin
+  - miniTomato
+  - miniPeach
+  - miniGrape
   layers:
   - Default
   - TransparentFX

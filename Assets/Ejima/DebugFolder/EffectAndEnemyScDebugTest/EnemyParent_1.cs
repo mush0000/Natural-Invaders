@@ -21,11 +21,14 @@ public abstract class EnemyParent_1 : MonoBehaviour
     private int enemyAttack;    //! 攻撃力
     private int enemyLife;      //! 現在HP
     private int enemyMaxLife;   //! 最大HP(超過回復防止用)
+    [SerializeField] private ParticleSystem atkParticleObject;    //! 攻撃ParticleSystem
+    [SerializeField] private ParticleSystem healParticleObject;   //! 回復ParticleSystem
+    [SerializeField] private ParticleSystem chargeParticleObject; //! 「溜める」ParticleSystem
 
     //! Enemy詳細ステータス群
-    private bool enemyChargeFlag = false;       //!「溜める」管理フラグ
-    [SerializeField] private int enemyHealValue;                 //! 回復値
-    private int enemyChargeMagnification = 2;   //!「溜める」倍率
+    private bool enemyChargeFlag = false;           //!「溜める」管理フラグ
+    private int enemyChargeMagnification = 2;       //!「溜める」倍率
+    [SerializeField] private int enemyHealValue;    //! 回復値
 
     //! 各getter,setter
     public string EnemyName { get => enemyName; set => enemyName = value; }
@@ -99,6 +102,8 @@ public abstract class EnemyParent_1 : MonoBehaviour
     //! 「溜める」行動
     public void EnemyCharge_1()
     {
+        chargeParticleObject.transform.position = transform.position;
+        chargeParticleObject.Play(); //* 溜めるEffect再生
         EnemyAttack *= EnemyChargeMagnification; //* 2倍Atk
         enemyChargeFlag = true;
     }
@@ -113,6 +118,8 @@ public abstract class EnemyParent_1 : MonoBehaviour
     //! 「回復」行動
     public void EnemyHeal_1()
     {
+        healParticleObject.transform.position = transform.position;
+        healParticleObject.Play(); //* 回復Effect再生
         int tempHpHeal = EnemyLife + EnemyHealValue;
         if (tempHpHeal > EnemyMaxLife)
         {   //! 回復超過。HPMAXLifeを代入
@@ -127,11 +134,13 @@ public abstract class EnemyParent_1 : MonoBehaviour
     //!「最前列ランダム単体攻撃」行動
     public void EnemySingleAttack_1(List<PlayerChildTest> characters)
     {
-        List<PlayerChildTest> targetGroup = SelectTargetGroups_1(characters);
-        PlayerChildTest targetCharacter = SelectCharacterFromRow_1(targetGroup);
+        List<PlayerChildTest> targetGroup = SelectTargetGroups_1(characters);   //! ScriptListから特定列の配列を新規作成
+        PlayerChildTest targetCharacter = SelectCharacterFromRow_1(targetGroup);//! 特定列の配列から単一のScriptを選択
 
-        enemyAttack -= targetCharacter.PlayerDaux;  //! 
-        targetCharacter.PlayerLife -= enemyAttack;
+        atkParticleObject.transform.position = targetCharacter.transform.position;
+        atkParticleObject.Play();
+
+        targetCharacter.PlayerLife -= enemyAttack - targetCharacter.PlayerDef;
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
         if (enemyChargeFlag == true)
@@ -140,13 +149,17 @@ public abstract class EnemyParent_1 : MonoBehaviour
         }
     }
 
-    public void EnemyGroupAttack_1(List<PlayerChildTest> characters)
+    public IEnumerator EnemyGroupAttack_1(List<PlayerChildTest> characters)
     {
         List<PlayerChildTest> targetGroup = SelectTargetGroups_1(characters);
 
         foreach (PlayerChildTest Group in targetGroup)
         {
-            Group.PlayerLife -= enemyAttack;
+            Group.PlayerLife -= enemyAttack - Group.PlayerDef; //* ダメージ計算処理
+
+            atkParticleObject.transform.position = Group.transform.position; //* Effect発生位置確定
+            atkParticleObject.Play();
+            yield return new WaitUntil(() => atkParticleObject.isStopped);
         }
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
@@ -191,4 +204,5 @@ public abstract class EnemyParent_1 : MonoBehaviour
             }
         }
     }
+
 }
