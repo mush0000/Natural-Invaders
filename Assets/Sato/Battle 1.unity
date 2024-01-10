@@ -3259,12 +3259,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 556065978215946157, guid: 0abe2580c866315459b2c3a14f3ef9c2, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5339460317123228539, guid: 0abe2580c866315459b2c3a14f3ef9c2, type: 3}
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9100548093454486260, guid: 0abe2580c866315459b2c3a14f3ef9c2, type: 3}
+    - {fileID: 292649440801662152, guid: 0abe2580c866315459b2c3a14f3ef9c2, type: 3}
+    - {fileID: 8039911917424079193, guid: 0abe2580c866315459b2c3a14f3ef9c2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0abe2580c866315459b2c3a14f3ef9c2, type: 3}
