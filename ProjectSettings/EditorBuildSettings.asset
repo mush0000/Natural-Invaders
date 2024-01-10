@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Fujieda2/farm.unity
     guid: 53f038935de04674b8dc88f2535057c2
+  - enabled: 1
+    path: Assets/Sato/SatoMiniGame.unity
+    guid: 062aee2852eebca4085c943e5ce6e48a
   m_configObjects: {}

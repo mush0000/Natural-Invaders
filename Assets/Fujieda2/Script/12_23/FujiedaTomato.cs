@@ -77,19 +77,20 @@ public class FujiedaTomato : CharacterScript
 
     //畑画面実装用-------------------------------------------------------
 
-    public bool isPlanted = false;
-    public int fresh = -5;
+    // public bool isPlanted = false;
+    // public int fresh = -5;
 
     // public FujiedaTomato(int fresh)
     // {
     //     this.fresh = fresh;
     // }
 
-    public void SeedSelectButton()
-    {
-        Debug.Log("SeedSelectbutton");//動作確認用
-        FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
-    }
+    ////1/10統合用にFarmClickManagerへ移動
+    // public void SeedSelectButton()
+    // {
+    //     Debug.Log("SeedSelectbutton");//動作確認用
+    //     FarmClickManager.SetSelectSeed(this);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
+    // }
     //Start is called before the first frame update
     void Start()
     {
