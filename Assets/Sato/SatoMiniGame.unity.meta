@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Spider1/Demo.unity.meta
+guid: 062aee2852eebca4085c943e5ce6e48a
+========
 guid: 115a51c5c4f92b24ea95673dddcf25e0
+>>>>>>>> SatoWork:Assets/Sato/SatoMiniGame.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

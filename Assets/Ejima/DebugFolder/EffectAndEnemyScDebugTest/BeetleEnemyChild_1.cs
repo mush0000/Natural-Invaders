@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BeetleEnemyChild_1 : EnemyParent_1
 {
-    List<PlayerChildTest> players = new();
+    List<PlayerChildTest> characters = new();
 
     public override void EnemyAction_1(int turnCount)
     {
@@ -17,16 +17,16 @@ public class BeetleEnemyChild_1 : EnemyParent_1
                 EnemyCharge_1();
                 break;
             case 7:
-                EnemyGroupAttack_1(players);
+                EnemyGroupAttack_1(characters);
                 break;
             case 9:
                 for (int i = 0; i < 3; i++)
                 {
-                    EnemySingleAttack_1(players);
+                    EnemySingleAttack_1(characters);
                 }
                 break;
             default:
-                EnemySingleAttack_1(players);
+                EnemySingleAttack_1(characters);
                 break;
         }
     }

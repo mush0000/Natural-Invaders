@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Free Stylized Skybox/Scene.unity.meta
+guid: e9d744fe368ea1d4a898d16cd5875b73
+========
 guid: 1741cac8dccafcd439813115d33cc38b
 folderAsset: yes
+>>>>>>>> SatoWork:Assets/Sato/Fantasy Skybox FREE.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
