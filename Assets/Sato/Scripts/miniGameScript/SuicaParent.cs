@@ -7,6 +7,7 @@ public class SuicaParent : MonoBehaviour
 {
     public GameObject nextPrefab;
     SuicaDirector suica;
+    public bool isGameOverTrigger = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,7 @@ public class SuicaParent : MonoBehaviour
                 suica.ReturnObject(other.gameObject);
                 //新しい場所に生成します
                 if (nextPrefab != null)
-                {   //nextPrefabが存在したら、最後の果物にはつけない
+                {   //nextPrefabが存在したら次のオブジェクトを生成、最後の果物にはつけない
                     suica.CreateUnionObject(nextPrefab, this.gameObject.transform.position, other.gameObject.transform.position);
                 }
             }
