@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Tomato : CharacterScript
 {
-    private TomatoBombController tomatoBombController;
+    private TomatoBombController2 tomatoBombController2;
     private void Start()
     {
-        tomatoBombController = GetComponent<TomatoBombController>();
+        tomatoBombController2 = GetComponent<TomatoBombController2>();
     }
     public Tomato() : base("Tomato", 16, 5, 0, 10, 0, 10)
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class TomatoBombController : MonoBehaviour
+public class TomatoBombController2 : MonoBehaviour
 {
     [SerializeField] Transform endPos;  //終点座標
     [SerializeField] float flightTime = 2;  //滞空時間
