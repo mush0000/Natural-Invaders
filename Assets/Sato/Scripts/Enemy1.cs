@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
 {
-    private int enemyLife = 6;
-    private int enemyMaxLife = 6;
+    private int enemyLife = 10;
+    private int enemyMaxLife = 10;
     public int EnemyLife
     {
         get
