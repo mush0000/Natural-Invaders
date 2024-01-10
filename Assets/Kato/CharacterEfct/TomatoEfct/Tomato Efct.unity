@@ -406,6 +406,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 921097353254211628, guid: dcdc0cc9a1605d44dbe7f1f6dc2dc1fb, type: 3}
+      propertyPath: m_Name
+      value: TomatoBomb2
+      objectReference: {fileID: 0}
     - target: {fileID: 3126899722685145649, guid: dcdc0cc9a1605d44dbe7f1f6dc2dc1fb, type: 3}
       propertyPath: m_Intensity
       value: 0
