@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,11 @@ public class FarmClickManager : MonoBehaviour
     Image image;
 
     static FujiedaTomato seeds;
+
+    public FarmGameDirector testGameDirector;
+
+    //1/10インスタンス受け渡し用
+    private FujiedaTomato instance;
 
     public static void SetSelectSeed(FujiedaTomato sd)//CharacterManagerクラスのSelectButton()から渡されたインスタンスを受け取る
     {
@@ -36,23 +42,21 @@ public class FarmClickManager : MonoBehaviour
             image.gameObject.SetActive(true);//自身の画像を変更する
             seeds.isPlanted = true;//種を植えたことにする
             farm.isEnpty = false;//畑が植えられたことにする
+            // sasaki案(仮)
+            FreshCountVer couuntVer = farm.GetComponentInChildren<FreshCountVer>();
+            couuntVer.tomato = seeds;
+
+            testGameDirector.PlantedSeedCharacters[farm.farmField] = (FujiedaTomato)seeds;//(植えた種リスト)に選択したキャラクターを追加
             seeds = null;//シードの選択を解除する
         }
     }
 
-    // public void AddTagFarmFieldButton() //クリックされたらタグを追加
-    // {
-    //     if (farmFieldTag <= 6)//farmFieldに追加されたインスタンスにタグを追加する(最大6つ)
-    //     {
-    //         for (int j = 0; j < 6; j++)//i<6 => 『charactersのfarmFieldTag』の数値を取得
-    //         {
-    //             characters[j].tag = "farmField" + j;//空いているタグを引きつぐ「実行するとインスタンスに新しいタグを追加。
-
-    //             Button btn = GetComponent<Button>();//タグがある種はクリック出来なくする
-    //             btn.interactable = false;
-    //         }
-    //     }
-    // }
+    //1/10統合用にFujiedaTomatoからFarmClickManagerへ移動
+    public void SeedSelectButton()
+    {
+        Debug.Log("SeedSelectbutton");//動作確認用
+        FarmClickManager.SetSelectSeed(instance);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
+    }
 
     // Start is called before the first frame update
     void Start()
