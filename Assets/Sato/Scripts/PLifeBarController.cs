@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class PLifeBarController : MonoBehaviour
 {
     // private GameObject character;   //このスクリプトがアタッチされているGameObjectの親キャラクター
-    private Knight characterScript; //そのスクリプト
+    private CharacterScript characterScript; //そのスクリプト
     // Start is called before the first frame update
     [SerializeField] GameObject fillImageObject;
     private UnityEngine.UI.Image fillImage;
     void Start()
     {
         // character = this.gameObject.transform.parent.gameObject;
-        characterScript = this.gameObject.GetComponentInParent<Knight>();
+        characterScript = this.gameObject.GetComponentInParent<CharacterScript>();
         characterScript.OnLifeChanged += LifeBarUpdate;
         fillImage = fillImageObject.GetComponent<UnityEngine.UI.Image>();
     }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5148713521452149925}
   - component: {fileID: 873358751078984939}
   - component: {fileID: 2121561869688936465}
-  - component: {fileID: -4305362776069381104}
   - component: {fileID: 9115653969754909949}
   m_Layer: 0
   m_Name: Banana
@@ -109,28 +108,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703146583984554863}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &-4305362776069381104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703146583984554863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcd3f379cdcd2fb40b53a0f5a16ebed3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
-  position: 0
-  isDead: 0
-  image: {fileID: 0}
-  isPlanted: 0
-  fresh: -5
-  attackEffectPrefab: {fileID: 0}
-  attackSound: {fileID: 0}
-  frontEffectPrefab: {fileID: 0}
-  backEffectPrefab: {fileID: 0}
 --- !u!114 &9115653969754909949
 MonoBehaviour:
   m_ObjectHideFlags: 0

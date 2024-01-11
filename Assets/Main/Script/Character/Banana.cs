@@ -5,11 +5,11 @@ using UnityEngine;
 public class Banana : CharacterScript
 {
     // private GameObject Sword; // Swordオブジェクト
-    private GameObject Shield; // Shieldオブジェクト
+    // private GameObject Shield; // Shieldオブジェクト
     // private bool isSwordOn = false; // Swordオブジェクトのオン/オフの状態を管理
-    private bool isShieldOn = false; // Shieldオブジェクトのオン/オフの状態を管理
+    // private bool isShieldOn = false; // Shieldオブジェクトのオン/オフの状態を管理
 
-    public Banana() : base("Banana", 30, 5, 10, 15, 0, 15)
+    public Banana() : base("Banana", 300, 5, 10, 15, 0, 15)
     {
         // 親クラス(CharacterScript)のコンストラクタを呼び出す
         // ここで追加の初期化などを行うこともできます
@@ -47,15 +47,15 @@ public class Banana : CharacterScript
         // Potato独自の中列行動の処理を追加
     }
 
-    void ToggleShield()
-    {
-        // オンの場合はオフに、オフの場合はオンにする
-        // animator.Play("YourAnimationName");
-        Shield.SetActive(!isShieldOn);
-        // 状態を反転
-        isShieldOn = !isShieldOn;
+    // void ToggleShield()
+    // {
+    //     // オンの場合はオフに、オフの場合はオンにする
+    //     // animator.Play("YourAnimationName");
+    //     Shield.SetActive(!isShieldOn);
+    //     // 状態を反転
+    //     isShieldOn = !isShieldOn;
 
-    }
+    // }
     public override void BackAction()
     {
         base.BackAction();
@@ -107,7 +107,7 @@ public class Banana : CharacterScript
     void Start()
     {
         // Shieldオブジェクトを取得
-        Shield = transform.Find("Shield").gameObject;
+        // Shield = transform.Find("Shield").gameObject;
     }
 
     // Update is called once per frame
