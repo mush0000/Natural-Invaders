@@ -67,7 +67,7 @@ public class FarmDirector : MonoBehaviour
 
                 // MemberWindowのPrefabからインスタンスを作成
                 GameObject seedWindow = Instantiate(seedWindowPrefab, scrollViewContent);
-                // seedWindow.GetComponent<Button>().onClick.AddListener(farmClickManager.SeedSelectButton);
+                seedWindow.GetComponent<Button>().onClick.AddListener(farmClickManager.SeedSelectButton);
                 GameObject characterWindowImage = seedWindow.transform.GetChild(0).gameObject;
                 GameObject characterWindowText = seedWindow.transform.GetChild(1).gameObject;
 

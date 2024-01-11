@@ -64,6 +64,7 @@ public class FarmClickManager : MonoBehaviour
     {
         //イベントシステムから、ボタンが押されたことを検知
         FujiedaTomato fujiedatomato = eventSystem.currentSelectedGameObject.GetComponent<FujiedaTomato>();
+        seeds = fujiedatomato;
         Debug.Log("SeedSelectbutton");//動作確認用
         FarmClickManager.SetSelectSeed(fujiedatomato);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
     }
