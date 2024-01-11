@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class FarmClickManager : MonoBehaviour
@@ -13,16 +14,16 @@ public class FarmClickManager : MonoBehaviour
 
     //public GameObject[] characters;//動作確認用のキャラクター配列
     [SerializeField] Button button;
-
     static CharacterScript currentSelectChar; //Charインスタンスを受け取るChar型変数
     Image image;
-
     static FujiedaTomato seeds;
-
     public FarmGameDirector testGameDirector;
-
+    //キャラクターのボタンを検知
+    public Button button0;
     //1/10インスタンス受け渡し用
     private FujiedaTomato instance;
+
+    [SerializeField] EventSystem eventSystem;
 
     public static void SetSelectSeed(FujiedaTomato sd)//CharacterManagerクラスのSelectButton()から渡されたインスタンスを受け取る
     {
@@ -46,7 +47,14 @@ public class FarmClickManager : MonoBehaviour
             FreshCountVer couuntVer = farm.GetComponentInChildren<FreshCountVer>();
             couuntVer.tomato = seeds;
 
-            testGameDirector.PlantedSeedCharacters[farm.farmField] = (FujiedaTomato)seeds;//(植えた種リスト)に選択したキャラクターを追加
+            testGameDirector.PlantedSeedCharacters[farm.farmField] = (FujiedaTomato)seeds;
+            //(植えた種リスト)に選択したキャラクターを追加
+            //選択したキャラクターのボタンを押せなくする
+            // if (isPlanted == true)
+            // {
+            //     Button btn = GetComponent<Button>();
+            //     btn.interactable = false;
+            // }
             seeds = null;//シードの選択を解除する
         }
     }
@@ -54,8 +62,10 @@ public class FarmClickManager : MonoBehaviour
     //1/10統合用にFujiedaTomatoからFarmClickManagerへ移動
     public void SeedSelectButton()
     {
+        //イベントシステムから、ボタンが押されたことを検知
+        FujiedaTomato fujiedatomato = eventSystem.currentSelectedGameObject.GetComponent<FujiedaTomato>();
         Debug.Log("SeedSelectbutton");//動作確認用
-        FarmClickManager.SetSelectSeed(instance);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
+        FarmClickManager.SetSelectSeed(fujiedatomato);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
     }
 
     // Start is called before the first frame update
