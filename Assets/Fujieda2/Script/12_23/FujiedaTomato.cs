@@ -85,7 +85,7 @@ public class FujiedaTomato : CharacterScript
     //     this.fresh = fresh;
     // }
 
-    ////1/10統合用にFarmClickManagerへ移動
+    //1/10統合用にFarmClickManagerへ移動
     // public void SeedSelectButton()
     // {
     //     Debug.Log("SeedSelectbutton");//動作確認用
