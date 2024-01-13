@@ -6,35 +6,35 @@ using UnityEngine;
 // public class BeetleEnemyChildeffectTest : EnemyParent
 {
     // public List<CharacterScript> characters = new();
-    private void Awake()
-    {
-        Initialize(EnemyKind.beetle, EnemyHealValue);
-        // Debug.Log(EnemyLife);
-    }
+//     private void Awake()
+//     {
+//         Initialize(EnemyKind.beetle, EnemyHealValue);
+//         // Debug.Log(EnemyLife);
+//     }
 
-    public override void EnemyAction(int turnCount)
-    {
-        //! 10回周期
-        Debug.Log("EnemyAction呼ばれた");
-        int actionPatternCalc = turnCount % 10;
-        switch (actionPatternCalc)
-        {
-            case 2:
-                EnemyCharge();
-                break;
-            case 7:
-                StartCoroutine(EnemyGroupAttack(characters));
-                break;
-            case 9:
-                for (int i = 0; i < 3; i++)
-                {
-                    EnemySingleAttack(characters);
-                }
-                break;
-            default:
-                EnemySingleAttack(characters);
-                Debug.Log("シングルアクションが呼ばれた");
-                break;
-        }
-    }
-}
+//     public override void Action(int turnCount)
+//     {
+//         //! 10回周期
+//         Debug.Log("EnemyAction呼ばれた");
+//         int actionPatternCalc = turnCount % 10;
+//         switch (actionPatternCalc)
+//         {
+//             case 2:
+//                 EnemyCharge();
+//                 break;
+//             case 7:
+//                 StartCoroutine(EnemyGroupAttack(characters));
+//                 break;
+//             case 9:
+//                 for (int i = 0; i < 3; i++)
+//                 {
+//                     EnemySingleAttack(characters);
+//                 }
+//                 break;
+//             default:
+//                 EnemySingleAttack(characters);
+//                 Debug.Log("シングルアクションが呼ばれた");
+//                 break;
+//         }
+//     }
+// }
