@@ -77,9 +77,13 @@ public class BattleDirector : MonoBehaviour
         enemy = GameObject.FindWithTag("Enemy");
         // enemyという名前のスクリプトをenemyScriptへ代入
         enemyScript = enemy.GetComponent<EnemyParent>();
-
         // enemyにパーティリストを送る
         enemyScript.characters = characterScripts;
+        // PartyにEnemyを送る
+        foreach (CharacterScript cs in characterScripts)
+        {
+            cs.GetEnemyParent();
+        }
         // バトルの開始
         yield return StartCoroutine(BattleStart());
         StartCoroutine(BattleMainLoop());
@@ -99,6 +103,7 @@ public class BattleDirector : MonoBehaviour
         while (isWin == false && isLose == false)
         {
             turnCount++;
+            yield return new WaitForSeconds(0.3f);
             //味方のターン        
             yield return StartCoroutine(ActionPlayerTurn());
             if (isWin || isLose)
@@ -236,6 +241,7 @@ public class BattleDirector : MonoBehaviour
         if (enemyScript.EnemyLife <= 0)  //敵のライフが0なら即勝利
         {
             isWin = true;
+            enemyScript.SetDeathAnime();
             EndingStage();
         }
         else

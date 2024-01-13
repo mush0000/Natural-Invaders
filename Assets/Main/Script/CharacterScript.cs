@@ -9,7 +9,7 @@ using UnityEngine.Playables;
 
 public class CharacterScript : MonoBehaviour
 {
-    public Enemy2 enemy;
+    public EnemyParent enemy;
     protected string characterName; // キャラクター名
     protected int characterLife; // キャラクターのHP
     protected int characterAtk; // キャラクタの攻撃力
@@ -92,6 +92,11 @@ public class CharacterScript : MonoBehaviour
         // particleSystem = GetComponent<ParticleSystem>();
     }
 
+    public void GetEnemyParent()
+    {
+        GameObject Enemy = GameObject.FindWithTag("Enemy");
+        enemy = Enemy.GetComponent<EnemyParent>();
+    }
 
     public void DisplayCharacterInfo() // キャラクターの共通の何かを追加することがあれば。
     {
@@ -101,11 +106,12 @@ public class CharacterScript : MonoBehaviour
     // public virtual IEnumerator FrontAction() 要修正
     public virtual void FrontAction()
     {
+
         // int enemyLife = enemy.enemyLife;
         // int enemyLifeDecrease = CharacterAtk;
         // enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
+        enemy.EnemyLife -= this.characterAtk;
         Debug.Log("前列攻撃");
-
         // FrontActionSound(); // サウンド再生
         // FrontActionEffect(); // エフェクト再生
         // yield return new WaitForSeconds(0.5f);要修正
