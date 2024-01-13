@@ -92,6 +92,8 @@ public class BriefingManager : MonoBehaviour
         frontLine = new List<GameObject> { grid1, grid2, grid3 };
         middleLine = new List<GameObject> { grid4, grid5, grid6 };
         // SoundManager.instance.PlayBGM(SoundManager.BGM_Type.titel);
+        SoundManager.instance.StopBGM();
+        SoundManager.instance.PlayBGM(SoundManager.BGM_Type.Bgm04PartyEdit);
     }
 
     // Update is called once per frame
@@ -180,6 +182,8 @@ public class BriefingManager : MonoBehaviour
             //警告文
             battleMemberAlert.SetActive(true);
         }
+        SoundManager.instance.PlaySE(SoundManager.SE_Type.Se59flingingupandaway);
+
     }
 
     public void OnClickSortButton()
@@ -223,5 +227,8 @@ public class BriefingManager : MonoBehaviour
             //警告文
             battleMemberAlert.SetActive(true);
         }
+        SoundManager.instance.PlaySE(SoundManager.SE_Type.Se59flingingupandaway);
+
+
     }
 }

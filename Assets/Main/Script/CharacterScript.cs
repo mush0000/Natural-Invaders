@@ -9,6 +9,7 @@ using UnityEngine.Playables;
 
 public class CharacterScript : MonoBehaviour
 {
+    public GameObject enemyObject;
     public EnemyParent enemy;
     protected string characterName; // キャラクター名
     protected int characterLife; // キャラクターのHP
@@ -94,8 +95,8 @@ public class CharacterScript : MonoBehaviour
 
     public void GetEnemyParent()
     {
-        GameObject Enemy = GameObject.FindWithTag("Enemy");
-        enemy = Enemy.GetComponent<EnemyParent>();
+        enemyObject = GameObject.FindWithTag("Enemy");
+        enemy = enemyObject.GetComponent<EnemyParent>();
     }
 
     public void DisplayCharacterInfo() // キャラクターの共通の何かを追加することがあれば。
@@ -178,7 +179,7 @@ public class CharacterScript : MonoBehaviour
         }
         WaitSeconds(1.5f);
         //SoundDirectorから再生
-        // SoundManager.instance.
+        SoundManager.instance.PlaySE(SoundManager.SE_Type.Se61TakingPictureWithCamera);
         Debug.Log($"{gainLife}回復した");
     }
 
