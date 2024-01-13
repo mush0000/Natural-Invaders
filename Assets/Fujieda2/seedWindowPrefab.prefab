@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 5804127319294568637}
   - component: {fileID: 2245296990242539836}
   - component: {fileID: -1250059264226092455}
+  - component: {fileID: 4541314534447797507}
   m_Layer: 5
   m_Name: seedWindowPrefab
   m_TagString: Untagged
@@ -389,6 +390,7 @@ RectTransform:
   m_Children:
   - {fileID: 1699441825969056369}
   - {fileID: 480381535927327378}
+  - {fileID: 636225374956936844}
   - {fileID: 6034608626569368647}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -479,9 +481,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -1250059264226092455}
-        m_TargetAssemblyTypeName: FujiedaTomato, Assembly-CSharp
-        m_MethodName: SeedSelectButton
+      - m_Target: {fileID: 6871737604799850315}
+        m_TargetAssemblyTypeName: PlaySECallSoundM, Assembly-CSharp
+        m_MethodName: PlaySEBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -522,7 +524,68 @@ MonoBehaviour:
   position: 0
   isDead: 0
   image: {fileID: 3084269354563514793}
-  attackEffectPrefab: {fileID: 0}
-  attackSound: {fileID: 0}
   isPlanted: 0
   fresh: -4
+  attackEffectPrefab: {fileID: 0}
+  attackSound: {fileID: 0}
+--- !u!114 &4541314534447797507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6813097231146322407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6389fe44cc3b3f243ba0ec2cdab1ff62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  testGameDirector: {fileID: 0}
+  button0: {fileID: 0}
+  eventSystem: {fileID: 0}
+--- !u!1 &8240409363136852765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 636225374956936844}
+  - component: {fileID: 6871737604799850315}
+  m_Layer: 0
+  m_Name: SEListBySoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &636225374956936844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240409363136852765}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -330, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6138376782938375483}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6871737604799850315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240409363136852765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e1b37e02f41c0b45a21c8c618d5613d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectSE: 24

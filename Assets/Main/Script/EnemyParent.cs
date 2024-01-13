@@ -21,9 +21,10 @@ public abstract class EnemyParent : MonoBehaviour
     private int enemyAttack;    //! 攻撃力
     private int enemyLife;      //! 現在HP
     private int enemyMaxLife;   //! 最大HP(超過回復防止用)
-    [SerializeField] private ParticleSystem atkParticleObject;    //! 攻撃ParticleSystem
-    [SerializeField] private ParticleSystem healParticleObject;   //! 回復ParticleSystem
-    [SerializeField] private ParticleSystem chargeParticleObject; //! 「溜める」ParticleSystem
+    [SerializeField] private GameObject atkPrefab;    //! 攻撃ParticleSystem
+    [SerializeField] private GameObject healPrefab;   //! 回復ParticleSystem
+    [SerializeField] private GameObject chargePrefab; //! 「溜める」ParticleSystem
+    public List<CharacterScript> characters = new();
 
     //! Enemy詳細ステータス群
     private bool enemyChargeFlag = false;           //!「溜める」管理フラグ
@@ -48,7 +49,15 @@ public abstract class EnemyParent : MonoBehaviour
             }
         }
     }
-
+    GameObject atkObject;
+    GameObject chargeObject;
+    GameObject healObject;
+    private void Start()
+    {
+        atkObject = Instantiate(atkPrefab);
+        chargeObject = Instantiate(chargePrefab);
+        healObject = Instantiate(healPrefab);
+    }
     //! HPバーアニメーション同期
     public delegate void OnLifeChangedDelegate();
     public event OnLifeChangedDelegate OnLifeChanged;
@@ -84,9 +93,9 @@ public abstract class EnemyParent : MonoBehaviour
 
             case EnemyKind.beetle:
                 EnemyName = "beetle";
-                EnemyLife = 2000;
+                EnemyLife = 20;
                 EnemyMaxLife = EnemyLife;
-                EnemyAttack = 400;
+                EnemyAttack = 4;
                 EnemyHealValue = enemyHealValue;
                 break;
 
@@ -102,8 +111,9 @@ public abstract class EnemyParent : MonoBehaviour
     //! 「溜める」行動
     public void EnemyCharge()
     {
-        chargeParticleObject.transform.position = transform.position;
-        chargeParticleObject.Play(); //* 溜めるEffect再生
+        chargeObject.transform.position = transform.position;
+        ParticleSystem ch = chargeObject.GetComponent<ParticleSystem>();
+        ch.Play(); //* 溜めるEffect再生
         EnemyAttack *= EnemyChargeMagnification; //* 2倍Atk
         enemyChargeFlag = true;
     }
@@ -111,6 +121,8 @@ public abstract class EnemyParent : MonoBehaviour
     //! 「溜める」解除_ヘルパー関数
     private void EnemyChargeInvalid()
     {
+        ParticleSystem ch = chargeObject.GetComponent<ParticleSystem>();
+        ch.Stop(); //* 溜めるEffect再生
         EnemyAttack /= EnemyChargeMagnification; //* 2倍Atkを1倍に戻す
         enemyChargeFlag = false;
     }
@@ -118,8 +130,9 @@ public abstract class EnemyParent : MonoBehaviour
     //! 「回復」行動
     public void EnemyHeal()
     {
-        healParticleObject.transform.position = transform.position;
-        healParticleObject.Play(); //* 回復Effect再生
+        healObject.transform.position = transform.position;
+        ParticleSystem heal = healObject.GetComponent<ParticleSystem>();
+        heal.Play(); //* 回復Effect再生
         int tempHpHeal = EnemyLife + EnemyHealValue;
         if (tempHpHeal > EnemyMaxLife)
         {   //! 回復超過。HPMAXLifeを代入
@@ -136,10 +149,12 @@ public abstract class EnemyParent : MonoBehaviour
     {
         List<CharacterScript> targetGroup = SelectTargetGroups(characters);   //! ScriptListから特定列の配列を新規作成
         CharacterScript targetCharacter = SelectCharacterFromRow(targetGroup);//! 特定列の配列から単一のScriptを選択
-
-        atkParticleObject.transform.position = targetCharacter.transform.position;
-        atkParticleObject.Play();
-
+        atkObject.transform.position = targetCharacter.transform.position;
+        ParticleSystem atk = atkObject.GetComponent<ParticleSystem>();
+        // testatk.transform.position = targetCharacter.transform.position;
+        atk.Play();
+        // atkParticleObject.transform.position = targetCharacter.transform.position;
+        // atkParticleObject.Play();
         targetCharacter.CharacterLife -= enemyAttack - targetCharacter.CharacterDef;
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
@@ -157,9 +172,10 @@ public abstract class EnemyParent : MonoBehaviour
         {
             Group.CharacterLife -= enemyAttack - Group.CharacterDef; //* ダメージ計算処理
 
-            atkParticleObject.transform.position = Group.transform.position; //* Effect発生位置確定
-            atkParticleObject.Play();
-            yield return new WaitUntil(() => atkParticleObject.isStopped);
+            atkObject.transform.position = Group.transform.position; //* Effect発生位置確定
+            ParticleSystem atk = atkObject.GetComponent<ParticleSystem>();
+            atk.Play();
+            yield return new WaitUntil(() => atk.isStopped);
         }
 
         //? 攻撃行動後にEnemyが「溜める」状態だった場合、「溜める」解除。
