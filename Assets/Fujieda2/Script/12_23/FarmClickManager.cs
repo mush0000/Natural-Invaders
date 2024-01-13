@@ -4,25 +4,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FarmClickManager : MonoBehaviour
 {
     //このクラスの役割
     //1.スクロールビューから選択した種を、畑に植える(クリックマネージャー)
     //2.植えた種を、(field == true)に変更する。(『FreshCount』により戦闘終了時に鮮度が1進む)
-    //3.Xボタンを押すと、自身を捨てる処理が行われる(キャラクター自身の消滅メソッドがあればそれを呼び出す)
 
-    //public GameObject[] characters;//動作確認用のキャラクター配列
-    [SerializeField] Button button;
-    static CharacterScript currentSelectChar; //Charインスタンスを受け取るChar型変数
     Image image;
     static FujiedaTomato seeds;
     public FarmGameDirector farmGameDirector;
-    //キャラクターのボタンを検知
-    //public Button button0;
-    //1/10インスタンス受け渡し用
-    private FujiedaTomato instance;
-
     [SerializeField] EventSystem eventSystem;
 
     public static void SetSelectSeed(FujiedaTomato sd)//CharacterManagerクラスのSelectButton()から渡されたインスタンスを受け取る
@@ -60,6 +52,11 @@ public class FarmClickManager : MonoBehaviour
         seeds = fujiedatomato;
         Debug.Log("SeedSelectbutton");//動作確認用
         FarmClickManager.SetSelectSeed(fujiedatomato);//ClickManagerクラスのSetSelectSeed()へインスタンスを渡す
+    }
+
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene("SelectStageScene");
     }
 
     // Start is called before the first frame update

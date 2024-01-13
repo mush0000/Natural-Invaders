@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class FarmField : MonoBehaviour
 {
-    public int FRESHCOUNT = 1;//戦闘終了時に鮮度が進む(定数)
     public bool isEnpty;
     public int farmFieldPos;
 
