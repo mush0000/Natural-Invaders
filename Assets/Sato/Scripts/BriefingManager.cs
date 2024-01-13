@@ -168,4 +168,47 @@ public class BriefingManager : MonoBehaviour
             battleMemberAlert.SetActive(true);
         }
     }
+
+    public void OnClickSortButton()
+    {
+        //5人以下かどうかチェック
+        int battleMemberCount = 0;
+        foreach (GridCheck grid in grids)
+        {
+            if (grid.attached)
+            {
+                battleMemberCount++;
+            }
+        }
+        if (battleMemberCount <= 5)
+        {
+            GetChara getChara = gridParent.GetComponent<GetChara>();
+            List<GameObject> list = getChara.Get();
+            gameDirector.PartyMembers = list;
+            foreach (GameObject partyCharacter in gameDirector.PartyMembers)
+            {
+                CharacterScript cs = partyCharacter.GetComponent<CharacterScript>();
+                GridCheck gc = partyCharacter.GetComponentInParent<GridCheck>();
+                cs.position = gc.position;
+                partyCharacter.transform.parent = null;
+                DontDestroyOnLoad(partyCharacter);
+            }
+            foreach (GameObject allchara in gameDirector.AllCharacters)
+            {
+                allchara.transform.parent = null;
+                DontDestroyOnLoad(allchara);
+                allchara.SetActive(false);
+            }
+            foreach (GameObject ptchara in gameDirector.PartyMembers)
+            {
+                ptchara.SetActive(true);
+            }
+            SceneManager.LoadScene("Battle1");
+        }
+        else
+        {
+            //警告文
+            battleMemberAlert.SetActive(true);
+        }
+    }
 }

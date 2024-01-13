@@ -73,6 +73,7 @@ public class CharacterScript : MonoBehaviour
     {
         characterName = name;
         characterLife = life;
+        maxCharacterLife = life;
         CharacterAtk = atk;
         characterSpd = spd;
         characterHeal = heal;
@@ -100,9 +101,9 @@ public class CharacterScript : MonoBehaviour
     // public virtual IEnumerator FrontAction() 要修正
     public virtual void FrontAction()
     {
-        int enemyLife = enemy.enemyLife;
-        int enemyLifeDecrease = CharacterAtk;
-        enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
+        // int enemyLife = enemy.enemyLife;
+        // int enemyLifeDecrease = CharacterAtk;
+        // enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
         Debug.Log("前列攻撃");
 
         // FrontActionSound(); // サウンド再生
@@ -113,10 +114,10 @@ public class CharacterScript : MonoBehaviour
 
     public virtual void MiddleAction()
     {
-        int enemyLife = enemy.enemyLife;
-        int enemyLifeDecrease = CharacterMatk;
-        enemyLife -= enemyLifeDecrease;  // enemyLifeを減少させる
-        Debug.Log("中列攻撃");
+        // int enemyLife = enemy.enemyLife;
+        // int enemyLifeDecrease = CharacterMatk;
+        // enemyLife -= enemyLifeDecrease;  // enemyLifeを減少させる
+        // Debug.Log("中列攻撃");
 
         // MiddleActionSound(); // サウンド再生の呼び出し
         // MiddleActionEffect(); // エフェクト再生
@@ -126,15 +127,15 @@ public class CharacterScript : MonoBehaviour
     public virtual void BackAction()
     {
 
-        // characterHealの値をcharacterLifeに追加する
-        int addedLife = characterLife + characterHeal;
+        // // characterHealの値をcharacterLifeに追加する
+        // int addedLife = characterLife + characterHeal;
 
-        // 最大値を超えないように調整
-        characterLife = Mathf.Clamp(addedLife, 0, maxCharacterLife);
+        // // 最大値を超えないように調整
+        // characterLife = Mathf.Clamp(addedLife, 0, maxCharacterLife);
 
-        // ここでcharacterLifeの値が更新された状態
-        Debug.Log("後列行動");
-        Debug.Log($"Character Life after BackAction: {characterLife}");
+        // // ここでcharacterLifeの値が更新された状態
+        // Debug.Log("後列行動");
+        // Debug.Log($"Character Life after BackAction: {characterLife}");
 
         // BackActionSound(); // サウンド再生の呼び出し
         // BackActionnEffect(); // エフェクト再生
