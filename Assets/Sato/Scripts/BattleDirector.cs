@@ -34,7 +34,7 @@ public class BattleDirector : MonoBehaviour
     List<UnityEngine.UI.Button> skillButtons = new List<UnityEngine.UI.Button>();
 
     public List<CharacterScript> characterScripts = new List<CharacterScript>();
-    Enemy1 enemyScript;
+    EnemyParent enemyScript;
     bool isWin = false;
     bool isLose = false;
     List<Vector3> allPositions;
@@ -75,9 +75,11 @@ public class BattleDirector : MonoBehaviour
         skillButtons.Add(skill3Button);
         // enemyにenemyを割り当てる
         enemy = GameObject.FindWithTag("Enemy");
-        // enemyのEnemy1という名前のスクリプトをenemyScriptへ代入
-        enemyScript = enemy.GetComponent<Enemy1>();
+        // enemyという名前のスクリプトをenemyScriptへ代入
+        enemyScript = enemy.GetComponent<EnemyParent>();
 
+        // enemyにパーティリストを送る
+        enemyScript.characters = characterScripts;
         // バトルの開始
         yield return StartCoroutine(BattleStart());
         StartCoroutine(BattleMainLoop());
@@ -103,6 +105,7 @@ public class BattleDirector : MonoBehaviour
             {
                 break;
             }
+            yield return new WaitForSeconds(0.5f);
             //敵のターン
             yield return StartCoroutine(ActionEnemyTurn());
             Judge();

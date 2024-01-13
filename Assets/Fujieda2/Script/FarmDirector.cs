@@ -21,9 +21,11 @@ public class FarmDirector : MonoBehaviour
 
 
     GameObject gameDirectorObject;
-    FarmGameDirector gameDirector;
+    public FarmGameDirector farmGameDirector;
+    [SerializeField] FarmClickManager farmClickManager;
     [SerializeField] GameObject seedWindowPrefab;
     [SerializeField] Transform scrollViewContent;
+    List<FujiedaTomato> SeedCharacters = new List<FujiedaTomato>();
     //[SerializeField] GameObject battleMemberAlert;
     //[SerializeField] GameObject gridParent;
     // [SerializeField] GameObject grid1;
@@ -34,31 +36,30 @@ public class FarmDirector : MonoBehaviour
     // [SerializeField] GameObject grid6;
     // List<GridCheck> grids;  //gridのリスト
 
-    List<FujiedaTomato> SeedCharacters = new List<FujiedaTomato>();
-
-    public FarmGameDirector testGameDirector;
-
     // Start is called before the first frame update
     void Start()
     {
+        //FarmシーンのBGMを再生
+        SoundManager.instance.PlayBGM(SoundManager.BGM_Type.Bgm01Farm);
+
         //gameDirector(js)の取得
         gameDirectorObject = GameObject.Find("TestGameDirector");
-        gameDirector = gameDirectorObject.GetComponent<FarmGameDirector>();
+        farmGameDirector = gameDirectorObject.GetComponent<FarmGameDirector>();
         //すべてのキャラクターの分だけインスタンス生成
-        for (int i = 0; i < gameDirector.AllCharacters.Count; i++)
+        for (int i = 0; i < farmGameDirector.AllCharacters.Count; i++)
         {
-            if (gameDirector.AllCharacters[i].fresh > 1 && gameDirector.AllCharacters[i].isPlanted == true)
+            if (farmGameDirector.AllCharacters[i].fresh > 1 && farmGameDirector.AllCharacters[i].isPlanted == true)
             {//植えていて鮮度が1以上になったら、植える判定をfalse
-                gameDirector.AllCharacters[i].isPlanted = false;
+                farmGameDirector.AllCharacters[i].isPlanted = false;
             }
-            else if (gameDirector.AllCharacters[i].fresh > 1) { continue; }
+            else if (farmGameDirector.AllCharacters[i].fresh > 1) { continue; }
             else
             {
                 Debug.Log("test");
 
-                SeedCharacters.Add(gameDirector.AllCharacters[i]);
+                SeedCharacters.Add(farmGameDirector.AllCharacters[i]);
                 // 可視化
-                gameDirector.AllCharacters[i].gameObject.SetActive(true);
+                farmGameDirector.AllCharacters[i].gameObject.SetActive(true);
 
                 //Instantiateの使い方
                 //戻り値・・・既存オブジェクトのクローン
@@ -66,6 +67,7 @@ public class FarmDirector : MonoBehaviour
 
                 // MemberWindowのPrefabからインスタンスを作成
                 GameObject seedWindow = Instantiate(seedWindowPrefab, scrollViewContent);
+                seedWindow.GetComponent<Button>().onClick.AddListener(farmClickManager.SeedSelectButton);
                 GameObject characterWindowImage = seedWindow.transform.GetChild(0).gameObject;
                 GameObject characterWindowText = seedWindow.transform.GetChild(1).gameObject;
 
@@ -74,6 +76,7 @@ public class FarmDirector : MonoBehaviour
 
                 //キャラクター自身の画像を表示
                 characterWindowImage.GetComponent<Image>().sprite = SeedCharacters[i].image.sprite;
+
 
                 //キャラクター自身のステータスをテキストで表示
                 characterWindowText.GetComponent<Text>().text =
