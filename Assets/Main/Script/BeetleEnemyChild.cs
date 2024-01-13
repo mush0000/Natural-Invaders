@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class BeetleEnemyChild : EnemyParent
 {
-    List<CharacterScript> characters = new();
+    // public List<CharacterScript> characters = new();
+    private void Awake()
+    {
+        Initialize(EnemyKind.beetle, EnemyHealValue);
+        // Debug.Log(EnemyLife);
+    }
 
     public override void EnemyAction(int turnCount)
     {
         //! 10回周期
+        Debug.Log("EnemyAction呼ばれた");
         int actionPatternCalc = turnCount % 10;
         switch (actionPatternCalc)
         {
@@ -17,7 +23,7 @@ public class BeetleEnemyChild : EnemyParent
                 EnemyCharge();
                 break;
             case 7:
-                EnemyGroupAttack(characters);
+                StartCoroutine(EnemyGroupAttack(characters));
                 break;
             case 9:
                 for (int i = 0; i < 3; i++)
@@ -27,6 +33,7 @@ public class BeetleEnemyChild : EnemyParent
                 break;
             default:
                 EnemySingleAttack(characters);
+                Debug.Log("シングルアクションが呼ばれた");
                 break;
         }
     }
