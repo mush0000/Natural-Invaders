@@ -17,9 +17,9 @@ public class FarmClickManager : MonoBehaviour
     static CharacterScript currentSelectChar; //Charインスタンスを受け取るChar型変数
     Image image;
     static FujiedaTomato seeds;
-    public FarmGameDirector testGameDirector;
+    public FarmGameDirector farmGameDirector;
     //キャラクターのボタンを検知
-    public Button button0;
+    //public Button button0;
     //1/10インスタンス受け渡し用
     private FujiedaTomato instance;
 
@@ -43,23 +43,16 @@ public class FarmClickManager : MonoBehaviour
             image.gameObject.SetActive(true);//自身の画像を変更する
             seeds.isPlanted = true;//種を植えたことにする
             farm.isEnpty = false;//畑が植えられたことにする
+
             // sasaki案(仮)
             FreshCountVer couuntVer = farm.GetComponentInChildren<FreshCountVer>();
             couuntVer.tomato = seeds;
 
-            testGameDirector.PlantedSeedCharacters[farm.farmField] = (FujiedaTomato)seeds;
-            //(植えた種リスト)に選択したキャラクターを追加
-            //選択したキャラクターのボタンを押せなくする
-            // if (isPlanted == true)
-            // {
-            //     Button btn = GetComponent<Button>();
-            //     btn.interactable = false;
-            // }
+            farmGameDirector.PlantedSeedCharacters[farm.farmFieldPos] = seeds;
             seeds = null;//シードの選択を解除する
         }
     }
 
-    //1/10統合用にFujiedaTomatoからFarmClickManagerへ移動
     public void SeedSelectButton()
     {
         //イベントシステムから、ボタンが押されたことを検知
@@ -72,21 +65,6 @@ public class FarmClickManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // for (int i = 0; i < characters.Length; i++)
-        // {
-        //     // //GameObject.FindGameObjectsWithTag()で、同じタグ名のGameObjectを一挙に取得できる。
-        //     // GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("farmField");
-
-        //     // foreach (GameObject gameObj in gameObjects)
-        //     // {
-        //     //     Button btn = GetComponent<Button>();//タグがある種はクリック出来なくする
-        //     //     btn.interactable = false;
-        //     // }
-
-        //     //植える際の処理に必要?
-        //     //image = transform.GetChild(0).GetComponent<Image>();
-        //     //image.gameObject.SetActive(false);
-        // }
     }
 
     // Update is called once per frame
