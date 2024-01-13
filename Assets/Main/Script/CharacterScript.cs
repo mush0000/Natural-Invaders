@@ -9,7 +9,8 @@ using UnityEngine.Playables;
 
 public class CharacterScript : MonoBehaviour
 {
-    public Enemy2 enemy;
+    public GameObject enemyObject;
+    public EnemyParent enemy;
     protected string characterName; // キャラクター名
     protected int characterLife; // キャラクターのHP
     protected int characterAtk; // キャラクタの攻撃力
@@ -73,6 +74,7 @@ public class CharacterScript : MonoBehaviour
     {
         characterName = name;
         characterLife = life;
+        maxCharacterLife = life;
         CharacterAtk = atk;
         characterSpd = spd;
         characterHeal = heal;
@@ -91,6 +93,11 @@ public class CharacterScript : MonoBehaviour
         // particleSystem = GetComponent<ParticleSystem>();
     }
 
+    public void GetEnemyParent()
+    {
+        enemyObject = GameObject.FindWithTag("Enemy");
+        enemy = enemyObject.GetComponent<EnemyParent>();
+    }
 
     public void DisplayCharacterInfo() // キャラクターの共通の何かを追加することがあれば。
     {
@@ -100,11 +107,12 @@ public class CharacterScript : MonoBehaviour
     // public virtual IEnumerator FrontAction() 要修正
     public virtual void FrontAction()
     {
-        int enemyLife = enemy.enemyLife;
-        int enemyLifeDecrease = CharacterAtk;
-        enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
-        Debug.Log("前列攻撃");
 
+        // int enemyLife = enemy.enemyLife;
+        // int enemyLifeDecrease = CharacterAtk;
+        // enemyLife -= enemyLifeDecrease;  //enemyLifeを減少させる
+        enemy.EnemyLife -= this.characterAtk;
+        Debug.Log("前列攻撃");
         // FrontActionSound(); // サウンド再生
         // FrontActionEffect(); // エフェクト再生
         // yield return new WaitForSeconds(0.5f);要修正
@@ -113,10 +121,10 @@ public class CharacterScript : MonoBehaviour
 
     public virtual void MiddleAction()
     {
-        int enemyLife = enemy.enemyLife;
-        int enemyLifeDecrease = CharacterMatk;
-        enemyLife -= enemyLifeDecrease;  // enemyLifeを減少させる
-        Debug.Log("中列攻撃");
+        // int enemyLife = enemy.enemyLife;
+        // int enemyLifeDecrease = CharacterMatk;
+        // enemyLife -= enemyLifeDecrease;  // enemyLifeを減少させる
+        // Debug.Log("中列攻撃");
 
         // MiddleActionSound(); // サウンド再生の呼び出し
         // MiddleActionEffect(); // エフェクト再生
@@ -126,15 +134,15 @@ public class CharacterScript : MonoBehaviour
     public virtual void BackAction()
     {
 
-        // characterHealの値をcharacterLifeに追加する
-        int addedLife = characterLife + characterHeal;
+        // // characterHealの値をcharacterLifeに追加する
+        // int addedLife = characterLife + characterHeal;
 
-        // 最大値を超えないように調整
-        characterLife = Mathf.Clamp(addedLife, 0, maxCharacterLife);
+        // // 最大値を超えないように調整
+        // characterLife = Mathf.Clamp(addedLife, 0, maxCharacterLife);
 
-        // ここでcharacterLifeの値が更新された状態
-        Debug.Log("後列行動");
-        Debug.Log($"Character Life after BackAction: {characterLife}");
+        // // ここでcharacterLifeの値が更新された状態
+        // Debug.Log("後列行動");
+        // Debug.Log($"Character Life after BackAction: {characterLife}");
 
         // BackActionSound(); // サウンド再生の呼び出し
         // BackActionnEffect(); // エフェクト再生
@@ -171,7 +179,7 @@ public class CharacterScript : MonoBehaviour
         }
         WaitSeconds(1.5f);
         //SoundDirectorから再生
-        // SoundManager.instance.
+        SoundManager.instance.PlaySE(SoundManager.SE_Type.Se61TakingPictureWithCamera);
         Debug.Log($"{gainLife}回復した");
     }
 

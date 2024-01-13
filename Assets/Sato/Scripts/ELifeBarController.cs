@@ -3,6 +3,7 @@
  */
 
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,18 +12,19 @@ public class ELifeBarController : MonoBehaviour
     private GameObject[] heartContainers;
     private Image[] heartFills;
     [SerializeField] GameObject enemy;
-    private Enemy1 enemyScript;
+    private EnemyParent enemyScript;
     public Transform heartsParent;
     public GameObject heartContainerPrefab;
     private void Awake()
     {
-        enemyScript = enemy.GetComponent<Enemy1>();
-        heartContainers = new GameObject[(int)enemyScript.EnemyMaxLife];
-        // heartFills = new Image[(int)PlayerStats.Instance.MaxTotalHealth];
-        heartFills = new Image[(int)enemyScript.EnemyLife];
+
     }
     private void Start()
     {
+        enemyScript = enemy.GetComponent<EnemyParent>();
+        heartContainers = new GameObject[(int)enemyScript.EnemyMaxLife];
+        // heartFills = new Image[(int)PlayerStats.Instance.MaxTotalHealth];
+        heartFills = new Image[(int)enemyScript.EnemyLife];
         enemyScript.OnLifeChanged += UpdateHeartsHUD;
         InstantiateHeartContainers();
         UpdateHeartsHUD();
@@ -80,6 +82,7 @@ public class ELifeBarController : MonoBehaviour
         {
             GameObject temp = Instantiate(heartContainerPrefab);
             temp.transform.SetParent(heartsParent, false);
+            // Debug.Log(heartContainers.Length);
             heartContainers[i] = temp;
             heartFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>();
         }
