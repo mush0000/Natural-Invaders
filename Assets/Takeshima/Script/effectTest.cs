@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// public class BeetleEnemyChildeffectTest : EnemyParent
+public class effectTest : MonoBehaviour
 {
     // public List<CharacterScript> characters = new();
 //     private void Awake()
@@ -37,4 +37,4 @@ using UnityEngine;
 //                 break;
 //         }
 //     }
-// }
+}
